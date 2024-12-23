@@ -30,7 +30,7 @@ export const projectList = [
     title: "TypingMaster",
     description:
       "Developed a React-based typing practice application featuring a typing exercise with dynamic text. The app tracks and displays key metrics, including Words Per Minute (WPM), characters typed, and words typed. It provides users with real-time performance feedback to help improve typing speed and accuracy.",
-    projectUrl: "typing-master-w3us.vercel.app/",
+    projectUrl: "https://typing-master-w3us.vercel.app/",
     gitHubUrl: "https://github.com/gajanansr/typing-master.git",
     year: "May 2024",
     languages: [
@@ -44,7 +44,7 @@ export const projectList = [
     title: "PasswordGen",
     description:
       "This is a simple password generator which allows you to choose whether you want use numbers or characters in your random password or both or not both it uses react hooks such as useEffect, useRef, useState, useCallback.",
-    projectUrl: "react-password-generator-gsr.vercel.app/",
+    projectUrl: "https://react-password-generator-gsr.vercel.app/",
     gitHubUrl: "https://github.com/gajanansr/ReactPasswordGenerator.git",
     year: "March 2024",
     languages: [
