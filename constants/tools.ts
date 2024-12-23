@@ -1,19 +1,27 @@
 export const tools = [
   {
-    category: "Linux",
+    category: "Operating System",
     tools: [
       {
-        name: "Arch Linux",
-        logo: "/assets/tools-logo/archlinux.webp",
+        name: "Linux",
+        logo: "/assets/tools-logo/linux.png",
         description:
-          "A lightweight and flexible Linux distribution that tries to Keep It Simple.",
-        link: "https://archlinux.org/",
+          "Linux is an open-source, Unix-like operating system known for its flexibility, security, and widespread use in servers and development environments.",
+        link: "https://www.kernel.org",
       },
       {
-        name: "Alacritty",
-        logo: "/assets/tools-logo/alacritty.webp",
-        description: "A fast, cross-platform, OpenGL terminal emulator.",
-        link: "https://github.com/alacritty/alacritty",
+        name: "MacOS",
+        logo: "/assets/tools-logo/macos.png",
+        description:
+          "Apple's operating system for Mac computers, known for its sleek interface and integration with Apple devices.",
+        link: "https://www.apple.com/macos",
+      },
+      {
+        name: "Homebrew",
+        logo: "/assets/tools-logo/homebrew.png",
+        description:
+          "Homebrew is a package manager for macOS and Linux that simplifies the installation and management of software.",
+        link: "https://brew.sh",
       },
       {
         name: "zsh",
@@ -21,20 +29,6 @@ export const tools = [
         description:
           "A shell designed for interactive use, although it is also a powerful scripting language.",
         link: "https://www.zsh.org/",
-      },
-      {
-        name: "BSPWM",
-        logo: "/assets/tools-logo/bspwm.webp",
-        description:
-          "A tiling window manager that represents windows as the leaves of a full binary tree. Using it with sxhkd, polybar and picom.",
-        link: "https://github.com/baskerville/bspwm",
-      },
-      {
-        name: "NeoVim",
-        logo: "/assets/tools-logo/neovim.webp",
-        description:
-          "A highly configurable text editor built to enable efficient text editing.",
-        link: "https://neovim.io/",
       },
     ],
   },
@@ -77,21 +71,21 @@ export const tools = [
     ],
   },
   {
-    category: "Astrophotography & Photo",
+    category: "Videography & Photo",
     tools: [
       {
-        name: "GIMP",
-        logo: "/assets/tools-logo/gimp.webp",
+        name: "Figma",
+        logo: "/assets/tools-logo/figma.png",
         description:
-          "A free and open-source raster graphics editor used for image retouching and editing, free-form drawing, converting between different image formats, and more specialized tasks.",
-        link: "https://www.gimp.org/",
+          "A web-based design tool for UI/UX design, prototyping, and collaboration.",
+        link: "https://www.figma.com",
       },
       {
-        name: "Darktable",
-        logo: "/assets/tools-logo/darktable.webp",
+        name: "Davinci Resolve",
+        logo: "/assets/tools-logo/davinci.png",
         description:
-          "An open-source photography workflow application and raw developer.",
-        link: "https://www.darktable.org/",
+          "DaVinci Resolve is a professional video editing and color grading software used for film and video post-production.",
+        link: "https://www.blackmagicdesign.com/in/products/davinciresolve",
       },
       {
         name: "PhotoShop",
@@ -106,20 +100,6 @@ export const tools = [
         description:
           "A family of image organization and image manipulation software",
         link: "https://www.adobe.com/products/photoshop-lightroom.html",
-      },
-      {
-        name: "Sequator",
-        logo: "/assets/tools-logo/sequator.webp",
-        description:
-          "A free software which can track stars on multiple images, align stars and stack them.",
-        link: "https://sites.google.com/view/sequator/",
-      },
-      {
-        name: "Siril",
-        logo: "/assets/tools-logo/siril.webp",
-        description:
-          "An astronomical image processing tool, able to convert, pre-process images, help aligning them automatically or manually, stack them and enhance final images.",
-        link: "https://www.siril.org/",
       },
     ],
   },

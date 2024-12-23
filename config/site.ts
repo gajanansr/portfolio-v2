@@ -1,9 +1,9 @@
 import { SiteConfig } from "@/types/types";
 
 export const siteConfig: SiteConfig = {
-  name: "Vaibhav",
-  description: "Portfolio of Vaibhav Dalakoti",
-  author: "vaibhav",
+  name: "Gajanan",
+  description: "Portfolio of Gajanan Rathod",
+  author: "Gajanan",
   url: "https://vaibd.vercel.app",
   ogImage: "https://vaibd.vercel.app/og.jpg",
   links: {

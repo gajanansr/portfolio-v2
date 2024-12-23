@@ -23,8 +23,7 @@ const Footer = () => {
       </div>
 
       <div className="col-span-2 pt-10">
-        <h3 className="my-2">Designed & Built by {myName}.</h3>
-        <p className="mb-2">Licensed under MIT.</p>
+        <h3 className="my-2">{myName}</h3>
         <p className="mb-6">&copy; {currentYear}</p>
       </div>
     </footer>
