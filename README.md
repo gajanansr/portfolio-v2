@@ -7,7 +7,7 @@ My personal portfolio
 - NextJS, ReactJS, TypeScript, ShadCN, Tailwind, framer motion
 - Husky, lint-staged
 
-Live Link - [)
+Live Link - [gajanansr.vercel.app](https://gajanansr.vercel.app/)
 
 ## Dev server:
 
