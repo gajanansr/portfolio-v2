@@ -4,9 +4,9 @@ export const siteConfig: SiteConfig = {
   name: "Gajanan",
   description: "Portfolio of Gajanan Rathod",
   author: "Gajanan",
-  url: "https://vaibd.vercel.app",
-  ogImage: "https://vaibd.vercel.app/og.jpg",
+  url: "https://gajanansr.vercel.app",
+  ogImage: "https://gajanansr.vercel.app/og.jpg",
   links: {
-    github: "https://github.com/vaibd/minimalFolio",
+    github: "https://github.com/gajanansr/portfolio-v2",
   },
 };
