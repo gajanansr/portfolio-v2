@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-color {
+    @apply dark:bg-[#000000] bg-neutral-50;
+  }
+
+  .wrapper {
+    @apply max-w-5xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full;
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+
+  .content-z-index {
+    @apply z-30;
+  }
+
+  .custom-hover {
+    @apply hover:bg-neutral-800/5 dark:hover:bg-neutral-100/5 !important;
+  }
+
+  .heading-text {
+    @apply text-5xl max-md:text-4xl font-bold;
+  }
+
+  .active {
+    @apply bg-neutral-800/5 dark:bg-neutral-100/5;
+  }
+
+  .background-color {
+    @apply bg-white dark:bg-neutral-950;
+  }
+
+  .dim-text {
+    @apply text-neutral-500 dark:text-neutral-400;
+  }
+
+  .hover-invert-colors {
+    @apply hover:fill-white dark:hover:fill-black hover:bg-current transition-all duration-300 ease-in-out
+  }
+
+  /* Professional card enhancements */
+  .card-glow {
+    @apply relative overflow-hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .card-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card-glow:hover::before {
+    opacity: 1;
+  }
+
+  .card-glow:hover {
+    @apply shadow-lg dark:shadow-neutral-900/50;
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+
+  .card-accent {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-accent::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  }
+
+  /* Hero text animations */
+  .hero-text-shine {
+    animation: textShine 3s ease-in-out infinite;
+  }
+
+  @keyframes textShine {
+
+    0%,
+    100% {
+      opacity: 0.7;
+    }
+
+    50% {
+      opacity: 0.9;
+    }
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
