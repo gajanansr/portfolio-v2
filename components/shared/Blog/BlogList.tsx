@@ -67,13 +67,13 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible"
+            className="flex gap-2 mb-8 flex-wrap"
           >
             <button
               onClick={() => setSelectedCategory(null)}
               className={`px-4 py-1.5 text-sm rounded-full transition-all duration-200 ${selectedCategory === null
-                  ? "bg-purple-600 text-white"
-                  : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                ? "bg-purple-600 text-white"
+                : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
                 }`}
             >
               All
@@ -83,8 +83,8 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-1.5 text-sm rounded-full capitalize transition-all duration-200 ${selectedCategory === category
-                    ? "bg-purple-600 text-white"
-                    : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                  ? "bg-purple-600 text-white"
+                  : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
                   }`}
               >
                 {category}
