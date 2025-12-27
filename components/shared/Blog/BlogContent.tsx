@@ -5,6 +5,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import { useState, useEffect } from "react";
 import remarkGfm from "remark-gfm";
+import CodeBlock from "./CodeBlock";
 
 interface BlogContentProps {
   content: string;
@@ -13,25 +14,25 @@ interface BlogContentProps {
 // Custom components for MDX
 const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 {...props} className="text-3xl font-bold mt-8 mb-4" />
+    <h1 {...props} className="text-2xl sm:text-3xl font-bold mt-8 mb-4" />
   ),
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 {...props} className="text-2xl font-bold mt-8 mb-4" />
+    <h2 {...props} className="text-xl sm:text-2xl font-bold mt-8 mb-4" />
   ),
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 {...props} className="text-xl font-bold mt-6 mb-3" />
+    <h3 {...props} className="text-lg sm:text-xl font-bold mt-6 mb-3" />
   ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p {...props} className="mb-4 leading-relaxed" />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul {...props} className="list-disc list-inside mb-4 space-y-2" />
+    <ul {...props} className="list-disc pl-6 mb-4 space-y-1" />
   ),
   ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol {...props} className="list-decimal list-inside mb-4 space-y-2" />
+    <ol {...props} className="list-decimal pl-6 mb-4 space-y-1" />
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
-    <li {...props} className="leading-relaxed" />
+    <li {...props} className="leading-relaxed pl-1" />
   ),
   blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
@@ -51,11 +52,8 @@ const components = {
     }
     return <code {...props} />;
   },
-  pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre
-      {...props}
-      className="overflow-x-auto p-4 rounded-lg bg-neutral-900 text-neutral-100 my-6 text-sm"
-    />
+  pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
+    <CodeBlock {...props}>{children}</CodeBlock>
   ),
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a

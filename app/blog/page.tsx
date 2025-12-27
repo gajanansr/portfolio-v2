@@ -15,7 +15,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <div className="content-z-index min-h-screen pt-24">
+      <div className="content-z-index min-h-screen pt-24 px-4 sm:px-6 lg:px-0">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="heading-text mb-4">Blog</h1>

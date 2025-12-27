@@ -79,8 +79,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    shortcut: "/icons/favicon-16x16.png",
+    apple: "/icons/apple-touch-icon.png",
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
   verification: {
@@ -136,7 +136,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${poppins.className} bg-color relative`}>
+      <body className={`${poppins.className} bg-color relative overflow-x-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

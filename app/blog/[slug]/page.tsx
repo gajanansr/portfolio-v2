@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <ReadingProgress />
 
-      <article className="content-z-index min-h-screen pt-24 max-w-3xl mx-auto">
+      <article className="content-z-index min-h-screen pt-24 px-4 sm:px-6 lg:px-0 max-w-3xl mx-auto overflow-x-hidden">
         {/* Back Link */}
         <Link
           href="/blog"
@@ -95,12 +95,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-neutral-100 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-neutral-900 dark:text-neutral-100 leading-tight">
             {post.title}
           </h1>
 
           {/* Description */}
-          <p className="text-xl text-neutral-600 dark:text-neutral-400 mb-6">
+          <p className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 mb-6">
             {post.description}
           </p>
 
@@ -133,7 +133,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <img
           src={post.coverImage}
           alt={post.title}
-          className="w-full h-full mb-12 object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full max-w-full h-auto mb-12 object-cover rounded-xl transition-transform duration-300"
         />
 
         {/* Content */}
@@ -144,8 +144,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-800">
           {/* Share Again */}
-          <div className="flex items-center justify-between mb-24">
-            <p className="text-neutral-600 dark:text-neutral-400">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-24">
+            <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
               Enjoyed this article? Share it with others!
             </p>
             <ShareButtons title={post.title} url={postUrl} />
