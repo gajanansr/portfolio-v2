@@ -74,7 +74,12 @@ const Landing = () => {
             className="text-black/70 dark:text-white/70 text-7xl max-md:text-4xl font-bold mb-4 flex justify-center items-center gap-4 max-md:flex-col max-md:gap-1"
           >
             <span className="opacity-60">A</span>
-            <Typewriter words={roles} typingSpeed={80} deletingSpeed={40} pauseDuration={1500} />
+            <Typewriter
+              words={roles}
+              typingSpeed={80}
+              deletingSpeed={40}
+              pauseDuration={1500}
+            />
           </m.h1>
           <m.p
             variants={textVariants}

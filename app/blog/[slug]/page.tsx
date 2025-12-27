@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllPostSlugs, getPostBySlug, formatDate } from "@/lib/blog";
-import NoiseAnimation from "@/components/shared/Framer/NoiseAnimation";
 import ReadingProgress from "@/components/shared/Blog/ReadingProgress";
 import ShareButtons from "@/components/shared/Blog/ShareButtons";
 import NewsletterForm from "@/components/shared/Newsletter/NewsletterForm";
@@ -18,7 +17,9 @@ export async function generateStaticParams() {
     return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+    params,
+}: BlogPostPageProps): Promise<Metadata> {
     const { slug } = await params;
     const post = getPostBySlug(slug);
 
@@ -68,8 +69,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     href="/blog"
                     className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors mb-8"
                 >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 19l-7-7 7-7"
+                        />
                     </svg>
                     Back to Blog
                 </Link>
