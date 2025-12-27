@@ -4,6 +4,10 @@ export const headerItems = [
     route: "/",
   },
   {
+    label: "Blog",
+    route: "/blog",
+  },
+  {
     label: "About",
     route: "/about",
   },
@@ -12,3 +16,4 @@ export const headerItems = [
     route: "/tools",
   },
 ];
+
