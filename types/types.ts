@@ -60,11 +60,17 @@ export type IconProps = {
 
 export type SiteConfig = {
   name: string;
+  title: string;
   description: string;
   author: string;
   url: string;
   ogImage: string;
+  email: string;
+  location: string;
+  keywords: string[];
   links: {
     github: string;
+    linkedin: string;
+    twitter: string;
   };
 };
