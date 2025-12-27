@@ -133,7 +133,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
       <head>
         <script
           type="application/ld+json"
@@ -148,7 +148,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="wrapper flex-center flex-col content-z-index">
+          <main className="wrapper flex-center flex-col content-z-index overflow-x-hidden">
             {children}
             <Analytics />
           </main>
