@@ -19,37 +19,36 @@ const Landing = () => {
   const [beforeYears, afterYears] = content.split("[[YEARS_OF_EXP]]");
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 1 }, // Start visible for LCP
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: 0.1, // Faster stagger
+        delayChildren: 0.05, // Less delay
       },
     },
   };
 
   const headingVariants = {
-    hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
+    hidden: { opacity: 0.9, y: 10 }, // Subtle animation
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.4, // Faster
+        ease: "easeOut",
       },
     },
   };
 
   const textVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0.9, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.3, // Faster
+        ease: "easeOut",
       },
     },
   };
@@ -60,7 +59,7 @@ const Landing = () => {
         <m.div
           className="content-z-index relative"
           variants={containerVariants}
-          initial="hidden"
+          initial="visible" // Start visible for LCP
           animate="visible"
         >
           <m.h1
