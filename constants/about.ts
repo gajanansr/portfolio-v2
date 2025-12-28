@@ -150,4 +150,8 @@ export const socials = [
     name: "GitHub",
     url: "https://github.com/gajanansr",
   },
+  {
+    name: "X",
+    url: "https://x.com/gajanansr8",
+  },
 ];
