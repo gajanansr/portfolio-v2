@@ -23,7 +23,7 @@ export default function CodeBlock({ children }: CodeBlockProps) {
     };
 
     return (
-        <div className="relative group my-6 max-w-full overflow-hidden">
+        <div className="relative group my-6 w-full overflow-x-auto">
             {/* Copy Button */}
             <button
                 onClick={handleCopy}
@@ -65,7 +65,7 @@ export default function CodeBlock({ children }: CodeBlockProps) {
             {/* Code Block */}
             <pre
                 ref={preRef}
-                className="overflow-x-auto p-4 rounded-lg bg-neutral-900 text-neutral-100 text-sm font-mono max-w-full whitespace-pre-wrap break-words"
+                className="p-4 rounded-lg bg-neutral-900 text-neutral-100 text-sm font-mono"
             >
                 {children}
             </pre>

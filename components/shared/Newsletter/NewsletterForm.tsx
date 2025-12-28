@@ -59,14 +59,14 @@ export default function NewsletterForm() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-xl mx-auto"
+        className="w-full max-w-[90vw] mx-auto"
       >
-        <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-purple-500/10 border border-purple-500/20 backdrop-blur-sm">
+        <div className="py-8 p-4 sm:p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-purple-500/10 border border-purple-500/20 backdrop-blur-sm">
           <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">
+            <h3 className="text-xl sm:text-2xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">
               Subscribe to my Newsletter
             </h3>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
               Get notified when I publish new articles. No spam, unsubscribe
               anytime.
             </p>
@@ -82,14 +82,14 @@ export default function NewsletterForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               disabled={isLoading}
-              className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all disabled:opacity-50"
+              className="flex-1 min-w-0 px-3 sm:px-4 py-3 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all disabled:opacity-50"
             />
             <m.button
               type="submit"
               disabled={isLoading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full sm:w-auto flex-shrink-0 px-4 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>

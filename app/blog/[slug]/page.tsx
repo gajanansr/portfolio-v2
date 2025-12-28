@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <ReadingProgress />
 
-      <article className="content-z-index min-h-screen pt-[8rem] max-sm:pt-[5rem] max-w-3xl mx-auto overflow-x-hidden">
+      <article className="content-z-index min-h-screen pt-[8rem] max-sm:pt-[5rem] w-full max-w-[90vw] lg:max-w-3xl mx-auto px-4">
         {/* Back Link */}
         <Link
           href="/blog"
