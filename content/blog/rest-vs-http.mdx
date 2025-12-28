@@ -1,0 +1,75 @@
+---
+title: "What REST Really Is: Clearing Up Confusion"
+description: "What REST really is and why it's not the same as HTTP"
+date: "2025-05-11"
+author:
+  name: "Gajanan Rathod"
+category: "rest"
+keywords: ["rest", "http", "api", "architecture", "design", "communication", "protocol", "style", "verbs", "stateless", "representations", "resources", "urls", "overhead", "flexibility", "speed", "use case", "web apis", "crud", "rpc", "gRPC", "graphql", "soap", "microservices", "trading", "game servers", "internal", "designing database", "database design"]
+published: true
+coverImage: "/blog/rest-vs-http-cover.webp"
+---
+
+Let’s get this straight—<mark>REST is not a communication protocol.</mark> I know, I know, most tutorials and even some engineers casually say “REST API means HTTP API” and then throw in a bunch of GET and POST examples like that’s the whole story. But dig a little deeper , and *<mark>you’ll see a very fine but important line that separates REST from HTTP.</mark>*
+
+## REST is not HTTP
+
+REST, short for **Representational State Transfer**, is actually **<mark>just a style</mark>**—a set of **rules or architectural constraints** that define how you should design your APIs. That’s it. It’s not a tool. Not a protocol. Not a library.
+
+But yes, HTTP is the **most common** protocol REST is used with—because it's available, reliable, and works great for the web. But in theory, REST can also run over **UDP, WebSockets,** or even carrier pigeons (lol maybe not pigeons 🐦).
+
+![rest-api-model](/blog/rest-api-model.webp)
+
+## So, what does REST actually mean?
+
+Here’s REST in easy terms:
+
+* Every resource (like user , product, post) should be **<mark>uniquely addressable</mark>**—usually by a URL.
+    
+    👉 `/users/123` or `/products/789`
+    
+* You should use **<mark>standard verbs</mark>** like `GET` , `POST` , `PUT` , and `DELETE` to act on those resources.
+    
+* It should be **<mark>stateless</mark>**—the server doesn’t remember what you did last time. Every request must contain all the info needed.
+    
+* And responses should return **<mark>representations</mark>** (usually JSON or XML) of the data—not just some raw message.
+    
+
+## REST is Simple, but Not the Fastest!
+
+Now let’s bust another myth:
+
+REST isn’t the only way to build APIs.
+
+There’s **RPC** (Remote Procedure Call), **GraphQL**, **SOAP**, and others.
+
+<mark>REST is </mark> **<mark>popular</mark>** <mark>because:</mark>
+
+* It’s **easy** to understand
+    
+* Maps directly to web URLs
+    
+* Works naturally with browsers and HTTP clients
+    
+
+**<mark>But:</mark>**
+
+* It can be **slower** than RPC because it often involves more overhead
+    
+* It’s **less flexible** when you want to query deeply nested data (which is where GraphQL shines)
+    
+
+<mark>So people building ultra-fast systems</mark> (like game servers, micro-services talking internally, or trading apps) often use **gRPC** or **GraphQL**, not REST.
+
+## REST vs HTTP vs RCP\\gRCP vs GraphQL
+
+| **Concept** | **What it is** | **Common Protocol Used** | **Speed** | **Use Case** |
+| --- | --- | --- | --- | --- |
+| **REST** | Design style | HTTP (commonly) | Moderate | Web APIs, CRUD |
+| **HTTP** | Communication protocol | HTTP | Varies | Browsers, clients |
+| **RPC / gRPC** | Function call style | HTTP 2, TCP | Fast | Microservices |
+| **GraphQL** | Query language | HTTP, WebSockets | Fast | Complex queries |
+
+## Final Thoughts
+
+REST is awesome, and it feels like the web. But it’s not the only way. And definitely **<mark>not the same as HTTP.</mark>**
