@@ -64,13 +64,13 @@ const Landing = () => {
         >
           <m.h1
             variants={headingVariants}
-            className="text-black/70 dark:text-white/70 text-9xl max-md:text-6xl font-bold mb-4 hero-text-shine"
+            className="text-black/70 dark:text-white/70 text-9xl max-md:text-5xl font-bold mb-4 hero-text-shine"
           >
             {heading}
           </m.h1>
           <m.h1
             variants={headingVariants}
-            className="text-black/70 dark:text-white/70 text-7xl max-md:text-4xl font-bold mb-4 flex justify-center items-center gap-4 max-md:flex-col max-md:gap-1"
+            className="text-black/70 dark:text-white/70 text-4xl max-md:text-2xl font-bold m-4 flex justify-center items-center gap-4 max-md:flex-col max-md:gap-1"
           >
             <span className="opacity-60">A</span>
             <Typewriter
@@ -82,7 +82,7 @@ const Landing = () => {
           </m.h1>
           <m.p
             variants={textVariants}
-            className="text-black/70 dark:text-white/70 mt-14 max-md:mt-8 text-3xl max-md:text-xl"
+            className="text-black/70 dark:text-white/70 mt-14 max-md:mt-8 text-2xl max-md:text-lg"
           >
             {beforeYears}
             <m.strong

@@ -39,7 +39,7 @@ const ScrollDown = () => {
         <Link
           href="#projects"
           onClick={handleScroll}
-          className="text-black/70 dark:text-white/70 text-2xl max-md:text-lg fixed bottom-4 left-0 right-0"
+          className="text-black/70 dark:text-white/70 text-lg max-md:text-sm fixed bottom-4 left-0 right-0"
         >
           <p className="contents cursor-pointer">
             <span className="max-md:hidden">Scroll down&nbsp;</span>

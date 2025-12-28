@@ -23,11 +23,11 @@ export default function CodeBlock({ children }: CodeBlockProps) {
     };
 
     return (
-        <div className="relative group my-6 w-full overflow-x-auto">
+        <div className="relative group my-6 max-w-full overflow-hidden">
             {/* Copy Button */}
             <button
                 onClick={handleCopy}
-                className="absolute right-3 top-3 p-1.5 rounded-md bg-neutral-700/50 hover:bg-neutral-600 text-neutral-400 hover:text-neutral-100 opacity-0 group-hover:opacity-100 transition-all duration-200 z-10"
+                className="absolute right-2 top-9 p-1.5 rounded-md bg-neutral-700/50 hover:bg-neutral-600 text-neutral-400 hover:text-neutral-100 opacity-0 group-hover:opacity-100 transition-all duration-200 z-10"
                 aria-label="Copy code"
                 title={copied ? "Copied!" : "Copy code"}
             >
@@ -65,7 +65,7 @@ export default function CodeBlock({ children }: CodeBlockProps) {
             {/* Code Block */}
             <pre
                 ref={preRef}
-                className="p-4 rounded-lg bg-neutral-900 text-neutral-100 text-sm font-mono"
+                className="overflow-x-auto p-4 rounded-lg bg-neutral-900 text-neutral-100 text-sm font-mono max-w-full whitespace-pre-wrap break-words"
             >
                 {children}
             </pre>
