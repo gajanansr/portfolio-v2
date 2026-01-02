@@ -14,10 +14,19 @@ export default function BlogCard({ post, index }: BlogCardProps) {
   return (
     <LazyMotion features={domAnimation}>
       <m.article
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: index * 0.1 }}
-        className="group"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{
+          duration: 0.5,
+          delay: index * 0.1,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        }}
+        whileHover={{
+          y: -5,
+          transition: { duration: 0.2 },
+        }}
+        className="group inline-block mb-6"
       >
         <Link href={`/blog/${post.slug}`}>
           <div className="p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm card-glow transition-all duration-300 hover:border-purple-500/30">

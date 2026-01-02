@@ -93,9 +93,9 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
           </m.div>
         )}
 
-        {/* Posts Grid */}
+        {/* Posts Bento Grid */}
         {filteredPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="w-full columns-1 gap-6 md:columns-2">
             {filteredPosts.map((post, index) => (
               <BlogCard key={post.slug} post={post} index={index} />
             ))}
