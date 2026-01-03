@@ -13,7 +13,7 @@ const Projects = () => {
       <p className="mb-16 text-center">
         Explore some of the projects I worked on in the past.
       </p>
-      <div className="w-full columns-1 gap-6 md:columns-2">
+      <div className="w-full columns-1 gap-6 md:columns-2 overflow-hidden">
         {projectList.map((project, index) => (
           <AnimatedCard key={index} index={index}>
             <ProjectCard
