@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/shared/View/Header";
-import Footer from "@/components/shared/View/Footer";
+import CustomCursor from "@/components/shared/CustomCursor";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
 import { siteConfig } from "@/config/site";
@@ -13,7 +13,7 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
-  display: "swap", // Prevents font blocking
+  display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -147,13 +147,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <CustomCursor />
           <Header />
-          <main className="wrapper flex-center flex-col content-z-index overflow-x-hidden">
+          <main className="flex-center flex-col content-z-index overflow-x-hidden">
             {children}
             <Analytics />
           </main>
           <Toaster />
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

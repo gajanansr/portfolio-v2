@@ -10,13 +10,25 @@ export const hero = {
 export const startDate = "July 28, 2025";
 
 export const about = {
-  heading: "Hi, I am Gajanan Rathod!",
+  heading: "Hi, I'm Gajanan Rathod 👋",
   professionalInfo:
-    "A passionate Software Engineer building impactful products and solving real-world problems through code. Currently focused on back-end development, system design, and creating scalable and reliable tools.",
-  personalInfo:
-    "My journey began with an early love for coding, leading me to specialize in Java and JavaScript and embracing full-stack development. I thrive on exploring new technologies and collaborating on impactful projects.",
+    "Software Engineer focused on backend development, system design, and building scalable, reliable products. I enjoy solving real-world problems through code and turning ideas into production-ready systems.",
   casualLife:
-    "Traveling to cultural and natural destinations inspires my storytelling, which I capture through portrait photography and travel vlogs. Filmmaking as a hobby lets me blend my technical expertise with artistic expression, creating a balance between code and creativity.",
+    "Outside of code, I explore storytelling through filmmaking, portrait photography, and travel vlogs. Music is my therapy, and creativity is how I stay balanced.",
+};
+
+export const history = {
+  heading: "History",
+  sections: [
+    "I grew up in a small village in Jalna, moved to the city for education, and learned independence early living with my grandma, away from family.",
+    "My first obsession was computers. From ₹20/hour computer cafés to pirating Windows and selling photo edits in school, I was always building, breaking, and figuring things out.",
+    "I wrote my first website in 8th grade, opened CPUs out of curiosity, and became the guy teachers called when a computer stopped working.",
+    "College led me to Java, problem-solving, and eventually backend systems where I found my real interest: scaling, logic, and solving meaningful problems.",
+    "I earned my first laptop through freelancing. Bought my first camera after graduation both emotional milestones, not purchases.",
+    "Music is my therapy. I write and compose to make sense of life.",
+    "I still doubt myself sometimes, but I know where I'm headed: building impactful systems, reaching MAANG, and eventually founding something big.",
+    "I'm here to build, learn obsessively, and grow one system at a time.",
+  ],
 };
 
 export const skills = [
@@ -86,7 +98,7 @@ export const timeline = [
     events: [
       {
         title: "Backend Developer Intern",
-        subTitle: "Atom Infra",
+        subTitle: "Cloud Scale",
         icon: "DesktopIcon",
       },
     ],
@@ -155,3 +167,4 @@ export const socials = [
     url: "https://x.com/gajanansr8",
   },
 ];
+

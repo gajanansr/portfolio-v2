@@ -30,40 +30,41 @@ const Skills = ({ skills }: SkillsProps) => {
   };
 
   return (
-    <Card className="mt-8 p-6 max-sm:p-3 text-center">
-      <CardHeader className="text-xl pb-8 font-bold">Skills</CardHeader>
+    <section className="mt-16 max-w-4xl mx-auto text-center">
+      <h2 className="text-3xl font-bold mb-8">Tech Stack</h2>
       <LazyMotion features={domAnimation}>
         <m.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="inline-flex flex-wrap justify-center gap-x-7"
+          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
         >
           {skills.map((skill, index) => (
             <m.div
               key={index}
               variants={itemVariants}
               whileHover={{
-                scale: 1.15,
-                y: -5,
+                scale: 1.05,
                 transition: { duration: 0.2 },
               }}
-              className="p-4 flex flex-col items-center cursor-pointer"
+              className="p-4 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex flex-col items-center justify-center gap-3 shadow-sm hover:shadow-md transition-shadow cursor-default"
             >
-              <Image
-                src={skill.icon}
-                alt={skill.name}
-                width={50}
-                height={50}
-                className="pb-2 size-50"
-              />
-              <p>{skill.name}</p>
+              <div className="relative w-12 h-12 flex items-center justify-center">
+                <Image
+                  src={skill.icon}
+                  alt={skill.name}
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{skill.name}</p>
             </m.div>
           ))}
         </m.div>
       </LazyMotion>
-    </Card>
+    </section >
   );
 };
 

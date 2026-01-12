@@ -1,107 +1,77 @@
 "use client";
 
-import { hero, startDate } from "@/constants/about";
-import ScrollDown from "./ScrollDown";
-import { calculateTimePassed } from "@/lib/utils";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import Typewriter from "./Typewriter";
 
-const roles = [
-  "Software Engineer.",
-  "Aspiring Founder.",
-  "Creative Director.",
-  "Song Writer.",
-];
-
-const Landing = () => {
-  const { heading, content } = hero;
-  const years = calculateTimePassed(startDate);
-  const [beforeYears, afterYears] = content.split("[[YEARS_OF_EXP]]");
+const Hero = () => {
+  const text = "hi, I'm gajanan";
 
   const containerVariants = {
-    hidden: { opacity: 1 }, // Start visible for LCP
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1, // Faster stagger
-        delayChildren: 0.05, // Less delay
+        staggerChildren: 0.05,
+        delayChildren: 0.2,
       },
     },
   };
 
-  const headingVariants = {
-    hidden: { opacity: 0.9, y: 10 }, // Subtle animation
+  const letterVariants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4, // Faster
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0.9, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3, // Faster
-        ease: "easeOut",
+        type: "spring",
+        damping: 12,
+        stiffness: 200,
       },
     },
   };
 
   return (
-    <div className="text-center content-z-index h-dvh flex items-center">
+    <div className="text-center content-z-index h-dvh flex flex-col justify-center items-center relative">
       <LazyMotion features={domAnimation}>
         <m.div
-          className="content-z-index relative"
           variants={containerVariants}
-          initial="visible" // Start visible for LCP
+          initial="hidden"
           animate="visible"
+          className="flex flex-wrap justify-center gap-x-3 gap-y-4 max-w-4xl px-4"
         >
-          <m.h1
-            variants={headingVariants}
-            className="text-black/70 dark:text-white/70 text-9xl max-md:text-5xl font-bold mb-4 hero-text-shine"
-          >
-            {heading}
-          </m.h1>
-          <m.h1
-            variants={headingVariants}
-            className="text-black/70 dark:text-white/70 text-4xl max-md:text-2xl font-bold m-4 flex justify-center items-center gap-4 max-md:flex-col max-md:gap-1"
-          >
-            <span className="opacity-60">A</span>
-            <Typewriter
-              words={roles}
-              typingSpeed={80}
-              deletingSpeed={40}
-              pauseDuration={1500}
-            />
-          </m.h1>
-          <m.p
-            variants={textVariants}
-            className="text-black/70 dark:text-white/70 mt-14 max-md:mt-8 text-2xl max-md:text-lg"
-          >
-            {beforeYears}
-            <m.strong
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2, duration: 0.4 }}
-              className="text-gradient"
-            >
-              {years}
-            </m.strong>
-            {afterYears}
-          </m.p>
-          <m.div variants={textVariants}>
-            <ScrollDown />
-          </m.div>
+          {text.split(" ").map((word, wordIndex) => (
+            <span key={wordIndex} className="whitespace-nowrap inline-block">
+              {word.split("").map((char, charIndex) => (
+                <m.span
+                  key={`${wordIndex}-${charIndex}`}
+                  variants={letterVariants}
+                  whileHover={{
+                    y: -15,
+                    rotate: charIndex % 2 === 0 ? 10 : -10,
+                    scale: 1.2,
+                    color: "#9333ea",
+                    transition: { duration: 0.2 },
+                  }}
+                  className="text-7xl md:text-9xl font-black tracking-tighter cursor-default inline-block select-none transition-colors duration-200"
+                >
+                  {char}
+                </m.span>
+              ))}
+            </span>
+          ))}
         </m.div>
+
+        <m.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="mt-8 text-xl text-neutral-500 dark:text-neutral-400 font-medium"
+        >
+          Software Engineer & Creative Developer
+        </m.p>
       </LazyMotion>
     </div>
   );
 };
 
-export default Landing;
+export default Hero;
+

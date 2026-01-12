@@ -10,8 +10,8 @@ export interface BlogPost {
     image?: string;
   };
   coverImage?: string;
-  category: string; // Single category for display/filtering
-  keywords: string[]; // SEO keywords for search ranking
+  category: string;
+  keywords: string[];
   published: boolean;
   content: string;
   readingTime: {

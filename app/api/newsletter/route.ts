@@ -39,7 +39,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Send welcome email
-    // Note: Use "onboarding@resend.dev" for free tier, or your verified domain
     const fromEmail =
       process.env.RESEND_FROM_EMAIL || "Gajanan <onboarding@resend.dev>";
 

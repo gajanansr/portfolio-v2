@@ -5,27 +5,32 @@ import { ExperiencesProps } from "@/types/types";
 
 const Experiences = ({ timeline }: ExperiencesProps) => {
   return (
-    <Card className="mt-8 p-6 max-sm:p-3">
-      <CardHeader className="pb-3">
-        <CardTitle className="text-xl">Experiences throughout time</CardTitle>
-        <p>Everything I&apos;ve done, over passage of time.</p>
-      </CardHeader>
-      <CardContent className="grid gap-1">
+    <section className="mt-16">
+      <div className="mb-10 text-center space-y-2">
+        <h2 className="text-3xl font-bold">Experiences</h2>
+        <p className="text-neutral-500 dark:text-neutral-400">My professional journey and education.</p>
+      </div>
+
+      <div className="space-y-8 relative">
+        <div className="absolute left-[9px] top-2 bottom-2 w-[2px] bg-neutral-200 dark:bg-neutral-800" />
+
         {timeline.map((project, index) => (
-          <div key={index}>
+          <div key={index} className="relative z-10">
             <TimelineDate date={project.year} />
-            {project.events.map((event, index) => (
-              <TimelineContainer
-                key={index}
-                title={event.title}
-                subTitle={event.subTitle}
-                type={event.type}
-              />
-            ))}
+            <div className="space-y-4 mt-4">
+              {project.events.map((event, index) => (
+                <TimelineContainer
+                  key={index}
+                  title={event.title}
+                  subTitle={event.subTitle}
+                  type={event.type}
+                />
+              ))}
+            </div>
           </div>
         ))}
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 };
 

@@ -29,7 +29,7 @@ export const projectList = [
     logo: "/assets/project-logo/rewind.png",
     title: "Rewind DSA",
     description:
-      "Built an AI-powered interview prep PWA focused on long-term retention rather than streak pressure. The platform enables think-aloud audio recording for DSA solutions, provides AI feedback on explanations, and schedules revisions using pattern-based spaced repetition. Designed to motivate consistency by showing completion timelines instead of punishing missed streaks.",
+      "Built an AI-powered interview prep PWA focused on long-term retention rather than streak pressure. The platform enables think-aloud audio recording for DSA solutions, provides AI feedback on explanations, and schedules revisions using pattern-based spaced repetition.",
     projectUrl: "https://rewind-dsa.vercel.app/",
     gitHubUrl: "https://github.com/gajanansr/rewind",
     year: "2025",

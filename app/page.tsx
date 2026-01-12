@@ -1,13 +1,11 @@
-import NoiseAnimation from "@/components/shared/Framer/NoiseAnimation";
 import Hero from "@/components/shared/Hero";
-import Projects from "@/components/shared/Project/Projects";
+import GridBackground from "@/components/shared/GridBackground";
 
 export default function Home() {
   return (
     <>
-      <NoiseAnimation />
+      <GridBackground />
       <Hero />
-      <Projects />
     </>
   );
 }

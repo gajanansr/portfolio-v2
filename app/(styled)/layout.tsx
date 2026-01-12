@@ -1,8 +1,14 @@
-export default function RootLayout({
+import Footer from "@/components/shared/View/Footer";
+
+export default function StyledLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // (styled) group contains all the routes with this particular style
-  return <section className="pt-[8rem] max-sm:pt-[5rem]">{children}</section>;
+  return (
+    <section className="!pt-[8rem] max-sm:!pt-[5rem] wrapper">
+      {children}
+      <Footer />
+    </section>
+  );
 }

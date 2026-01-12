@@ -33,8 +33,14 @@ export type IntroductionProps = {
   about: {
     heading: string;
     professionalInfo: string;
-    personalInfo: string;
     casualLife: string;
+  };
+};
+
+export type HistoryProps = {
+  history: {
+    heading: string;
+    sections: string[];
   };
 };
 
