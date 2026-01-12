@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import TimelineDate from "../Timeline/TimelineDate";
 import TimelineContainer from "../Timeline/TimelineContainer";
 import { ExperiencesProps } from "@/types/types";
@@ -8,7 +7,9 @@ const Experiences = ({ timeline }: ExperiencesProps) => {
     <section className="mt-16">
       <div className="mb-10 text-center space-y-2">
         <h2 className="text-3xl font-bold">Experiences</h2>
-        <p className="text-neutral-500 dark:text-neutral-400">My professional journey and education.</p>
+        <p className="text-neutral-500 dark:text-neutral-400">
+          My professional journey and education.
+        </p>
       </div>
 
       <div className="space-y-8 relative">

@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardHeader } from "@/components/ui/card";
 import { SkillsProps } from "@/types/types";
 import Image from "next/image";
 import { LazyMotion, domAnimation, m } from "framer-motion";
@@ -59,12 +58,14 @@ const Skills = ({ skills }: SkillsProps) => {
                   className="object-contain"
                 />
               </div>
-              <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{skill.name}</p>
+              <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                {skill.name}
+              </p>
             </m.div>
           ))}
         </m.div>
       </LazyMotion>
-    </section >
+    </section>
   );
 };
 

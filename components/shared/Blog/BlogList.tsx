@@ -20,10 +20,10 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
       : true;
     const matchesSearch = searchQuery
       ? post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.keywords.some((k) =>
-        k.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+        post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.keywords.some((k) =>
+          k.toLowerCase().includes(searchQuery.toLowerCase())
+        )
       : true;
     return matchesCategory && matchesSearch;
   });
@@ -71,10 +71,11 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
           >
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`px-4 py-1.5 text-sm rounded-full transition-all duration-200 ${selectedCategory === null
-                ? "bg-purple-600 text-white"
-                : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
-                }`}
+              className={`px-4 py-1.5 text-sm rounded-full transition-all duration-200 ${
+                selectedCategory === null
+                  ? "bg-purple-600 text-white"
+                  : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+              }`}
             >
               All
             </button>
@@ -82,10 +83,11 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-1.5 text-sm rounded-full capitalize transition-all duration-200 ${selectedCategory === category
-                  ? "bg-purple-600 text-white"
-                  : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
-                  }`}
+                className={`px-4 py-1.5 text-sm rounded-full capitalize transition-all duration-200 ${
+                  selectedCategory === category
+                    ? "bg-purple-600 text-white"
+                    : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                }`}
               >
                 {category}
               </button>

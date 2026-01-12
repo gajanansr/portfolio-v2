@@ -68,8 +68,9 @@ export function ProjectCard({
               {languages.map((language, i) => (
                 <div key={i} className="flex items-center">
                   <CircleIcon
-                    className={`mr-1 h-3 w-3 ${colorVariants[language.name as keyof typeof colorVariants]
-                      }`}
+                    className={`mr-1 h-3 w-3 ${
+                      colorVariants[language.name as keyof typeof colorVariants]
+                    }`}
                   />
                   {language.name}
                 </div>

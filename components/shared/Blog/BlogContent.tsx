@@ -94,8 +94,10 @@ const components = {
     <em {...props} className="italic" />
   ),
   img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       {...props}
+      alt={props.alt || ""}
       className="rounded-xl my-6 w-full max-w-2xl mx-auto"
       loading="lazy"
     />

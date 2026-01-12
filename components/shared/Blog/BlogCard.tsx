@@ -4,7 +4,13 @@ import Link from "next/link";
 import { BlogPostMeta } from "@/types/blog";
 import { formatDate } from "@/lib/blog-utils";
 import { LazyMotion, domAnimation, m } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 
 interface BlogCardProps {
   post: BlogPostMeta;
@@ -34,6 +40,7 @@ export default function BlogCard({ post, index }: BlogCardProps) {
             {/* Cover Image - outside CardHeader for edge-to-edge */}
             {post.coverImage && (
               <div className="relative w-full h-48 overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={post.coverImage}
                   alt={post.title}

@@ -140,7 +140,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${poppins.className} bg-color relative overflow-x-hidden`}>
+      <body
+        className={`${poppins.className} bg-color relative overflow-x-hidden`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

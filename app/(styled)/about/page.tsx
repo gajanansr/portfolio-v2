@@ -41,16 +41,17 @@ const About = () => {
             </Button>
           </Link>
           <Link href={`mailto:${siteConfig.email}`}>
-            <Button variant="outline" className="h-12 px-8 text-base rounded-full hover:scale-105 transition-all">
+            <Button
+              variant="outline"
+              className="h-12 px-8 text-base rounded-full hover:scale-105 transition-all"
+            >
               Email Me
             </Button>
           </Link>
         </div>
-
       </section>
     </div>
   );
 };
 
 export default About;
-

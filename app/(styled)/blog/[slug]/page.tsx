@@ -130,6 +130,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </header>
 
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={post.coverImage}
           alt={post.title}
