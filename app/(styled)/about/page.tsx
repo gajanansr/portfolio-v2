@@ -36,7 +36,7 @@ const About = () => {
 
         <div className="flex justify-center flex-wrap gap-4">
           <Link href="/resume.pdf" target="_blank">
-            <Button className="h-12 px-8 text-base bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-all hover:scale-105">
+            <Button className="h-12 px-8 text-base rounded-full transition-all hover:scale-105">
               Download Resume
             </Button>
           </Link>

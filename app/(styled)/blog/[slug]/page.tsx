@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import { getAllPostSlugs, getPostBySlug, formatDate } from "@/lib/blog";
 import ReadingProgress from "@/components/shared/Blog/ReadingProgress";
@@ -57,6 +57,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  if (post.externalUrl) {
+    permanentRedirect(post.externalUrl);
+  }
+
   const postUrl = `${siteConfig.url}/blog/${slug}`;
 
   return (
@@ -67,7 +71,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Back Link */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors mb-8"
         >
           <svg
             className="w-4 h-4"
@@ -89,7 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <header className="mb-12">
           {/* Category */}
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="px-3 py-1 text-sm font-medium rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 capitalize">
+            <span className="px-3 py-1 text-sm font-medium rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 capitalize">
               {post.category}
             </span>
           </div>
@@ -109,7 +113,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center gap-4">
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-neutral-900 dark:bg-neutral-100 flex items-center justify-center text-white dark:text-neutral-900 font-bold">
                   {post.author.name.charAt(0)}
                 </div>
                 <div>
@@ -138,7 +142,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         />
 
         {/* Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-a:text-purple-600 dark:prose-a:text-purple-400 prose-code:text-purple-600 dark:prose-code:text-purple-400 prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-neutral-800">
+        <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-a:text-neutral-900 dark:prose-a:text-neutral-100 prose-a:underline prose-code:text-neutral-900 dark:prose-code:text-neutral-100 prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-neutral-800">
           <BlogContent content={post.content} />
         </div>
 

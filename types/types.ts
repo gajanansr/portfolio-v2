@@ -3,13 +3,19 @@ export type Languages = {
 };
 
 export type Project = {
-  logo: string;
   title: string;
   description: string;
   projectUrl?: string;
   gitHubUrl?: string;
   year: string;
-  languages: Languages[];
+  stack: string[];
+};
+
+export type FeaturedProject = Project & {
+  tagline: string;
+  highlights: string[];
+  image?: string;
+  note?: string;
 };
 
 export type Tools = {
@@ -46,8 +52,8 @@ export type HistoryProps = {
 
 export type SkillsProps = {
   skills: {
-    name: string;
-    icon: string;
+    category: string;
+    items: string[];
   }[];
 };
 
@@ -78,5 +84,7 @@ export type SiteConfig = {
     github: string;
     linkedin: string;
     twitter: string;
+    /** Publication home, e.g. https://gajanan.substack.com. Empty until it exists. */
+    substack?: string;
   };
 };

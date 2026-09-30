@@ -35,7 +35,12 @@ export default function BlogCard({ post, index }: BlogCardProps) {
         }}
         className="group inline-block w-full mb-6"
       >
-        <Link href={`/blog/${post.slug}`}>
+        <Link
+          href={post.externalUrl ?? `/blog/${post.slug}`}
+          {...(post.externalUrl
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
+        >
           <Card className="card-glow custom-hover hover:scale-[1.02] transition-all duration-500 overflow-hidden">
             {/* Cover Image - outside CardHeader for edge-to-edge */}
             {post.coverImage && (
@@ -53,13 +58,13 @@ export default function BlogCard({ post, index }: BlogCardProps) {
             <CardHeader className="pb-2">
               {/* Category Badge */}
               <div className="flex flex-wrap gap-2 mb-2">
-                <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 capitalize">
+                <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 capitalize">
                   {post.category}
                 </span>
               </div>
 
               {/* Title */}
-              <CardTitle className="text-xl group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+              <CardTitle className="text-xl group-hover:text-neutral-500 dark:group-hover:text-neutral-400 transition-colors">
                 {post.title}
               </CardTitle>
 
@@ -79,8 +84,8 @@ export default function BlogCard({ post, index }: BlogCardProps) {
                 </div>
 
                 {/* Read more arrow */}
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-purple-600 dark:text-purple-400 font-medium flex items-center gap-1">
-                  Read
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity text-neutral-900 dark:text-neutral-100 font-medium flex items-center gap-1">
+                  {post.externalUrl ? "Read ↗" : "Read"}
                   <svg
                     className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
                     fill="none"

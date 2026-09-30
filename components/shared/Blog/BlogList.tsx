@@ -56,7 +56,7 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
               placeholder="Search posts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-500/50 transition-all"
             />
           </div>
         </m.div>
@@ -73,7 +73,7 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
               onClick={() => setSelectedCategory(null)}
               className={`px-4 py-1.5 text-sm rounded-full transition-all duration-200 ${
                 selectedCategory === null
-                  ? "bg-purple-600 text-white"
+                  ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
                   : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
               }`}
             >
@@ -85,7 +85,7 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-1.5 text-sm rounded-full capitalize transition-all duration-200 ${
                   selectedCategory === category
-                    ? "bg-purple-600 text-white"
+                    ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
                     : "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
                 }`}
               >
@@ -114,7 +114,7 @@ export default function BlogList({ posts, allCategories }: BlogListProps) {
                 setSelectedCategory(null);
                 setSearchQuery("");
               }}
-              className="mt-4 text-purple-600 dark:text-purple-400 hover:underline"
+              className="mt-4 text-neutral-900 dark:text-neutral-100 hover:underline"
             >
               Clear filters
             </button>

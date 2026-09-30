@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       subject: "Welcome to my newsletter! 🎉",
       html: `
                 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-                    <h1 style="color: #8b5cf6; margin-bottom: 20px;">Welcome aboard! 🚀</h1>
+                    <h1 style="color: #171717; margin-bottom: 20px;">Welcome aboard! 🚀</h1>
                     <p style="color: #374151; font-size: 16px; line-height: 1.6;">Thank you for subscribing to my newsletter.</p>
                     <p style="color: #374151; font-size: 16px; line-height: 1.6;">You'll receive updates about:</p>
                     <ul style="color: #374151; font-size: 16px; line-height: 1.8;">

@@ -8,7 +8,7 @@ const Introduction = ({ about }: IntroductionProps) => {
       <div className="space-y-4">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
           Hi, I&apos;m{" "}
-          <span className="text-purple-600 dark:text-purple-400">
+          <span className="text-neutral-900 dark:text-neutral-100">
             Gajanan Rathod
           </span>{" "}
           <span className="inline-block animate-wave origin-[70%_70%]">👋</span>

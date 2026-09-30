@@ -31,7 +31,7 @@ export default function ReadingProgress() {
       className="fixed top-0 left-0 right-0 h-1 z-50 bg-neutral-200/50 dark:bg-neutral-800/50"
     >
       <motion.div
-        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 origin-left"
+        className="h-full bg-neutral-900 dark:bg-neutral-100 origin-left"
         style={{ scaleX }}
       />
     </motion.div>

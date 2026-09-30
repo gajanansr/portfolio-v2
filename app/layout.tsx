@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@gajanansr",
+    creator: "@gajananrx",
   },
   robots: {
     index: true,
@@ -100,10 +100,10 @@ const jsonLd = {
   name: "Gajanan Rathod",
   url: siteConfig.url,
   image: siteConfig.ogImage,
-  jobTitle: "Software Engineer",
+  jobTitle: "Member of Technical Staff",
   worksFor: {
     "@type": "Organization",
-    name: "LTI Mindtree",
+    name: "Aqueralabs",
   },
   description: siteConfig.description,
   email: siteConfig.email,

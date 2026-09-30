@@ -20,7 +20,7 @@ export const about = {
 export const history = {
   heading: "History",
   sections: [
-    "I grew up in a small village in Jalna, moved to the city for education, and learned independence early living with my grandma, away from family.",
+    "I grew up in a small [tanda](https://tanda.gajananrathod.in|click here) in Jalna, moved to the city for education, and learned independence early living with my grandma, away from family.",
     "My first obsession was computers. From ₹20/hour computer cafés to pirating Windows and selling photo edits in school, I was always building, breaking, and figuring things out.",
     "I wrote my first website in 8th grade, opened CPUs out of curiosity, and became the guy teachers called when a computer stopped working.",
     "College led me to Java, problem-solving, and eventually backend systems where I found my real interest: scaling, logic, and solving meaningful problems.",
@@ -33,62 +33,74 @@ export const history = {
 
 export const skills = [
   {
-    name: "Java",
-    icon: "/assets/tech-logo/java.png",
+    category: "Languages",
+    items: ["TypeScript", "JavaScript", "Java", "SQL"],
   },
   {
-    name: "Spring Boot",
-    icon: "/assets/tech-logo/Spring.png",
+    category: "Frameworks",
+    items: [
+      "Angular",
+      "Micro-frontends",
+      "Gridster",
+      "Node.js",
+      "Spring Boot",
+      "REST APIs",
+      "SSE",
+    ],
   },
   {
-    name: "Python",
-    icon: "/assets/tech-logo/python.png",
+    category: "AI & Agentic",
+    items: [
+      "Claude Code",
+      "LLM Agents",
+      "MCP",
+      "Agent Tools",
+      "AI Workflows",
+      "Loops & Graphs",
+    ],
   },
   {
-    name: "Javascript",
-    icon: "/assets/tech-logo/js.png",
+    category: "Data & Infrastructure",
+    items: [
+      "PostgreSQL",
+      "OpenSearch",
+      "Redis",
+      "MongoDB",
+      "DynamoDB",
+      "Supabase",
+      "Docker",
+    ],
   },
   {
-    name: "TypeScript",
-    icon: "/assets/tech-logo/typescript.webp",
-  },
-  {
-    name: "ReactJS",
-    icon: "/assets/tech-logo/react.webp",
-  },
-  {
-    name: "NodeJS",
-    icon: "/assets/tech-logo/nodejs.webp",
-  },
-  {
-    name: "PostgreSQL",
-    icon: "/assets/tech-logo/postgresql.png",
-  },
-  {
-    name: "MongoDB",
-    icon: "/assets/tech-logo/mongodb.webp",
-  },
-  {
-    name: "MySQL",
-    icon: "/assets/tech-logo/mysql.webp",
-  },
-  {
-    name: "Redis",
-    icon: "/assets/tech-logo/Redis.png",
-  },
-  {
-    name: "Git",
-    icon: "/assets/tech-logo/Git.png",
+    category: "Engineering",
+    items: [
+      "RBAC",
+      "Authentication",
+      "Caching",
+      "Performance Optimization",
+      "System Design",
+      "Git",
+    ],
   },
 ];
 
 export const timeline = [
   {
+    year: 2026,
+    events: [
+      {
+        title: "Member of Technical Staff 1",
+        subTitle: "Aqueralabs · April 2026 – Present",
+        icon: "DesktopIcon",
+      },
+    ],
+  },
+  {
     year: 2025,
     events: [
       {
         title: "Associate Software Engineer",
-        subTitle: "LTI Mindtree",
+        subTitle: "LTI Mindtree · July 2025 – April 2026",
         icon: "DesktopIcon",
       },
     ],
@@ -164,7 +176,6 @@ export const socials = [
   },
   {
     name: "X",
-    url: "https://x.com/gajanansr8",
+    url: "https://x.com/gajananrx",
   },
 ];
-

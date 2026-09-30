@@ -48,7 +48,7 @@ const Hero = () => {
                     y: -15,
                     rotate: charIndex % 2 === 0 ? 10 : -10,
                     scale: 1.2,
-                    color: "#9333ea",
+                    color: "#737373",
                     transition: { duration: 0.2 },
                   }}
                   className="text-7xl md:text-9xl font-black tracking-tighter cursor-default inline-block select-none transition-colors duration-200"

@@ -108,7 +108,7 @@ const CustomCursor = () => {
             opacity: isVisible ? 0.5 : 0,
           }}
           transition={{ duration: 0.3 }}
-          className="w-10 h-10 rounded-full border-2 border-purple-500/50"
+          className="w-10 h-10 rounded-full border-2 border-neutral-500/50"
         />
       </m.div>
     </LazyMotion>

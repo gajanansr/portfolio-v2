@@ -59,23 +59,25 @@ body {
   }
 
   .hover-invert-colors {
-    @apply hover:fill-white dark:hover:fill-black hover:bg-current transition-all duration-300 ease-in-out
+    @apply hover:fill-white dark:hover:fill-black hover:bg-current transition-all duration-300 ease-in-out;
   }
 
   /* Professional card enhancements */
   .card-glow {
     @apply relative overflow-hidden;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    transition:
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
   }
 
   .card-glow::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    background: linear-gradient(90deg, #525252, #a3a3a3);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -86,7 +88,7 @@ body {
 
   .card-glow:hover {
     @apply shadow-lg dark:shadow-neutral-900/50;
-    border-color: rgba(139, 92, 246, 0.3);
+    border-color: rgba(115, 115, 115, 0.4);
   }
 
   .card-accent {
@@ -95,13 +97,13 @@ body {
   }
 
   .card-accent::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    background: linear-gradient(90deg, #525252, #a3a3a3);
   }
 
   /* Hero text animations */
@@ -110,7 +112,6 @@ body {
   }
 
   @keyframes textShine {
-
     0%,
     100% {
       opacity: 0.7;
@@ -122,7 +123,7 @@ body {
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    background: linear-gradient(135deg, #525252 0%, #a3a3a3 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

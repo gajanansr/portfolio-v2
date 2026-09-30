@@ -44,6 +44,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     category: data.category || "general",
     keywords: data.keywords || [],
     published: data.published !== false,
+    externalUrl: data.externalUrl || undefined,
     content,
     readingTime: stats,
   };

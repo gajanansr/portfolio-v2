@@ -37,7 +37,7 @@ const components = {
   blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
       {...props}
-      className="border-l-4 border-purple-500 pl-4 italic my-6 text-neutral-600 dark:text-neutral-400"
+      className="border-l-4 border-neutral-400 pl-4 italic my-6 text-neutral-600 dark:text-neutral-400"
     />
   ),
   code: (props: React.HTMLAttributes<HTMLElement>) => {
@@ -46,7 +46,7 @@ const components = {
       return (
         <code
           {...props}
-          className="px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-purple-600 dark:text-purple-400 text-sm font-mono"
+          className="px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-sm font-mono"
         />
       );
     }
@@ -58,7 +58,7 @@ const components = {
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
       {...props}
-      className="text-purple-600 dark:text-purple-400 hover:underline"
+      className="underline underline-offset-4 text-neutral-900 dark:text-neutral-100"
       target={props.href?.startsWith("http") ? "_blank" : undefined}
       rel={props.href?.startsWith("http") ? "noopener noreferrer" : undefined}
     />

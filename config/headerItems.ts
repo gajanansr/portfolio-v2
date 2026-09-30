@@ -8,7 +8,7 @@ export const headerItems = [
     route: "/projects",
   },
   {
-    label: "Blog",
+    label: "Writing",
     route: "/blog",
   },
   {

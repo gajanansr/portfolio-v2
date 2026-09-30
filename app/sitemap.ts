@@ -20,10 +20,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/tools`,
+      url: `${baseUrl}/projects`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
@@ -34,7 +34,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Dynamic blog posts
-  const posts = getAllPosts();
+  // Migrated posts redirect elsewhere, so they don't belong in the sitemap.
+  const posts = getAllPosts().filter((post) => !post.externalUrl);
   const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),

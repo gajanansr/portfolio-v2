@@ -13,6 +13,8 @@ export interface BlogPost {
   category: string;
   keywords: string[];
   published: boolean;
+  /** Set once the post lives on Substack/Medium; the site then links out and redirects. */
+  externalUrl?: string;
   content: string;
   readingTime: {
     text: string;
@@ -35,6 +37,8 @@ export interface BlogPostMeta {
   category: string;
   keywords: string[];
   published: boolean;
+  /** Set once the post lives on Substack/Medium; the site then links out and redirects. */
+  externalUrl?: string;
   readingTime: {
     text: string;
     minutes: number;
