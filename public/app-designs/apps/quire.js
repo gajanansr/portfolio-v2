@@ -72,6 +72,7 @@
     folder: '<svg viewBox="0 0 24 24"><path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8z"/></svg>',
     lock: '<svg viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9zm3 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>',
     wifioff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 8.8a15 15 0 0 1 20 0M5.5 12.3a10 10 0 0 1 13 0M9 15.8a5 5 0 0 1 6 0"/><circle cx="12" cy="19.4" r="1.2" fill="currentColor" stroke="none"/><path d="M3.5 3.5l17 17"/></svg>',
+    expand: '<svg viewBox="0 0 24 24"><path d="M7.4 8.6 12 13.2l4.6-4.6L18 10l-6 6-6-6z"/></svg>',
     doc: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm4 18H6V4h7v5h5z"/></svg>',
     image: '<svg viewBox="0 0 24 24"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM8.5 13.5l2.5 3 3.5-4.5 4.5 6H5z"/></svg>'
   };
@@ -82,8 +83,8 @@
     const b = BOOKS[id];
     const style = `style="--cl:${b.cloth};--ci:${b.ink}"`;
     if (size === 'xs' || size === 'w') return `<div class="q-cover q-cover-${size}" ${style}><span class="q-cv-mk">${mark(b.ink)}</span></div>`;
-    if (b.scan) return `<div class="q-cover q-cover-${size} scan" ${style}><span class="q-cv-t">Pride and Prejudice</span><span class="q-cv-a">Scanned, 1813</span></div>`;
-    return `<div class="q-cover q-cover-${size}" ${style}><span class="q-cv-t">${b.t}</span>${size !== 'm' ? `<span class="q-cv-a">${b.a}</span>` : ''}<span class="q-cv-mk">${mark(b.ink)}</span></div>`;
+    if (b.scan) return `<div class="q-cover q-cover-${size} scan" ${style}><span class="q-cv-t">1813 edition</span><span class="q-cv-mk">${mark(b.ink)}</span></div>`;
+    return `<div class="q-cover q-cover-${size}" ${style}><span class="q-cv-t">${b.t}</span>${size === 'l' ? `<span class="q-cv-a">${b.a}</span>` : ''}<span class="q-cv-mk">${mark(b.ink)}</span></div>`;
   }
 
   const appbar = (title, acts = '') => `<header class="q-appbar"><h2 class="q-title">${title}</h2><div class="q-acts">${acts}</div></header>`;
@@ -151,15 +152,14 @@
         <div class="q-wel-art">${mark()}</div>
         <div class="q-wel-copy">
           <h2 class="q-display">A quiet place to read</h2>
-          <p class="q-body">Your shelf is empty. Add an EPUB, PDF or text file from this phone and it stays a file on this phone.</p>
+          <p class="q-body">Add an EPUB, PDF or text file. It stays a file on this phone.</p>
         </div>
         <div class="q-list q-promise">
-          <div class="q-li">${ico('wifioff', 'q-li-ic')}<div class="q-li-t"><b>No internet permission</b><span>Android blocks Quire from the network, so it cannot send anything.</span></div></div>
-          <div class="q-li">${ico('lock', 'q-li-ic')}<div class="q-li-t"><b>No account, no sync</b><span>Nothing to sign up for. Your place in every book is kept here.</span></div></div>
+          <div class="q-li">${ico('wifioff', 'q-li-ic')}<div class="q-li-t"><b>No internet permission</b></div></div>
+          <div class="q-li">${ico('lock', 'q-li-ic')}<div class="q-li-t"><b>No account, no sync</b></div></div>
         </div>
         <div class="q-wel-acts">
           <button class="q-btn q-btn-filled" data-go="import" data-dir="up">${ico('add')}Add books</button>
-          <p class="q-caption">Opens your phone's file picker. Quire only sees the files you choose.</p>
         </div>
       </div>`;
     },
@@ -172,13 +172,8 @@
           <h2 class="q-title q-pk-t">${n ? `${n} selected` : 'Download'}</h2>
           <button class="q-btn q-btn-filled q-btn-s${n ? '' : ' off'}" ${n ? 'data-act="openPicked"' : 'disabled'}>Open</button>
         </header>
-        <div class="q-chips q-pk-chips"><span class="q-chip on">${ico('check')}Documents</span><span class="q-chip">Large files</span><span class="q-chip">This week</span></div>
         <div class="q-scroll q-pk-list" data-keep-scroll="pk">
-          <p class="q-sub">Readable by Quire</p>
           ${FILES.filter(f => !f.other).map(f => fileRow(f, s)).join('')}
-          <p class="q-sub">Other files</p>
-          ${FILES.filter(f => f.other).map(f => fileRow(f, s)).join('')}
-          <p class="q-caption q-pk-note">EPUB, PDF and TXT open in Quire. A scanned PDF opens as pages.</p>
         </div>
       </div>`;
     },
@@ -193,17 +188,13 @@
             <div class="q-cont-body">
               <span class="q-overline">Continue reading</span>
               <b class="q-cont-t">${pp.t}</b>
-              <span class="q-cont-place">Chapter 34, page 188</span>
+              <span class="q-cont-place">Chapter 34</span>
               <div class="q-prog"><i style="width:${pp.p}%"></i></div>
-              <span class="q-cont-meta">${pp.p}% · 4 min left in chapter</span>
             </div>
           </button>
-          <div class="q-sec-h"><h3 class="q-h3">On this phone</h3><span class="q-caption">6 books · 46 MB</span></div>
+          <div class="q-sec-h"><h3 class="q-h3">On this phone</h3></div>
           <div class="q-shelf">
-            ${SHELF.map(id => { const b = BOOKS[id]; return `<button class="q-book" data-go="${id === 'sc' ? 'scan' : 'details'}">
-              ${cover(id, 's')}
-              <span class="q-book-m">${b.p === 100 ? 'Finished' : b.p === 0 ? 'New' : b.p + '%'} · ${b.scan ? 'Scan' : b.f}</span>
-            </button>`; }).join('')}
+            ${SHELF.map(id => `<button class="q-book" data-go="${id === 'sc' ? 'scan' : 'details'}" aria-label="${BOOKS[id].t}">${cover(id, 's')}</button>`).join('')}
           </div>
         </div>
         ${navbar('library')}
@@ -212,30 +203,17 @@
 
     details(s, ctx) {
       const b = BOOKS.pp;
-      const chaps = [[33, 'More than once did Elizabeth'], [34, 'When they were gone'], [35, 'Elizabeth awoke the next morning'], [36, 'If Elizabeth, when Mr. Darcy']];
+      const chaps = [[33, 'More than once did Elizabeth'], [34, 'When they were gone'], [35, 'Elizabeth awoke the next morning']];
       return `<div class="q-scr q-det" style="padding-top:${ctx.safeTop}px">
         <header class="q-appbar"><button class="q-ib" data-go="library" data-dir="pop" aria-label="Back">${ico('back')}</button><span class="q-grow"></span><button class="q-ib" aria-label="More">${ico('more')}</button></header>
         <div class="q-scroll" data-keep-scroll="det">
           <div class="q-det-hero">
             ${cover('pp', 'l')}
-            <div class="q-det-info">
-              <h2 class="q-det-t">${b.t}</h2>
-              <p class="q-det-a">${b.a} · ${b.y}</p>
-              <p class="q-caption">EPUB · ${b.size} · ${b.ch} chapters</p>
-            </div>
+            <h2 class="q-det-t">${b.t}</h2>
+            <p class="q-det-a">${b.a}</p>
           </div>
-          <div class="q-det-acts">
-            <button class="q-btn q-btn-filled q-grow" data-go="reader">Resume at 52%</button>
-            <button class="q-btn q-btn-tonal" data-go="highlights" data-dir="fade">${ico('hl')}6</button>
-          </div>
-          <div class="q-card q-place">
-            <span class="q-overline">Your place</span>
-            <p class="q-place-q">“…and thus began: <mark>In vain have I struggled.</mark>”</p>
-            <span class="q-caption">Kept to the character, at any type size.</span>
-          </div>
-          <h3 class="q-h3 q-sec">Chapters</h3>
-          <div class="q-list">${chaps.map(([n, t]) => `<div class="q-li q-chap-row${n === 34 ? ' cur' : ''}"><span class="q-chap-n">${n}</span><div class="q-li-t"><b>${t}</b></div><span class="q-chap-s">${n === 34 ? 'Reading' : n < 34 ? ico('check') : ''}</span></div>`).join('')}</div>
-          <div class="q-li q-file">${ico('folder', 'q-li-ic')}<div class="q-li-t"><b>Download/${b.file}</b><span>The file never leaves this phone.</span></div></div>
+          <button class="q-btn q-btn-filled q-btn-wide q-btn-xl" data-go="reader">Resume</button>
+          <div class="q-list q-chaps">${chaps.map(([n, t]) => `<div class="q-li q-chap-row${n === 34 ? ' cur' : ''}"><span class="q-chap-n">${n}</span><div class="q-li-t"><b>${t}</b></div><span class="q-chap-s">${n === 34 ? 'Now' : n < 34 ? ico('check') : ''}</span></div>`).join('')}</div>
         </div>
       </div>`;
     },
@@ -261,10 +239,6 @@
             <div class="q-mslider" aria-hidden="true"><i style="width:${(idx / (sizes.length - 1)) * 100}%"></i><b style="left:${(idx / (sizes.length - 1)) * 100}%"></b></div>
             <button class="q-ib q-ib-tonal" data-act="size" data-v="1" aria-label="Larger text"><span class="q-a-l">A</span></button>
           </div>
-          <div class="q-seg" role="group" aria-label="Line spacing">
-            ${[[1.4, 'Compact'], [1.5, 'Book'], [1.65, 'Loose']].map(([v, n]) => `<button class="${s.lh === v ? 'on' : ''}" data-act="lh" data-v="${v}">${s.lh === v ? ico('check') : ''}${n}</button>`).join('')}
-          </div>
-          <button class="q-li q-switch-row" data-act="justify" role="switch" aria-checked="${s.justify}"><div class="q-li-t"><b>Justify and hyphenate</b><span>${s.theme === 'eink' ? 'E-ink has zero chroma on every colour, for e-paper panels.' : 'Your place stays on the same sentence when type changes.'}</span></div><span class="q-switch${s.justify ? ' on' : ''}"><i></i></span></button>
         </section>
       </div>`;
     },
@@ -279,7 +253,7 @@
       return `<div class="q-scr q-hl t-${s.theme}">
         <header class="q-appbar q-hl-bar" style="padding-top:${ctx.safeTop}px">
           <button class="q-ib" data-back aria-label="Back">${ico('back')}</button>
-          <div class="q-rbar-t"><b data-count>${b - a + 1} words selected</b><span>Drag the handles to adjust</span></div>
+          <div class="q-rbar-t"><b data-count>${b - a + 1} words selected</b></div>
           <button class="q-btn q-btn-text" data-act="saveHl">Keep</button>
         </header>
         <div class="q-page t-${s.theme} q-hl-page" style="--fs:${s.size}px;--lh:${s.lh}">
@@ -291,9 +265,6 @@
         </div>
         <div class="q-hl-tool" role="toolbar" aria-label="Highlight" style="bottom:${ctx.safeBottom + 16}px">
           <div class="q-hl-colors">${HL_COLORS.map(c => `<button class="q-hc q-hc-${c.id}${s.hlc === c.id ? ' on' : ''}" data-act="hlc" data-v="${c.id}" aria-label="${c.name}"></button>`).join('')}</div>
-          <span class="q-hl-div"></span>
-          <button class="q-ib" data-act="noteHl" aria-label="Add note">${ico('note')}</button>
-          <button class="q-ib" data-act="copyHl" aria-label="Copy">${ico('copy')}</button>
           <button class="q-btn q-btn-filled q-btn-s" data-go="share" data-dir="up">${ico('share')}Card</button>
         </div>
       </div>`;
@@ -307,7 +278,7 @@
           <figure class="q-pcard t-${s.card} ${s.cardFmt}">
             <span class="q-pcard-mk">${mark()}</span>
             <blockquote>“${words}”</blockquote>
-            <figcaption><b>Pride and Prejudice</b><span>Jane Austen · Chapter 34</span></figcaption>
+            <figcaption><b>Pride and Prejudice</b><span>Jane Austen</span></figcaption>
           </figure>
         </div>
         <section class="q-sheet q-share-ctl" style="padding-bottom:${ctx.safeBottom + 16}px">
@@ -316,35 +287,30 @@
               ${THEMES.map(t => `<button class="q-palb${s.card === t.id ? ' on' : ''}" role="radio" aria-checked="${s.card === t.id}" data-act="card" data-v="${t.id}" aria-label="${t.name}"><span class="q-sw t-${t.id}"></span></button>`).join('')}
             </div>
           </div>
-          <div class="q-seg" role="group" aria-label="Shape">
-            <button class="${s.cardFmt === 'square' ? 'on' : ''}" data-act="cardFmt" data-v="square">${s.cardFmt === 'square' ? ico('check') : ''}Square</button>
-            <button class="${s.cardFmt === 'story' ? 'on' : ''}" data-act="cardFmt" data-v="story">${s.cardFmt === 'story' ? ico('check') : ''}Story</button>
-          </div>
           <button class="q-btn q-btn-filled q-btn-wide" data-act="shareCard">${ico('share')}Share image</button>
-          <p class="q-caption q-center">Made on this phone and handed to Android's share sheet. Quire sends nothing.</p>
         </section>
       </div>`;
     },
 
     highlights(s, ctx) {
       const items = [
-        { b: 'pp', c: 'sun', t: 'In vain have I struggled. It will not do. My feelings will not be repressed.', m: 'Chapter 34 · today' },
-        { b: 'pp', c: 'rose', t: 'I could easily forgive his pride, if he had not mortified mine.', m: 'Chapter 5 · 14 Oct', note: 'Elizabeth, already deciding.' },
-        { b: 'gi', c: 'sage', t: 'Where the mind is without fear and the head is held high.', m: 'Poem 35 · 2 Oct' }
+        { c: 'sun', t: 'In vain have I struggled. It will not do. My feelings will not be repressed.' },
+        { c: 'rose', t: 'I could easily forgive his pride, if he had not mortified mine.' },
+        { c: 'sage', t: 'Where the mind is without fear and the head is held high.', b: 'Gitanjali' }
       ];
       const f = s.hlFilter;
-      const shown = items.filter(x => f === 'all' || x.c === f);
-      const count = c => items.filter(x => c === 'all' || x.c === c).length;
+      const shown = items.filter(x => f === 'all' || x.c === f).slice(0, 2);
+      const order = ['all', 'sun', 'rose', 'sage'];
+      const names = { all: 'All colours', sun: 'Yellow', rose: 'Rose', sage: 'Sage' };
+      const nextF = order[(order.indexOf(f) + 1) % order.length];
       return `<div class="q-scr q-hls" style="padding-top:${ctx.safeTop}px">
-        ${appbar('Highlights', `<button class="q-ib" aria-label="Search highlights">${ico('search')}</button>`)}
-        <div class="q-chips">${[['all', 'All'], ['sun', 'Yellow'], ['rose', 'Rose'], ['sage', 'Sage']].map(([id, n]) => `<button class="q-chip${f === id ? ' on' : ''}" data-act="hlFilter" data-v="${id}">${f === id ? ico('check') : id !== 'all' ? `<i class="q-dot q-hc-${id}"></i>` : ''}${n} ${count(id)}</button>`).join('')}</div>
+        ${appbar('Highlights')}
+        <div class="q-chips"><button class="q-chip" data-act="hlFilter" data-v="${nextF}" aria-label="Filter by colour">${f !== 'all' ? `<i class="q-dot q-hc-${f}"></i>` : ''}${names[f]}${ico('expand')}</button></div>
         <div class="q-scroll q-pad-nav" data-keep-scroll="hls">
-          ${shown.length ? shown.map(x => `<article class="q-card q-hli">
-            <div class="q-hli-book">${cover(x.b, 'xs')}<div class="q-li-t"><b>${BOOKS[x.b].t}</b><span>${x.m}</span></div></div>
+          ${shown.length ? shown.map(x => `<button class="q-card q-hli" data-go="reader">
             <p class="q-hli-t"><span class="hl-${x.c}">${x.t}</span></p>
-            ${x.note ? `<p class="q-hli-note">${ico('note')}<span>${x.note}</span></p>` : ''}
-            <div class="q-hli-acts"><button class="q-btn q-btn-text" data-go="share" data-dir="up">${ico('share')}Card</button><button class="q-btn q-btn-text" data-go="reader">Open in book</button></div>
-          </article>`).join('') : `<div class="q-empty">${mark()}<p>No highlights in this colour yet.</p></div>`}
+            <span class="q-hli-b">${x.b || 'Pride and Prejudice'}</span>
+          </button>`).join('') : `<div class="q-empty">${mark()}<p>No highlights in this colour yet.</p></div>`}
         </div>
         ${navbar('highlights')}
       </div>`;
@@ -353,40 +319,20 @@
     habit(s, ctx) {
       const today = 14, goal = s.goal, pct = Math.min(1, today / goal);
       const R0 = 54, C = 2 * Math.PI * R0;
-      // October 2026: 1 Oct is a Thursday. Minutes read per day up to the 22nd.
-      const mins = [18, 25, 0, 32, 21, 20, 22, 9, 0, 41, 35, 20, 24, 20, 27, 30, 12, 0, 22, 25, 31, 14];
-      const cells = [];
-      for (let i = 0; i < 3; i++) cells.push('<i class="pad"></i>');
-      for (let d = 1; d <= 31; d++) {
-        const m = mins[d - 1];
-        const lvl = d > 22 ? 'fut' : m === 0 ? 'l0' : m < goal ? 'l1' : 'l2';
-        cells.push(`<i class="${lvl}${d === 22 ? ' today' : ''}"><span>${d}</span></i>`);
-      }
-      const met = mins.filter(m => m >= goal).length;
+      // The week of 19 Oct: minutes read, Monday to Thursday so far.
+      const week = [['M', 22], ['T', 25], ['W', 31], ['T', 14], ['F', null], ['S', null], ['S', null]];
       return `<div class="q-scr q-habit" style="padding-top:${ctx.safeTop}px">
         ${appbar('Reading', `<button class="q-ib" data-go="widget" aria-label="Widgets">${ico('more')}</button>`)}
         <div class="q-scroll q-pad-nav" data-keep-scroll="habit">
-          <div class="q-card q-goalcard">
-            <div class="q-ringbox">
-              <svg class="q-ring" viewBox="0 0 128 128" aria-hidden="true">
-                <circle cx="64" cy="64" r="${R0}" class="q-ring-bg"/>
-                <circle cx="64" cy="64" r="${R0}" class="q-ring-fg" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(1)}"/>
-              </svg>
-              <div class="q-ring-c"><b>${today}</b><span>of ${goal} min</span></div>
-            </div>
-            <div class="q-goal-t">
-              <b>${today >= goal ? 'Goal met today' : `${goal - today} min to go`}</b>
-              <span>${ico('flame')}4 day streak</span>
-              <p class="q-caption">A missed day pauses the streak. It never erases your reading.</p>
-            </div>
+          <div class="q-ringbox">
+            <svg class="q-ring" viewBox="0 0 128 128" aria-hidden="true">
+              <circle cx="64" cy="64" r="${R0}" class="q-ring-bg"/>
+              <circle cx="64" cy="64" r="${R0}" class="q-ring-fg" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(1)}"/>
+            </svg>
+            <div class="q-ring-c"><b>${today}</b><span>of ${goal} min</span></div>
           </div>
-          <div class="q-seg q-goalseg" role="group" aria-label="Daily goal">${[10, 20, 30, 45].map(g => `<button class="${g === goal ? 'on' : ''}" data-act="goal" data-v="${g}">${g === goal ? ico('check') : ''}${g} min</button>`).join('')}</div>
-          <div class="q-card q-cal">
-            <div class="q-cal-h"><b>October</b><span class="q-caption">${met} days at your goal</span></div>
-            <div class="q-cal-w">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(x => `<span>${x}</span>`).join('')}</div>
-            <div class="q-cal-g">${cells.join('')}</div>
-          </div>
-          <button class="q-li q-wid-link" data-go="widget">${ico('add', 'q-li-ic')}<div class="q-li-t"><b>Add to home screen</b><span>Your book and today's goal as widgets</span></div></button>
+          <p class="q-streak">${ico('flame')}4 day streak</p>
+          <div class="q-week">${week.map(([d, m], i) => `<div class="q-day${m == null ? ' fut' : m >= goal ? ' l2' : ' l1'}${i === 3 ? ' today' : ''}"><i></i><span>${d}</span></div>`).join('')}</div>
         </div>
         ${navbar('habit')}
       </div>`;
@@ -395,20 +341,16 @@
     widget(s, ctx) {
       const pp = BOOKS.pp;
       return `<div class="q-scr q-home" style="padding-top:${ctx.safeTop}px;padding-bottom:${ctx.safeBottom}px">
-        <div class="q-glance"><b>Thursday, 22 Oct</b><span>24° Bengaluru</span></div>
+        <div class="q-glance"><b>Thursday, 22 Oct</b></div>
         <div class="q-wgrid">
           <button class="q-w q-w-book" data-go="reader">
             ${cover('pp', 'w')}
-            <div class="q-w-body"><span class="q-w-k">${mark()}Quire</span><b>${pp.t}</b><span>Chapter 34 · 4 min left</span>
+            <div class="q-w-body"><b>${pp.t}</b><span>Chapter 34</span>
             <div class="q-prog"><i style="width:${pp.p}%"></i></div></div>
           </button>
           <div class="q-w q-w-goal">
             <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" class="bg"/><circle cx="32" cy="32" r="26" class="fg" stroke-dasharray="163.4" stroke-dashoffset="${(163.4 * (1 - 14 / 20)).toFixed(1)}"/></svg>
-            <b>14 of 20</b><span>min today</span>
-          </div>
-          <div class="q-w q-w-line">
-            <p>“In vain have I struggled.”</p>
-            <span>Pride and Prejudice</span>
+            <div class="q-w-gt"><b>14 of 20</b><span>min today</span></div>
           </div>
         </div>
         <div class="q-dock">${['#4a6b5c', '#b88a3c', '#4a6290'].map(c => `<span class="q-app" style="background:${c}"></span>`).join('')}<span class="q-app q-app-q">${mark('#fdf9f7')}</span></div>
@@ -418,8 +360,8 @@
 
     scan(s, ctx) {
       return `<div class="q-scr q-scan" style="padding-top:${ctx.safeTop}px;padding-bottom:${ctx.safeBottom}px">
-        <header class="q-appbar"><button class="q-ib" data-go="library" data-dir="pop" aria-label="Back">${ico('back')}</button><div class="q-rbar-t"><b>Pride and Prejudice, 1813</b><span>First edition, Vol. I</span></div><button class="q-ib" aria-label="Zoom">${ico('zoom')}</button></header>
-        <div class="q-scan-label">${ico('info', 'q-li-ic')}<div class="q-li-t"><b>Scanned pages</b><span>This PDF is photographs of paper with no text inside. Quire shows the pages as they are rather than guess at the words.</span></div></div>
+        <header class="q-appbar"><button class="q-ib" data-go="library" data-dir="pop" aria-label="Back">${ico('back')}</button><div class="q-rbar-t"><b>Pride and Prejudice, 1813</b></div><button class="q-ib" aria-label="Zoom">${ico('zoom')}</button></header>
+        <div class="q-scan-label">${ico('info', 'q-li-ic')}<div class="q-li-t"><b>Scanned pages, shown as they are</b></div></div>
         <div class="q-scan-view">
           <div class="q-scanpage">
             <p class="sc-1">PRIDE</p><p class="sc-2">AND</p><p class="sc-1">PREJUDICE:</p>
@@ -433,7 +375,7 @@
             <p class="sc-4">1813.</p>
           </div>
         </div>
-        <div class="q-scan-foot"><span>Page 3 of 324</span><span>Type size and themes don't apply to scans</span></div>
+        <div class="q-scan-foot"><span>Page 3 of 324</span></div>
       </div>`;
     }
   };
@@ -442,7 +384,7 @@
     const on = s.picked.has(f.id);
     return `<button class="q-li q-pk-row${on ? ' on' : ''}${f.dim ? ' dim' : ''}" ${f.dim ? 'disabled' : `data-act="pick" data-v="${f.id}"`}>
       <span class="q-pk-ic">${on ? ico('check') : ico(f.kind === 'JPG' ? 'image' : 'doc')}</span>
-      <div class="q-li-t"><b>${f.name}</b><span>${f.kind} · ${f.size} · ${f.date}${f.id === 'sc' ? ' · scanned' : ''}</span></div>
+      <div class="q-li-t"><b>${f.name}</b><span>${f.kind} · ${f.size}</span></div>
     </button>`;
   }
 
@@ -468,9 +410,9 @@
       ],
       type: [
         { role: 'Book text', family: 'Literata', sample: 'In vain have I struggled.', spec: '18/27 · 400 · justified, hyphenated' },
-        { role: 'Title', family: 'Roboto Flex', sample: 'Library', spec: '22/28 · 500 (M3 title large)' },
+        { role: 'Title', family: 'Roboto Flex', sample: 'Library', spec: '28/36 · 500 (M3 headline small)' },
         { role: 'Body', family: 'Roboto Flex', sample: 'Resume at 52%', spec: '16/24 · 400; labels 14/20 · 500' },
-        { role: 'Caption', family: 'Roboto Flex', sample: '4 min left in chapter', spec: '12/16 · 400' }
+        { role: 'Caption', family: 'Roboto Flex', sample: '4 min left in chapter', spec: '14/20 · 400' }
       ],
       radius: '16 / 20 / 999',
       contrast: [
@@ -488,15 +430,15 @@
     screens: [
       { id: 'welcome', title: 'First launch', caption: 'The empty state: an empty shelf and two promises the system enforces.' },
       { id: 'import', title: 'Add books', caption: "Android's file picker, filtered to what Quire can read. It only sees what you choose.", sheet: true },
-      { id: 'library', title: 'Library', caption: 'One book to continue, the rest on a shelf of typographic covers. No store, no feed.' },
-      { id: 'details', title: 'Book', caption: 'Your place quoted back to you, the chapters, and where the file lives.' },
+      { id: 'library', title: 'Library', caption: 'One book to continue, the rest on a shelf of plain covers. No store, no feed.' },
+      { id: 'details', title: 'Book', caption: 'The cover, one button to resume, three chapters.' },
       { id: 'reader', title: 'Reader', caption: 'Book typesetting on a flat page. Drag from the edge and the page turns under your finger.', tone: s => darkTheme(s.theme) ? 'light' : 'dark' },
       { id: 'type', title: 'Type and theme', caption: 'Five themes re-ink the page live. E-ink has zero chroma.', sheet: true, tone: s => darkTheme(s.theme) ? 'light' : 'dark' },
       { id: 'highlight', title: 'Highlight', caption: 'Long-press a word, then drag the handles to the end of the thought.', tone: s => darkTheme(s.theme) ? 'light' : 'dark' },
       { id: 'share', title: 'Passage card', caption: 'Dress a passage in any reading palette; Android shares it, Quire sends nothing.', sheet: true },
-      { id: 'highlights', title: 'Highlights', caption: 'Every kept passage across books, filtered by colour.' },
-      { id: 'habit', title: 'Reading habit', caption: 'A daily goal, a streak that pauses instead of shaming, a month of minutes.' },
-      { id: 'widget', title: 'Home-screen widgets', caption: 'Your book, today’s goal and a line you kept, one tap from the page.' },
+      { id: 'highlights', title: 'Highlights', caption: 'Kept passages, one colour filter.' },
+      { id: 'habit', title: 'Reading habit', caption: 'A daily goal, a streak that pauses instead of shaming, one week.' },
+      { id: 'widget', title: 'Home-screen widgets', caption: 'Your book and today’s goal, one tap from the page.' },
       { id: 'scan', title: 'Scanned book', caption: 'A scan is shown as pages and labelled honestly. No OCR inventing words.', tone: 'light' }
     ],
     init() {

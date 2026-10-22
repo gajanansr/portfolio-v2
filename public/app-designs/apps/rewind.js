@@ -42,11 +42,11 @@
     return out;
   }
   const PROMPTS = [
-    ['Restate it', 'Say the problem in your own words. What goes in, what comes out?'],
-    ['Brute force first', 'What is the slowest answer that works? Say its cost.'],
-    ['Why the window moves', 'When does the left edge jump, and why is it safe?'],
-    ['Edge cases', 'Empty string, all one letter, every letter different.'],
-    ['Time and space', 'Name both. Say what the map holds at its largest.']
+    ['Restate it', 'What goes in, what comes out?'],
+    ['Brute force first', 'Say its cost.'],
+    ['Why the window moves', 'Why is it safe?'],
+    ['Edge cases', 'Empty, one letter, all different.'],
+    ['Time and space', 'Name both.']
   ];
   const promptAt = t => t < 18 ? 0 : t < 48 ? 1 : t < 100 ? 2 : t < 140 ? 3 : 4;
   const CHAPTERS = [[0, 'Restate'], [.12, 'Brute force'], [.33, 'The window'], [.68, 'Edge cases'], [.85, 'Complexity']];
@@ -65,7 +65,7 @@
       ex: [['s = "abcabcbb"', '→ 3, the answer is "abc"'], ['s = "pwwkew"', '→ 3, "wke" (a substring, not "pwke")']],
       kv: [['Constraints', '0 ≤ s.length ≤ 5·10⁴'], ['Characters', 'letters, digits, symbols, spaces']],
       code: 'def length_of_longest(s):\n    seen, left, best = {}, 0, 0\n    for right, ch in enumerate(s):\n        if seen.get(ch, -1) >= left:\n            left = seen[ch] + 1\n        seen[ch] = right\n        best = max(best, right - left + 1)\n    return best',
-      tc: 'O(n)', sc: 'O(min(n, 128))', acc: '8 Oct, 2nd try', key: ['Why the window moves', 'When does the left edge jump, and why is it safe?'],
+      tc: 'O(n)', sc: 'O(min(n, 128))', acc: '8 Oct, 2nd try', key: ['Why the window moves', 'Why is jumping left safe?'],
       takes: [['Take 2', '8 Oct', '4:12', 'Hard', 'Forgot why left never moves back'], ['Take 1', '1 Oct', '5:40', 'Again', 'Started coding before the brute force']],
       better: 'You explained why left never moves back ("abba"), the thing you skipped on 8 Oct. You also said the cost of brute force out loud.' },
     hash: { t: 'Two Sum', short: 'Two Sum', lc: 1, diff: 'Easy', co: 'Flipkart, Swiggy',
@@ -193,18 +193,18 @@
     id: 'rewind', name: 'Rewind', platform: 'ios', tone: 'dark',
     fonts: ['Inter:wght@300;400;500;600;700', 'JetBrains+Mono:wght@400;500'],
     screens: [
-      { id: 'welcome', title: 'Welcome', caption: 'One promise and three steps, in the shape of an iOS welcome sheet.' },
-      { id: 'goal', title: 'Your interview', caption: 'Role, companies, date and the minutes you really have. The plan updates as you choose.' },
-      { id: 'today', title: 'Today', caption: 'How ready you are, how many days are left, and the three takes due today.' },
-      { id: 'patterns', title: 'Patterns', caption: 'Mastery per pattern, grouped by level and shown in words, pips and bars, not colour alone.' },
-      { id: 'problem', title: 'Problem', caption: 'The problem, your code and every take you have recorded on it, one segment apart.' },
-      { id: 'record', title: 'Record', caption: 'The signature. Hold to talk; the waveform answers your voice and a prompt keeps you on track.' },
-      { id: 'playback', title: 'Play back and rate', caption: 'Drag the waveform to rewind. Your rating moves the next revisit on the calendar.' },
-      { id: 'scheduled', title: 'Scheduled', caption: 'The next date is set, and mastery and readiness move by exactly what the rating earned.' },
-      { id: 'revision', title: 'Revision', caption: 'Hear your old explanation first, see what you missed, then say it again without it.' },
-      { id: 'empty', title: 'All caught up', caption: 'An empty queue is a good day. It says when the next takes come back.' },
-      { id: 'report', title: 'Readiness', caption: 'The trend, the projection to interview day and the three patterns to fix next.' },
-      { id: 'settings', title: 'Settings', caption: 'Reminders that fit a Bengaluru day, and every take stays on the phone.' }
+      { id: 'welcome', title: 'Welcome', caption: 'One promise, one button.' },
+      { id: 'goal', title: 'Your interview', caption: 'Role and minutes a day. Nothing else.' },
+      { id: 'today', title: 'Today', caption: 'How ready you are and what is due.' },
+      { id: 'patterns', title: 'Patterns', caption: 'Mastery per pattern, at a glance.' },
+      { id: 'problem', title: 'Problem', caption: 'The problem, your code and your takes.' },
+      { id: 'record', title: 'Record', caption: 'The signature. Hold to talk; the waveform answers your voice.' },
+      { id: 'playback', title: 'Play back and rate', caption: 'Drag the waveform to rewind, then rate how clear it was.' },
+      { id: 'scheduled', title: 'Scheduled', caption: 'The next date is set.' },
+      { id: 'revision', title: 'Revision', caption: 'Hear your old explanation, then say it again.' },
+      { id: 'empty', title: 'All caught up', caption: 'An empty queue is a good day.' },
+      { id: 'report', title: 'Readiness', caption: 'The trend and the patterns to fix next.' },
+      { id: 'settings', title: 'Settings', caption: 'Four settings. Takes stay on the phone.' }
     ],
     signature: 'record',
     system: {
@@ -252,35 +252,20 @@
           <div class="rw-wel">
             <div class="rw-wel-hero"><div class="rw-appicon">${wave([.3, .55, .9, .6, 1, .45, .75, .35, .6], '', 4, 3, 44)}</div></div>
             <h2 class="t-large">Say it out loud.<br>Hear it again.</h2>
-            <p class="lede">Interview prep that records how you think, then plays it back right before you would forget.</p>
-            <ul class="rw-feats">
-              <li><span class="rw-ico">${icon.mic}</span><span class="txt"><b>Record</b><span>Talk through each problem the way you would in the room.</span></span></li>
-              <li><span class="rw-ico">${icon.star}</span><span class="txt"><b>Rate</b><span>Say how clear it sounded. That sets the next date.</span></span></li>
-              <li><span class="rw-ico">${icon.repeat}</span><span class="txt"><b>Rewind</b><span>Hear it again, pattern by pattern, until interview day.</span></span></li>
-            </ul>
+            <p class="lede">Interview prep you can hear.</p>
           </div>
-          <div class="rw-dock"><button class="rw-btn" data-go="goal">Get started</button><button class="rw-link" data-go="today" data-dir="reset">I already have an account</button></div>
+          <div class="rw-dock"><button class="rw-btn" data-go="goal">Get started</button><button class="rw-link" data-go="today" data-dir="reset">I have an account</button></div>
         </div>`;
       },
       goal(s) {
         const roles = ['SDE-1', 'SDE-2, backend', 'SDE-2, full stack', 'Senior'];
-        const cos = ['Atlassian', 'Razorpay', 'Flipkart', 'Google', 'Swiggy', 'Zerodha'];
-        const takes = Math.max(1, Math.round(s.minutes / 15)), revs = Math.round(s.minutes / 11);
         return `<div class="rw-scr rw-goal">
           ${nav('')}
           <div class="rw-scroll" data-keep-scroll="goal">
             <h2 class="t-title1">What are you preparing for?</h2>
-            <div class="rw-sh"><h3>Role</h3></div>
-            <div class="rw-group">${roles.map(r => `<button class="rw-row" data-act="role" data-v="${r}" aria-pressed="${s.role === r}" style="min-height:48px"><span class="grow">${r}</span>${s.role === r ? `<span class="rw-check">${icon.check}</span>` : ''}</button>`).join('')}</div>
-            <div class="rw-sh"><h3>Companies</h3><span>Pick any</span></div>
-            <div class="rw-group"><div class="rw-chips">${cos.map(c => `<button class="rw-chip" data-act="co" data-v="${c}" aria-pressed="${s.companies.has(c)}">${s.companies.has(c) ? icon.check : ''}${c}</button>`).join('')}</div></div>
-            <div class="rw-sh"><h3>Schedule</h3></div>
-            <div class="rw-group">
-              <div class="rw-row"><span class="grow">First interview</span><span class="rw-date">14 Dec 2026</span></div>
-              <div class="rw-row" style="flex-direction:column;align-items:stretch;gap:10px"><span>Minutes a day</span>
-                <div class="rw-seg">${[20, 30, 45, 60].map(m => `<button data-act="min" data-v="${m}" aria-pressed="${s.minutes === m}">${m}</button>`).join('')}</div></div>
-            </div>
-            <p class="rw-foot">${s.minutes} minutes is about ${takes} new take${takes > 1 ? 's' : ''} and ${revs} revisits a day: every pattern ${s.minutes >= 45 ? 'twice' : 'once'} in the ${daysLeft} days before 14 December.</p>
+            <div class="rw-group rw-first">${roles.map(r => `<button class="rw-row" data-act="role" data-v="${r}" aria-pressed="${s.role === r}"><span class="grow">${r}</span>${s.role === r ? `<span class="rw-check">${icon.check}</span>` : ''}</button>`).join('')}</div>
+            <div class="rw-sh"><h3>Minutes a day</h3></div>
+            <div class="rw-seg">${[20, 30, 45, 60].map(m => `<button data-act="min" data-v="${m}" aria-pressed="${s.minutes === m}">${m}</button>`).join('')}</div>
           </div>
           <div class="rw-dock"><button class="rw-btn" data-go="today" data-dir="reset">Build my plan</button></div>
         </div>`;
@@ -288,56 +273,41 @@
       today(s) {
         const r = readiness(s);
         const due = [
-          { p: 'Sliding window', n: 'Longest Substring Without Repeating Characters', last: 'Last take 8 Oct · rated Hard', act: 'data-act="open" data-v="slide"', done: s.savedPat === 'slide' },
-          { p: 'Intervals', n: 'Merge Intervals', last: 'Last take 15 Oct · rated Hard', act: 'data-go="revision"' },
-          { p: 'Topological sort', n: 'Course Schedule', last: 'Last take 19 Oct · rated Again', act: 'data-go="revision"' }
+          { n: 'Longest Substring', p: 'Sliding window', act: 'data-act="open" data-v="slide"', done: s.savedPat === 'slide' },
+          { n: 'Merge Intervals', p: 'Intervals', act: 'data-go="revision"' },
+          { n: 'Course Schedule', p: 'Topological sort', act: 'data-go="revision"' }
         ];
-        const left = due.filter(d => !d.done).length;
         return `<div class="rw-scr">
           <div class="rw-scroll top tabs" data-keep-scroll="today">
-            <div class="rw-lt"><span class="t-foot">Thursday 22 October</span><h2 class="t-large">Today</h2></div>
+            <div class="rw-lt"><h2 class="t-large">Today</h2></div>
             <div class="rw-card rw-ready">
-              <div class="rw-ready-top"><div class="l"><div class="rw-big">${r}<small>%</small></div><div class="t-sub sec">ready for SDE-2 interviews</div></div>
-                <div class="rw-days"><b>${daysLeft}</b><span class="t-foot sec">days left</span></div></div>
-              <div class="rw-bar" role="img" aria-label="${r}% now, on pace for 78% by 14 December"><i style="width:${r}%"></i><span class="mark" style="left:78%"></span></div>
-              <div class="rw-legend"><span>Now ${r}%</span><span>On pace for 78% by 14 Dec</span></div>
+              <div class="rw-big">${r}<small>%</small></div>
+              <div class="t-body sec">ready</div>
+              <div class="rw-bar" role="img" aria-label="${r}% ready"><i style="width:${r}%"></i></div>
             </div>
-            <div class="rw-stats">
-              <div><b>9</b><span>day streak</span></div>
-              <div><b>12<span class="t-foot sec">/${s.minutes}</span></b><span>minutes today</span></div>
-              <div><b>61</b><span>takes so far</span></div>
-            </div>
-            <div class="rw-sh"><h3>Due today</h3><span>${left} of 3 left</span></div>
-            <div class="rw-group" style="--inset:72px">${due.map((d, i) => `
-              <button class="rw-row" ${d.act} style="min-height:76px">
+            <div class="rw-sh"><h3>Due today</h3></div>
+            <div class="rw-group" style="--inset:80px">${due.map((d, i) => `
+              <button class="rw-row" ${d.act}>
                 <span class="rw-tile ${d.done ? 'done' : ''}">${d.done ? icon.check : wave(speech(9, 11 + i), '', 2, 1.6, 22)}</span>
-                <span class="grow"><span class="rw-kicker">${d.p}</span><span class="t-headline clamp2">${d.n}</span><span class="t-foot sec">${d.done ? 'Re-recorded today · back Thu 29 Oct' : d.last}</span></span>
+                <span class="grow"><span class="t-headline clamp1">${d.n}</span><span class="t-body sec clamp1">${d.p}</span></span>
                 <span class="chev">${icon.chev}</span>
               </button>`).join('')}</div>
-            <div class="rw-sh"><h3>New this week</h3></div>
-            <div class="rw-group"><button class="rw-row" data-act="open" data-v="trie" style="min-height:64px"><span class="rw-ico grey">${icon.patterns}</span><span class="grow"><span class="t-headline">Tries</span><span class="t-foot sec">Your weakest pattern, at 18%. Start with Implement Trie.</span></span><span class="chev">${icon.chev}</span></button></div>
           </div>
           ${tabbar('today')}
         </div>`;
       },
       patterns(s) {
-        const ms = mastery(s), r = readiness(s);
-        const groups = [['Strong', p => p.m >= 70, 3], ['Building', p => p.m >= 40 && p.m < 70, 2], ['Needs work', p => p.m < 40, 1]];
-        const C = 2 * Math.PI * 32;
+        const ms = mastery(s);
+        const show = ['hash', 'slide', 'dp', 'trie'].map(id => ms.find(p => p.id === id));
         return `<div class="rw-scr">
           <div class="rw-scroll top tabs" data-keep-scroll="pat">
-            <div class="rw-lt"><span class="t-foot">43 problems in 12 patterns</span><h2 class="t-large">Patterns</h2></div>
-            <div class="rw-card rw-sum">
-              <svg class="rw-ring" viewBox="0 0 76 76" role="img" aria-label="${r}% readiness"><circle class="bg" cx="38" cy="38" r="32"/><circle class="fg" cx="38" cy="38" r="32" stroke-dasharray="${(C * r / 100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 38 38)"/><text x="38" y="44" text-anchor="middle">${r}%</text></svg>
-              <p>Readiness is the average of your twelve patterns. Each one rises when you explain it well and fades a little every week you leave it.</p>
-            </div>
-            ${groups.map(([g, f, l]) => `<div class="rw-sh"><h3><span class="rw-lvl l${l}" aria-hidden="true"><i></i><i></i><i></i></span>${g}</h3><span>${ms.filter(f).length} patterns</span></div>
-              <div class="rw-group">${ms.filter(f).map(p => `
-                <button class="rw-row rw-pat" data-act="open" data-v="${p.id}" aria-label="${p.name}, ${g}, ${p.m}% mastery">
-                  <span class="grow"><span class="t-headline clamp1">${p.name}</span><span class="t-foot sec">${p.n} problem${p.n > 1 ? 's' : ''}</span></span>
-                  <span class="rw-bar thin"><i class="${barCls(p.m)}" style="width:${p.m}%"></i></span>
-                  <span class="pct">${p.m}%</span>
-                </button>`).join('')}</div>`).join('')}
+            <div class="rw-lt"><h2 class="t-large">Patterns</h2></div>
+            <div class="rw-group">${show.map(p => `
+              <button class="rw-row rw-pat" data-act="open" data-v="${p.id}" aria-label="${p.name}, ${p.m}% mastery">
+                <span class="t-headline clamp1">${p.name}</span>
+                <span class="pct">${p.m}%</span>
+                <span class="rw-bar thin"><i class="${barCls(p.m)}" style="width:${p.m}%"></i></span>
+              </button>`).join('')}</div>
           </div>
           ${tabbar('patterns')}
         </div>`;
@@ -345,23 +315,19 @@
       problem(s) {
         const tab = s.tab, P = PROBS[s.prob], pat = PAT_OF[s.prob], takes = takesOf(s.prob);
         const body = tab === 'code'
-          ? `<pre class="rw-code" aria-label="Your Python solution"><code>${hl(P.code)}</code></pre>
-             <div class="rw-kv"><span>Time</span><b>${P.tc}</b><span>Space</span><b>${P.sc}</b><span>Accepted</span><b>${P.acc}</b></div>`
+          ? `<pre class="rw-code" aria-label="Your Python solution"><code>${hl(P.code)}</code></pre>`
           : tab === 'takes'
-            ? (takes.length ? `<div class="rw-group rw-takes" style="--inset:68px">${takes.map(([n, d, l, r, note], i) => `
-                <button class="rw-row" data-go="playback" style="min-height:72px"><span class="rw-playmini">${icon.play}</span>
-                  <span class="grow"><span class="t-headline">${n} · ${d}</span><span class="t-foot sec clamp1">${l} · rated ${r} · ${note}</span></span>
-                  <span class="rw-takewave">${wave(speech(12, 30 + i), '', 2, 2, 24)}</span></button>`).join('')}</div>`
-              : `<div class="rw-card" style="margin-top:16px"><span class="t-headline">No takes yet</span><p class="t-sub sec" style="margin:4px 0 0">Explain it once, out loud. Rewind brings it back tomorrow.</p></div>`)
+            ? (takes.length ? `<div class="rw-group rw-takes" style="--inset:76px">${takes.slice(0, 3).map(([n, d, l, r], i) => `
+                <button class="rw-row" data-go="playback"><span class="rw-playmini">${icon.play}</span>
+                  <span class="grow"><span class="t-headline">${n}</span><span class="t-body sec">${d} · ${r}</span></span></button>`).join('')}</div>`
+              : `<div class="rw-empty-note"><span class="t-headline">No takes yet</span></div>`)
             : `<div class="rw-prob"><p>${P.st}</p>
-               ${P.ex.map(([a, b]) => `<div class="rw-ex"><span class="lab">Example</span><code>${esc(a)}</code><code>${esc(b)}</code></div>`).join('')}
-               <div class="rw-kv">${P.kv.map(([a, b]) => `<span>${a}</span><b>${b}</b>`).join('')}</div></div>`;
+               <div class="rw-ex"><code>${esc(P.ex[0][0])}</code><code>${esc(P.ex[0][1])}</code></div></div>`;
         return `<div class="rw-scr">
-          ${nav(pat.name, `<span class="rw-pill ${P.diff === 'Easy' ? 'easy' : ''}">${P.diff}</span>`)}
+          ${nav(pat.name)}
           <div class="rw-scroll" data-keep-scroll="prob">
             <h2 class="t-title1 rw-probtitle clamp2">${P.t}</h2>
-            <div class="rw-meta"><span>LeetCode ${P.lc}</span><span>Asked at ${P.co}</span><span>${pat.m}% mastery</span></div>
-            <div class="rw-seg">${[['problem', 'Problem'], ['code', 'My code'], ['takes', 'Takes' + (takes.length ? ' ' + takes.length : '')]].map(([k, n]) => `<button data-act="tab" data-v="${k}" aria-pressed="${tab === k}">${n}</button>`).join('')}</div>
+            <div class="rw-seg">${[['problem', 'Problem'], ['code', 'My code'], ['takes', 'Takes']].map(([k, n]) => `<button data-act="tab" data-v="${k}" aria-pressed="${tab === k}">${n}</button>`).join('')}</div>
             ${body}
           </div>
           <div class="rw-dock"><button class="rw-btn" data-go="record" data-dir="up">${icon.mic}${takes.length ? 'Record take ' + (takes.length + 1) : 'Record your first take'}</button></div>
@@ -371,22 +337,21 @@
         const demo = ctx.static;
         const t = demo ? 84 : s.rec.t, on = demo ? true : s.rec.on;
         const buf = demo ? speech(64, 5) : s.rec.buf;
-        const P = PROBS[s.prob], tn = takesOf(s.prob).length + 1;
+        const P = PROBS[s.prob];
         const prompts = PROMPTS.map((p, i) => i === 2 ? P.key : p);
         const pi = promptAt(t);
         return `<div class="rw-scr white rw-record ${on ? 'is-on' : ''}">
           <header class="rw-rechead">
             <button class="rw-circ l" data-back aria-label="Cancel" style="background:var(--color-fill);box-shadow:none">${icon.close}</button>
-            <span class="rw-state"><span class="rw-dot"></span><span data-rw="state">${on ? 'Recording' : t > 0 ? 'Paused' : 'Ready'}</span></span>
+            <span class="rw-state"><span data-rw="state">${on ? 'Recording' : t > 0 ? 'Paused' : 'Ready'}</span></span>
             <button class="rw-textbtn r" data-act="finish" ${t < 1 && !demo ? 'disabled' : ''}>Done</button>
           </header>
           <div class="rw-recbody">
-            <div class="rw-rectitle"><span class="t-foot sec">${PAT_OF[s.prob].name} · take ${tn}</span><span class="t-headline clamp2">${P.t}</span></div>
             <div class="rw-timer" data-rw="timer">${mmss(t)}</div>
             <div class="rw-live">${wave(buf, on ? 'rec' : '', 3, 2.2, 140)}</div>
             <div class="rw-prompt" data-rw="prompt" aria-live="polite">
-              <div class="top"><span class="t-headline" data-rw="pt">${prompts[pi][0]}</span><span class="rw-pips" aria-label="Prompt ${pi + 1} of 5">${prompts.map((_, i) => `<i class="${i === pi ? 'on' : i < pi ? 'past' : ''}"></i>`).join('')}</span></div>
-              <span class="t-sub" data-rw="pd">${prompts[pi][1]}</span>
+              <span class="t-title2" data-rw="pt">${prompts[pi][0]}</span>
+              <span class="t-body sec" data-rw="pd">${prompts[pi][1]}</span>
             </div>
             <div class="rw-holdwrap">
               <button class="rw-hold" data-rw="hold" aria-pressed="${on}" aria-label="Hold to record. Space bar also toggles."><span class="ring" data-rw="ring"></span><span class="core">${icon.mic}</span></button>
@@ -398,124 +363,90 @@
       playback(s) {
         const dur = s.pb.dur, pos = s.pb.pos;
         const amps = s.pb.hist.length >= 12 ? downsample(s.pb.hist, 64) : speech(64, 21);
-        const P = PROBS[s.prob], tn = takesOf(s.prob).length + 1;
+        const tn = takesOf(s.prob).length + 1;
         const ci = chapterAt(pos / dur);
         const nd = addDays(TODAY, RATE[s.rating].days);
         return `<div class="rw-scr">
-          ${nav(`Take ${tn} · ${msShort(dur)}`)}
+          ${nav(`Take ${tn}`)}
           <div class="rw-scroll" data-keep-scroll="pb">
-            <div class="rw-card">
-              <span class="t-foot sec">${PAT_OF[s.prob].name}</span>
-              <div class="t-headline clamp1">${P.t}</div>
+            <div class="rw-card rw-player-card">
               <div class="rw-scrub" data-rw="scrub" role="slider" tabindex="0" aria-label="Position in your recording" aria-valuemin="0" aria-valuemax="${Math.round(dur)}" aria-valuenow="${Math.round(pos)}" aria-valuetext="${msShort(pos)}">
                 ${wave(amps, '', 3, 1.8, 72)}
                 <div class="played" data-rw="played" style="clip-path:inset(0 ${(100 - pos / dur * 100).toFixed(2)}% 0 0)">${wave(amps, 'acc', 3, 1.8, 72)}</div>
                 <div class="rw-head" data-rw="head" style="left:${(pos / dur * 100).toFixed(2)}%"></div>
               </div>
-              <div class="rw-times"><span data-rw="pos">${msShort(pos)}</span><span class="ch" data-rw="chap">${CHAPTERS[ci][1]}</span><span>${msShort(dur)}</span></div>
+              <div class="rw-times"><span data-rw="pos">${msShort(pos)}</span><span>${msShort(dur)}</span></div>
               <div class="rw-ctrls">
                 <button class="rw-ctrl" data-rw="seek" data-v="-15" aria-label="Back 15 seconds">${icon.rew}<span>15</span></button>
                 <button class="rw-play" data-rw="playbtn" aria-label="Play">${icon.play}</button>
                 <button class="rw-ctrl" data-rw="seek" data-v="15" aria-label="Forward 15 seconds">${icon.fwd}<span>15</span></button>
               </div>
-              <p class="rw-quote" data-rw="line">${lineFor(s, ci)}</p>
             </div>
             <div class="rw-sh"><h3>How clear was that?</h3></div>
-            <div class="rw-rates">${Object.keys(RATE).map(k => `<button class="rw-rate" data-act="rate" data-v="${k}" aria-pressed="${s.rating === k}"><b>${k}</b><span>${RATE[k].label}</span></button>`).join('')}</div>
-            <div class="rw-card" style="margin-top:12px">${calendar(nd)}</div>
+            <div class="rw-rates">${Object.keys(RATE).map(k => `<button class="rw-rate" data-act="rate" data-v="${k}" aria-pressed="${s.rating === k}">${k}</button>`).join('')}</div>
           </div>
-          <div class="rw-dock"><button class="rw-btn" data-act="save">Save · back ${fmtDay(nd)}</button></div>
+          <div class="rw-dock"><button class="rw-btn" data-act="save">Save</button></div>
         </div>`;
       },
       scheduled(s) {
         const k = s.rating, nd = addDays(TODAY, RATE[k].days);
-        const P = PROBS[s.prob], pat = PAT_OF[s.prob], tn = takesOf(s.prob).length + 1;
-        const before = pat.m, after = Math.min(100, pat.m + RATE[k].d);
+        const pat = PAT_OF[s.prob], after = Math.min(100, pat.m + RATE[k].d);
         const sum = PATTERNS.reduce((a, p) => a + p.m, 0);
-        const rb = Math.round(sum / 12), ra = Math.round((sum + after - before) / 12);
+        const rb = Math.round(sum / 12), ra = Math.round((sum + after - pat.m) / 12);
         return `<div class="rw-scr">
           <div class="rw-scroll top" data-keep-scroll="sch">
             <div class="rw-done">
               <div class="rw-caltile" aria-hidden="true"><span>${DOW[nd.getDay()]}</span><b>${nd.getDate()}</b><em>${MON[nd.getMonth()]}</em></div>
               <h2 class="t-title1">Back ${RATE[k].label.toLowerCase()}</h2>
-              <p>You rated take ${tn} <b>${k}</b>. ${P.short} returns on ${fmtDay(nd)}, just before you would start to forget it.</p>
+              <p>Readiness ${rb}% to ${ra}%</p>
             </div>
-            <div class="rw-card" style="margin-top:24px">
-              <div class="rw-delta"><div class="top"><span class="t-headline">${pat.name}</span><span><s>${before}%</s><b>${after}%</b></span></div><div class="rw-bar thin"><i class="${barCls(after)}" style="width:${after}%"></i></div></div>
-              <div class="rw-delta"><div class="top"><span class="t-headline">Readiness</span><span><s>${rb}%</s><b>${ra}%</b></span></div><div class="rw-bar thin"><i style="width:${ra}%"></i></div></div>
-            </div>
-            <div class="rw-note good"><b>${tn > 1 ? 'Better than take ' + (tn - 1) : 'First take saved'}</b>${P.better || (tn > 1 ? `You answered "${P.key[0].toLowerCase()}" out loud this time, and named the cost: ${P.tc} time, ${P.sc} space.` : 'Rewind plays it back tomorrow. Next time, open with the brute force and its cost.')}</div>
           </div>
           <div class="rw-dock two"><button class="rw-btn plain" data-go="today" data-dir="reset">Done</button><button class="rw-btn" data-go="revision">Next revision</button></div>
         </div>`;
       },
       revision() {
         return `<div class="rw-scr">
-          ${nav('Revision 2 of 3')}
+          ${nav('')}
           <div class="rw-scroll" data-keep-scroll="rev">
-            <span class="rw-kicker">Intervals</span>
-            <h2 class="t-title1" style="margin:2px 0 6px">Merge Intervals</h2>
-            <p class="t-sub sec" style="margin:0 0 18px">Last explained 15 Oct in 3:48, rated Hard. Listen first, then say it again without it.</p>
-            <div class="rw-card"><div class="rw-step"><span class="rw-stepn ok">${icon.check}</span><div class="rw-stepb">
-              <span class="t-headline">Listen to take 1</span>
-              <div class="rw-player"><button class="rw-playmini" data-act="noop" aria-label="Play take 1">${icon.play}</button>${wave(speech(40, 51), '', 2, 2, 28)}<span class="t-foot sec num">3:48</span></div>
-              <ul class="rw-bul"><li>Sort by start time</li><li>Merge while start ≤ the last end</li><li>O(n log n), for the sort</li></ul>
-              <div class="rw-note" style="margin-top:0"><b>What you missed</b>Why sorting is needed at all. Say what breaks without it.</div>
-            </div></div></div>
-            <div class="rw-card"><div class="rw-step"><span class="rw-stepn">2</span><div class="rw-stepb">
-              <span class="t-headline">Explain it again</span>
-              <span class="t-sub sec">Two minutes is enough. Start from the input.</span>
-              <button class="rw-btn sm" data-act="recfor" data-v="int">${icon.mic}Record take 2</button>
-            </div></div></div>
+            <h2 class="t-title1">Merge Intervals</h2>
+            <p class="rw-lede">Listen first. Then say it again.</p>
+            <div class="rw-card rw-player"><button class="rw-playmini" data-act="noop" aria-label="Play take 1">${icon.play}</button>${wave(speech(40, 51), '', 2, 2, 28)}<span class="t-body sec num">3:48</span></div>
+            <button class="rw-btn plain rw-spaced" data-act="recfor" data-v="int">${icon.mic}Record take 2</button>
           </div>
           <div class="rw-dock two"><button class="rw-btn plain" data-go="today" data-dir="reset">Later</button><button class="rw-btn" data-go="empty" data-dir="fade">Mark revised</button></div>
         </div>`;
       },
       empty() {
-        const back = [['Kth Largest Element in an Array', 'Heap'], ['Course Schedule', 'Topological sort'], ['Binary Tree Level Order Traversal', 'Trees'], ['Search in Rotated Sorted Array', 'Binary search']];
         return `<div class="rw-scr">
           <div class="rw-scroll top" data-keep-scroll="emp">
             <div class="rw-empty-hero"><div class="rw-bigcheck">${icon.check}</div>
-              <h2 class="t-title1">Nothing to rewind today</h2>
-              <p>All three revisions are done and your streak is now 10 days. Four takes come back tomorrow.</p></div>
-            <div class="rw-sh"><h3>Back tomorrow</h3><span>Fri 23 Oct</span></div>
-            <div class="rw-group">${back.map(([n, p]) => `<div class="rw-row" style="min-height:60px"><span class="grow"><span class="t-headline clamp1">${n}</span><span class="t-foot sec">${p}</span></span></div>`).join('')}</div>
+              <h2 class="t-title1">Nothing due today</h2>
+              <p>Four takes return tomorrow.</p></div>
           </div>
           <div class="rw-dock two"><button class="rw-btn plain" data-go="report" data-dir="fade">Readiness</button><button class="rw-btn" data-act="open" data-v="trie">Start Tries</button></div>
         </div>`;
       },
       report(s) {
         const r = readiness(s);
-        const pts = [[0, 22, '1 Sep'], [1, 31, '15 Sep'], [2, 39, '1 Oct'], [3, 46, '15 Oct'], [3.47, r, 'Today']];
-        const X = i => 30 + i * 40, Y = v => 140 - v * 1.4;
+        const pts = [[0, 22], [1, 31], [2, 39], [3, 46], [3.47, r]];
+        const X = i => 12 + i * 40, Y = v => 130 - v * 1.3;
         const path = pts.map((p, i) => `${i ? 'L' : 'M'}${X(p[0]).toFixed(1)} ${Y(p[1]).toFixed(1)}`).join(' ');
         return `<div class="rw-scr">
           <div class="rw-scroll top tabs" data-keep-scroll="rep">
-            <div class="rw-lt"><span class="t-foot">Week of 19 October</span><h2 class="t-large">Readiness</h2></div>
+            <div class="rw-lt"><h2 class="t-large">Readiness</h2></div>
             <div class="rw-card">
               <div class="rw-big">${r}<small>%</small></div>
-              <div class="t-sub sec">ready today, on pace for 78% by Mon 14 Dec</div>
-              <div class="rw-chart"><svg viewBox="0 0 320 168" role="img" aria-label="Readiness rose from 22% on 1 September to ${r}% today, projected 78% on 14 December">
-                ${[25, 50, 75].map(v => `<line x1="30" x2="316" y1="${Y(v)}" y2="${Y(v)}" class="grid"/><text x="0" y="${Y(v) + 4}" class="axis">${v}%</text>`).join('')}
-                <path d="${path} L${X(3.47)} 140 L30 140Z" class="area"/>
+              <div class="t-body sec">On pace for 78% by 14 Dec</div>
+              <div class="rw-chart"><svg viewBox="0 0 300 140" role="img" aria-label="Readiness rose from 22% to ${r}%, projected 78% on 14 December">
+                <path d="${path} L${X(3.47)} 130 L12 130Z" class="area"/>
                 <path d="${path}" class="line"/>
-                <path d="M${X(3.47)} ${Y(r)} L${X(7)} ${Y(78)}" class="proj"/>
-                <circle cx="${X(3.47)}" cy="${Y(r)}" r="6" class="dot"/><circle cx="${X(7)}" cy="${Y(78)}" r="5" class="dotp"/>
-                <text x="${X(7)}" y="${Y(78) - 12}" class="axis" text-anchor="end">78% · 14 Dec</text>
-                ${[pts[0], pts[2], pts[3]].map(p => `<text x="${X(p[0])}" y="162" class="axis" text-anchor="${p[0] ? 'middle' : 'start'}">${p[2]}</text>`).join('')}
-                <text x="${X(3.47) + 8}" y="162" class="axis">Today</text>
+                <path d="M${X(3.47)} ${Y(r)} L${X(6.9)} ${Y(78)}" class="proj"/>
+                <circle cx="${X(3.47)}" cy="${Y(r)}" r="6" class="dot"/><circle cx="${X(6.9)}" cy="${Y(78)}" r="5" class="dotp"/>
               </svg></div>
             </div>
-            <div class="rw-sh"><h3>Fix these next</h3><span>Lowest mastery</span></div>
-            <div class="rw-group" style="--inset:80px">${[['Tries', 18, 'Not explained yet. Start with Implement Trie.', 'trie'], ['Backtracking', 25, 'You code it fine but skip the pruning reason.', 'back'], ['Topological sort', 30, 'Course Schedule rated Again twice.', 'topo']].map(([n, m, t, id]) => `
-              <button class="rw-row" data-act="open" data-v="${id}" style="min-height:68px"><span class="rw-fixpct">${m}%</span><span class="grow"><span class="t-headline">${n}</span><span class="t-foot sec">${t}</span></span><span class="chev">${icon.chev}</span></button>`).join('')}</div>
-            <div class="rw-sh"><h3>How you explain</h3></div>
-            <div class="rw-grid2">
-              <div><b>3:48</b><span>average take</span></div>
-              <div><b>71%</b><span>of takes name the complexity</span></div>
-              <div><b>3 h 52 m</b><span>talked across 61 takes</span></div>
-              <div><b>43</b><span>problems recorded</span></div>
-            </div>
+            <div class="rw-sh"><h3>Fix next</h3></div>
+            <div class="rw-group" style="--inset:76px">${[['Tries', 18, 'trie'], ['Backtracking', 25, 'back'], ['Topological sort', 30, 'topo']].map(([n, m, id]) => `
+              <button class="rw-row" data-act="open" data-v="${id}"><span class="rw-fixpct">${m}%</span><span class="grow t-headline clamp1">${n}</span><span class="chev">${icon.chev}</span></button>`).join('')}</div>
           </div>
           ${tabbar('report')}
         </div>`;
@@ -525,25 +456,12 @@
         return `<div class="rw-scr">
           <div class="rw-scroll top tabs" data-keep-scroll="set">
             <div class="rw-lt"><h2 class="t-large">Settings</h2></div>
-            <div class="rw-group"><div class="rw-row" style="min-height:76px"><span class="rw-avatar">GR</span><span class="grow"><span class="t-headline">Gajanan Rathod</span><span class="t-foot sec">SDE-2, backend · 14 Dec 2026</span></span></div></div>
-            <div class="rw-sh"><h3>Reminders</h3></div>
-            <div class="rw-group" style="--inset:60px">
-              <div class="rw-row"><span class="rw-ico">${icon.bell}</span><span class="grow"><span>Evening session</span><span class="t-foot sec">8:30 pm, after the ORR traffic</span></span>${tog('remind1', 'Evening session reminder')}</div>
-              <div class="rw-row"><span class="rw-ico">${icon.train}</span><span class="grow"><span>Listen on the Metro</span><span class="t-foot sec">8:10 am, playback only</span></span>${tog('remind2', 'Morning Metro reminder')}</div>
-            </div>
-            <div class="rw-sh"><h3>Plan</h3></div>
             <div class="rw-group">
-              <button class="rw-row" data-go="goal"><span class="grow">Interview date</span><span class="val">14 Dec</span><span class="chev">${icon.chev}</span></button>
+              <div class="rw-row"><span class="grow">Evening reminder</span>${tog('remind1', 'Evening reminder')}</div>
+              <div class="rw-row"><span class="grow">Voice isolation</span>${tog('iso', 'Voice isolation')}</div>
               <button class="rw-row" data-go="goal"><span class="grow">Daily goal</span><span class="val">${s.minutes} min</span><span class="chev">${icon.chev}</span></button>
-              <button class="rw-row" data-go="goal"><span class="grow">Role</span><span class="val">SDE-2</span><span class="chev">${icon.chev}</span></button>
+              <button class="rw-row" data-act="export"><span class="grow">Export takes</span><span class="chev">${icon.chev}</span></button>
             </div>
-            <div class="rw-sh"><h3>Recording</h3></div>
-            <div class="rw-group" style="--inset:60px">
-              <div class="rw-row"><span class="rw-ico grey">${icon.wave}</span><span class="grow"><span>Voice isolation</span><span class="t-foot sec">Removes fan and traffic noise</span></span>${tog('iso', 'Voice isolation')}</div>
-              <div class="rw-row"><span class="rw-ico grey">${icon.disk}</span><span class="grow"><span>Storage</span><span class="t-foot sec">61 takes · 212 MB on this iPhone</span></span></div>
-              <button class="rw-row" data-act="export"><span class="rw-ico grey">${icon.export}</span><span class="grow"><span>Export all takes</span><span class="t-foot sec">As .m4a with a transcript each</span></span><span class="chev">${icon.chev}</span></button>
-            </div>
-            <p class="rw-foot">Takes never leave your phone unless you export them.</p>
           </div>
           ${tabbar('settings')}
         </div>`;
@@ -580,21 +498,6 @@
 
   function chapterAt(f) { let i = 0; CHAPTERS.forEach((c, k) => { if (f >= c[0]) i = k; }); return i; }
   function downsample(a, n) { const out = []; const k = a.length / n; for (let i = 0; i < n; i++) { let m = 0; for (let j = Math.floor(i * k); j < Math.max(Math.floor(i * k) + 1, Math.floor((i + 1) * k)); j++) m = Math.max(m, a[j] || 0); out.push(m); } return out; }
-  function calendar(nd) {
-    const start = new Date(2026, 9, 19);
-    const due = { 23: 1, 25: 1, 27: 1, 30: 1, 2: 1, 5: 1, 6: 1 };
-    let cells = '';
-    for (let i = 0; i < 21; i++) {
-      const d = addDays(start, i), key = d.getDate();
-      const isT = +d === +TODAY, isN = +d === +nd, past = d < TODAY;
-      const dot = !past && !isN && due[key];
-      cells += `<div class="rw-cd ${isT ? 'today' : ''} ${isN ? 'next' : ''} ${past ? 'past' : ''}"><span>${key}</span>${dot ? '<i></i>' : ''}</div>`;
-    }
-    return `<div class="rw-cal" aria-label="Next revisit ${fmtDay(nd)}">
-      <div class="rw-calhead"><span class="t-headline">Oct – Nov</span><span class="t-foot sec">Dots are other takes due</span></div>
-      <div class="rw-calgrid">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(x => `<div class="h">${x}</div>`).join('')}${cells}</div></div>`;
-  }
-
   function mountRecord(root, s) {
     const q = k => root.querySelector(`[data-rw="${k}"]`);
     const hold = q('hold'), timer = q('timer'), hint = q('hint'), stateEl = q('state'), ring = q('ring'), pt = q('pt'), pd = q('pd');
@@ -656,17 +559,15 @@
 
   function mountPlayback(root, s) {
     const q = k => root.querySelector(`[data-rw="${k}"]`);
-    const scrub = q('scrub'), played = q('played'), head = q('head'), posEl = q('pos'), chap = q('chap'), line = q('line'), btn = q('playbtn');
+    const scrub = q('scrub'), played = q('played'), head = q('head'), posEl = q('pos'), btn = q('playbtn');
     const dur = s.pb.dur;
-    let raf, last = performance.now(), dragging = false, lastCi = -1;
+    let raf, last = performance.now(), dragging = false;
     const paint = () => {
       const f = s.pb.pos / dur;
       played.style.clipPath = `inset(0 ${(100 - f * 100).toFixed(2)}% 0 0)`; head.style.left = (f * 100).toFixed(2) + '%';
       posEl.textContent = msShort(s.pb.pos);
       scrub.setAttribute('aria-valuenow', Math.round(s.pb.pos)); scrub.setAttribute('aria-valuetext', msShort(s.pb.pos));
-      const ci = chapterAt(f);
-      if (ci !== lastCi) { lastCi = ci; chap.textContent = CHAPTERS[ci][1]; line.textContent = lineFor(s, ci); }
-    };
+          };
     const setPlay = p => { s.pb.playing = p; btn.innerHTML = p ? icon.pause : icon.play; btn.setAttribute('aria-label', p ? 'Pause' : 'Play'); };
     setPlay(s.pb.playing);
     root.querySelectorAll('[data-rw="seek"]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); s.pb.pos = Math.min(dur, Math.max(0, s.pb.pos + (+b.dataset.v))); paint(); }));
