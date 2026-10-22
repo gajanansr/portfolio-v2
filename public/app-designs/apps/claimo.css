@@ -1,0 +1,485 @@
+/* Claimo, clean iOS. Primitives (OKLCH, see claimo.DESIGN.md) → semantic roles; components use roles only. */
+.app-claimo {
+  /* primitives */
+  --grey-0: #ffffff; --grey-50: #f2f2f7; --grey-100: #e8e8ed; --grey-200: #d8d9de; --grey-300: #c7c7cc;
+  --grey-600: #55565f; --grey-900: #0f1012;
+  --blue-50: #e7eefc; --blue-200: #b9cdf3; --blue-600: #1d5bd6; --blue-700: #1a52c2;
+  --green-50: #e3f3e8; --green-700: #16753a;
+  --red-50: #fcebe9; --red-700: #c22a1e;
+  --amber-50: #fff3d6; --amber-800: #8a5a00;
+  /* roles */
+  --color-bg: var(--grey-50);
+  --color-surface: var(--grey-0);
+  --color-fill: var(--grey-100);
+  --color-key: var(--grey-200);
+  --color-sep: rgba(60, 60, 67, .16);
+  --color-control-off: var(--grey-300);
+  --color-text: var(--grey-900);
+  --color-text-secondary: var(--grey-600);
+  --color-accent: var(--blue-600);
+  --color-accent-text: var(--blue-700);
+  --color-accent-subtle: var(--blue-50);
+  --color-accent-muted: var(--blue-200);
+  --color-on-accent: #ffffff;
+  --color-on-accent-secondary: #dfe8fb;
+  --color-success: var(--green-700);
+  --color-success-subtle: var(--green-50);
+  --color-danger: var(--red-700);
+  --color-danger-subtle: var(--red-50);
+  --color-warning: var(--amber-800);
+  --color-warning-subtle: var(--amber-50);
+  --color-uber: #000000; --color-on-uber: #ffffff;
+  --color-rapido: #ffd60a; --color-on-rapido: #0f1012;
+  --map-land: #eef0f3; --map-park: #d7ecd6; --map-lake: #cfe1f6; --map-road: #ffffff; --map-road-case: #dcdfe5;
+  --shadow-float: 0 10px 30px rgba(15, 16, 18, .12), 0 1px 3px rgba(15, 16, 18, .08);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+.app-claimo .c-s { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; padding-top: var(--st); background: var(--color-bg); color: var(--color-text); font-size: 17px; line-height: 22px; }
+.app-claimo .c-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 8px 24px 24px; scrollbar-width: none; }
+.app-claimo .c-scroll::-webkit-scrollbar { display: none; }
+.app-claimo .c-tabbed { padding-bottom: 116px; }
+.app-claimo .c-num { font-variant-numeric: tabular-nums; }
+.app-claimo .c-center { text-align: center; }
+.app-claimo .c-sub { color: var(--color-text-secondary); }
+.app-claimo .c-red { color: var(--color-danger); }
+.app-claimo .c-trunc { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.app-claimo h2 { margin: 0; }
+.app-claimo p { margin: 0; }
+.app-claimo button { cursor: pointer; font: inherit; letter-spacing: inherit; }
+.app-claimo button:disabled { opacity: .38; cursor: default; }
+.app-claimo svg { display: block; }
+
+/* type */
+.app-claimo .c-lt { font-size: 34px; line-height: 41px; font-weight: 700; letter-spacing: -0.022em; margin: 4px 0 12px; }
+.app-claimo .c-t1 { font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 4px 0 10px; }
+.app-claimo .c-t2 { font-size: 22px; line-height: 28px; font-weight: 700; letter-spacing: -0.015em; }
+.app-claimo .c-t3 { font-size: 20px; line-height: 25px; font-weight: 600; }
+.app-claimo .c-lead { font-size: 17px; line-height: 24px; color: var(--color-text-secondary); margin-bottom: 8px; }
+.app-claimo .c-sh { font-size: 15px; line-height: 20px; font-weight: 600; color: var(--color-text); margin: 24px 4px 8px; }
+.app-claimo .c-sh-row { display: flex; justify-content: space-between; align-items: baseline; margin: 24px 4px 8px; }
+.app-claimo .c-sh-row .c-sh { margin: 0; }
+.app-claimo .c-fine { font-size: 13px; line-height: 18px; color: var(--color-text-secondary); text-align: center; }
+.app-claimo .c-fine.c-left { text-align: left; margin: 12px 4px 0; }
+.app-claimo .c-cap { font-size: 15px; color: var(--color-text-secondary); }
+.app-claimo .c-link { background: none; border: 0; padding: 0 4px; min-height: 36px; color: var(--color-accent-text); font-size: 17px; }
+.app-claimo .c-strong { font-weight: 600; }
+.app-claimo .c-empty { text-align: center; color: var(--color-text-secondary); padding: 48px 0; }
+
+/* nav bar */
+.app-claimo .c-nav { flex: 0 0 auto; height: 44px; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; padding: 0 8px; }
+.app-claimo .c-nav > :last-child { justify-self: end; }
+.app-claimo .c-navsp { width: 44px; }
+.app-claimo .c-navbtn { min-width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 2px; background: none; border: 0; padding: 0 6px; color: var(--color-accent-text); }
+.app-claimo .c-navbtn svg { width: 22px; height: 22px; flex: none; }
+.app-claimo .c-back { justify-self: start; max-width: 100%; padding-left: 0; }
+.app-claimo .c-back span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 17px; }
+.app-claimo .c-navt { font-size: 17px; font-weight: 600; text-align: center; display: flex; flex-direction: column; align-items: center; line-height: 20px; }
+.app-claimo .c-navtt { font-size: 16px; font-weight: 600; }
+.app-claimo .c-navts { font-size: 13px; line-height: 16px; font-weight: 500; color: var(--color-text-secondary); }
+.app-claimo .c-tint { background: var(--color-surface); border-radius: 50%; width: 40px; min-width: 40px; height: 40px; }
+.app-claimo .c-lt-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.app-claimo .c-lt-row .c-lt { margin-bottom: 12px; }
+.app-claimo .c-avatar { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--color-accent-subtle); color: var(--color-accent-text); font-size: 15px; font-weight: 700; }
+
+/* grouped lists */
+.app-claimo .c-group { background: var(--color-surface); border-radius: 16px; overflow: hidden; }
+.app-claimo .c-row { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 11px 16px; background: none; border: 0; text-align: left; color: inherit; font-size: 17px; line-height: 22px; }
+.app-claimo .c-row + .c-row::before { content: ""; position: absolute; top: 0; right: 0; left: 16px; height: 1px; transform: scaleY(.5); transform-origin: top; background: var(--color-sep); }
+.app-claimo button.c-row:active { background: var(--color-fill); }
+.app-claimo .c-mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.app-claimo .c-l1 { font-weight: 500; }
+.app-claimo .c-l2 { display: flex; align-items: center; gap: 6px; font-size: 15px; line-height: 20px; min-width: 0; }
+.app-claimo .c-ride .c-l1 { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.app-claimo .c-date { flex: 0 0 34px; display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
+.app-claimo .c-date b { font-size: 20px; font-weight: 600; }
+.app-claimo .c-date span { font-size: 13px; color: var(--color-text-secondary); }
+.app-claimo .c-end { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.app-claimo .c-end b { font-size: 17px; font-weight: 600; }
+.app-claimo .c-st { font-size: 12px; line-height: 16px; font-weight: 600; padding: 1px 8px; border-radius: 999px; }
+.app-claimo .c-st-work { color: var(--color-success); background: var(--color-success-subtle); }
+.app-claimo .c-st-personal { color: var(--color-text-secondary); background: var(--color-fill); }
+.app-claimo .c-st-new { color: var(--color-accent-text); background: var(--color-accent-subtle); }
+.app-claimo .c-st-error { color: var(--color-danger); background: var(--color-danger-subtle); }
+.app-claimo .c-bd { flex: none; font-size: 12px; line-height: 16px; font-weight: 700; padding: 2px 7px; border-radius: 6px; letter-spacing: 0; }
+.app-claimo .c-bd-uber { background: var(--color-uber); color: var(--color-on-uber); }
+.app-claimo .c-bd-rap { background: var(--color-rapido); color: var(--color-on-rapido); }
+.app-claimo .c-ic { flex: none; width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: var(--color-fill); color: var(--color-text-secondary); }
+.app-claimo .c-ic svg { width: 18px; height: 18px; }
+.app-claimo .c-ic.big { width: 44px; height: 44px; border-radius: 12px; }
+.app-claimo .c-ic.big svg { width: 24px; height: 24px; }
+.app-claimo .c-ic-ok { background: var(--color-success-subtle); color: var(--color-success); }
+.app-claimo .c-ic-no { background: var(--color-danger-subtle); color: var(--color-danger); }
+.app-claimo .c-ic-warn { background: var(--color-warning-subtle); color: var(--color-warning); }
+.app-claimo .c-ic-acc { background: var(--color-accent-subtle); color: var(--color-accent-text); }
+.app-claimo .c-chev { flex: none; color: var(--color-control-off); }
+.app-claimo .c-chev svg { width: 16px; height: 16px; }
+.app-claimo .c-kv-t .c-l1, .app-claimo .c-kv-t b { font-weight: 700; }
+.app-claimo .c-okc { flex: none; color: var(--color-success); }
+.app-claimo .c-okc svg { width: 18px; height: 18px; }
+.app-claimo .c-kv > .c-sub { font-size: 15px; max-width: 170px; }
+
+/* cards */
+.app-claimo .c-card { display: block; width: 100%; background: var(--color-surface); border: 0; border-radius: 16px; padding: 16px; margin: 0 0 12px; text-align: left; color: inherit; }
+.app-claimo .c-claim { display: flex; flex-direction: column; gap: 2px; padding: 18px 16px 16px; }
+.app-claimo .c-big { font-size: 40px; line-height: 46px; font-weight: 700; letter-spacing: -0.03em; }
+.app-claimo .c-claim > .c-sub { font-size: 15px; }
+.app-claimo .c-split { display: flex; gap: 3px; height: 8px; margin: 16px 0 10px; }
+.app-claimo .c-split i { border-radius: 4px; min-width: 6px; }
+.app-claimo .c-split .w, .app-claimo .c-legend .w { background: var(--color-accent); }
+.app-claimo .c-split .n, .app-claimo .c-legend .n { background: var(--color-accent-muted); }
+.app-claimo .c-split .p, .app-claimo .c-legend .p { background: var(--color-control-off); }
+.app-claimo .c-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--color-text-secondary); }
+.app-claimo .c-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.app-claimo .c-legend i { width: 8px; height: 8px; border-radius: 50%; }
+.app-claimo .c-cta { display: flex; align-items: center; gap: 12px; background: var(--color-accent); color: var(--color-on-accent); }
+.app-claimo .c-cta .c-l1 { font-weight: 600; }
+.app-claimo .c-cta .c-sub { color: var(--color-on-accent-secondary); }
+.app-claimo .c-cta .c-chev { color: var(--color-on-accent-secondary); }
+.app-claimo .c-cta-ic { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: rgba(255, 255, 255, .16); }
+.app-claimo .c-cta-ic svg { width: 22px; height: 22px; }
+.app-claimo .c-alert { display: flex; align-items: center; gap: 12px; }
+.app-claimo .c-alert .c-l1 { font-weight: 600; }
+
+/* buttons */
+.app-claimo .c-foot { flex: 0 0 auto; display: flex; flex-direction: column; gap: 10px; padding: 12px 24px calc(var(--sb) + 8px); background: var(--color-bg); }
+.app-claimo .c-foot-row { display: flex; gap: 12px; }
+.app-claimo .c-foot.c-foot-row { flex-direction: row; }
+.app-claimo .c-foot-row > .c-btn { flex: 1; min-width: 0; }
+.app-claimo .c-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px; padding: 0 20px; border-radius: 999px; border: 0; font-size: 17px; font-weight: 600; transition: transform .12s, background-color .2s; }
+.app-claimo .c-btn:active { transform: scale(.97); }
+.app-claimo .c-btn svg { width: 20px; height: 20px; flex: none; }
+.app-claimo .c-btn-p { background: var(--color-accent); color: var(--color-on-accent); }
+.app-claimo .c-btn-s { background: var(--color-fill); color: var(--color-text); }
+.app-claimo .c-btn-g { background: var(--color-surface); color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-sep); }
+.app-claimo .c-btn-plain { background: none; color: var(--color-accent-text); min-height: 44px; font-weight: 500; }
+.app-claimo .c-inline-cta { margin-top: 24px; }
+
+/* welcome */
+.app-claimo .c-welcome .c-scroll { padding-top: 32px; }
+.app-claimo .c-hero { width: 72px; height: 72px; margin: 0 0 24px; }
+.app-claimo .c-hero.sm { width: 64px; height: 64px; margin: 8px auto 16px; }
+.app-claimo .c-hero svg { width: 100%; height: 100%; }
+.app-claimo .c-feats { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+.app-claimo .c-feats li { display: flex; gap: 14px; align-items: flex-start; }
+.app-claimo .c-feats b { font-size: 17px; font-weight: 600; }
+.app-claimo .c-feats .c-mid > span { font-size: 15px; line-height: 20px; color: var(--color-text-secondary); }
+.app-claimo .c-fi { flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--color-accent-subtle); color: var(--color-accent-text); }
+.app-claimo .c-fi svg { width: 22px; height: 22px; }
+
+/* connect */
+.app-claimo .c-note { display: flex; gap: 10px; align-items: flex-start; margin: 20px 4px 0; font-size: 15px; line-height: 20px; color: var(--color-text-secondary); }
+.app-claimo .c-note svg { width: 18px; height: 18px; flex: none; margin-top: 1px; }
+
+/* sync */
+.app-claimo .c-ring { position: relative; width: 140px; height: 140px; margin: 24px auto 16px; }
+.app-claimo .c-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.app-claimo .c-ring circle { fill: none; stroke-width: 10; }
+.app-claimo .c-ring .tr { stroke: var(--color-fill); }
+.app-claimo .c-ring .pr { stroke: var(--color-accent); stroke-linecap: round; stroke-dasharray: calc(var(--pct) * 1) 100; transition: stroke-dasharray .1s linear; }
+.app-claimo .c-ring-t { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.app-claimo .c-ring-t b { font-size: 34px; line-height: 40px; font-weight: 700; }
+.app-claimo .c-ring-t span { font-size: 13px; color: var(--color-text-secondary); }
+.app-claimo .c-sync .c-t2 + .c-sub { font-size: 15px; margin-top: 4px; }
+.app-claimo .c-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+.app-claimo .c-stats div { background: var(--color-surface); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 2px; }
+.app-claimo .c-stats b { font-size: 22px; line-height: 28px; font-weight: 700; }
+.app-claimo .c-stats span { font-size: 13px; line-height: 17px; color: var(--color-text-secondary); }
+.app-claimo .c-amt { flex: none; }
+
+/* tab bar, iOS 26 floating */
+.app-claimo .c-tabs { position: absolute; left: 24px; right: 24px; bottom: 24px; z-index: 5; height: 64px; display: flex; padding: 4px; border-radius: 31px; background: rgba(250, 250, 252, .96); -webkit-backdrop-filter: blur(20px) saturate(1.8); backdrop-filter: blur(20px) saturate(1.8); box-shadow: var(--shadow-float); }
+.app-claimo .c-tabs button { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; background: none; border: 0; border-radius: 27px; color: var(--color-text-secondary); font-size: 13px; line-height: 15px; font-weight: 600; }
+.app-claimo .c-tabs button svg { width: 24px; height: 24px; }
+.app-claimo .c-tabs [aria-current="page"] { color: var(--color-accent-text); background: var(--color-accent-subtle); }
+
+/* below the floating tab bar: solid background down to the edge, with a short fade above so rows dissolve into it */
+.app-claimo .c-scrim { position: absolute; left: 0; right: 0; bottom: 0; height: 86px; z-index: 4; background: var(--color-bg); }
+.app-claimo .c-scrim::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 28px; pointer-events: none; background: linear-gradient(to bottom, rgba(242, 242, 247, 0), var(--color-bg)); }
+
+/* claim deck */
+.app-claimo .c-pile { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; margin: 0 24px 16px; padding: 4px 0; transition: transform .2s; }
+.app-claimo .c-pile.bump { animation: c-bump .45s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes c-bump { 40% { transform: scale(1.035); } }
+.app-claimo .c-pile-ic { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--color-accent-subtle); color: var(--color-accent-text); }
+.app-claimo .c-pile-ic svg { width: 20px; height: 20px; }
+.app-claimo .c-pile .c-sub { font-size: 13px; line-height: 16px; }
+.app-claimo .c-pile-t { font-size: 22px; line-height: 26px; font-weight: 700; }
+.app-claimo .c-pile-n { flex: none; font-size: 15px; color: var(--color-text-secondary); }
+.app-claimo .c-stack { position: relative; flex: 0 0 auto; height: 418px; margin: 0 16px; }
+.app-claimo .c-dk { position: absolute; inset: 0; background: var(--color-surface); border-radius: 22px; box-shadow: 0 1px 2px rgba(15, 16, 18, .06), 0 8px 24px rgba(15, 16, 18, .06); }
+.app-claimo .c-dk-1 { transform: translateY(24px) scale(.94); opacity: .85; }
+.app-claimo .c-dk-2 { transform: translateY(46px) scale(.88); opacity: .6; }
+.app-claimo .c-dk-0 { display: flex; flex-direction: column; padding: 16px; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; --sw: 0; --sp: 0; will-change: transform; }
+.app-claimo .c-dk-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 15px; }
+.app-claimo .c-dk-map { height: 140px; margin: 12px 0 4px; border-radius: 14px; overflow: hidden; }
+.app-claimo .c-dk-map svg, .app-claimo .c-ride-map svg, .app-claimo .c-pmap svg, .app-claimo .c-mini-map svg { width: 100%; height: 100%; }
+.app-claimo .c-stop { display: flex; align-items: center; gap: 12px; min-height: 40px; font-size: 17px; }
+.app-claimo .c-stop .c-l1 { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.app-claimo .c-stop .c-sub { flex: none; font-size: 15px; }
+.app-claimo .c-stop i, .app-claimo .c-tl i { flex: none; width: 12px; height: 12px; border-radius: 50%; }
+.app-claimo .c-stop i.a, .app-claimo .c-tl i.a { box-shadow: inset 0 0 0 3px var(--color-accent); }
+.app-claimo .c-stop i.b, .app-claimo .c-tl i.b { background: var(--color-text); border-radius: 3px; }
+.app-claimo .c-dk-foot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 6px; font-size: 15px; }
+.app-claimo .c-dk-foot b { font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.02em; }
+.app-claimo .c-guess { margin-top: 14px; display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; font-size: 15px; line-height: 20px; }
+.app-claimo .c-guess-work { background: var(--color-accent-subtle); color: var(--color-accent-text); }
+.app-claimo .c-guess-personal { background: var(--color-fill); color: var(--color-text-secondary); }
+.app-claimo .c-guess b { font-weight: 600; }
+.app-claimo .c-guess span { color: var(--color-text-secondary); }
+.app-claimo .c-stamp { position: absolute; top: 22px; z-index: 2; padding: 2px 12px; border-radius: 10px; border: 3px solid currentColor; background: rgba(255, 255, 255, .94); font-size: 22px; line-height: 30px; font-weight: 800; letter-spacing: .02em; pointer-events: none; }
+.app-claimo .c-stamp-w { left: 18px; color: var(--color-success); transform: rotate(-12deg); opacity: var(--sw); }
+.app-claimo .c-stamp-p { right: 18px; color: var(--color-text-secondary); transform: rotate(12deg); opacity: var(--sp); }
+.app-claimo .c-dk-ctl { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 36px; margin-top: auto; padding: 16px 0 calc(var(--sb) + 14px); }
+.app-claimo .c-round { width: 64px; height: 64px; border-radius: 50%; border: 0; display: grid; place-items: center; transition: transform .15s; }
+.app-claimo .c-round svg { width: 28px; height: 28px; }
+.app-claimo .c-round-p { background: var(--color-surface); color: var(--color-text-secondary); box-shadow: inset 0 0 0 1px var(--color-sep); }
+.app-claimo .c-round-w { background: var(--color-accent); color: var(--color-on-accent); }
+.app-claimo .c-hint { font-size: 13px; }
+.app-claimo .c-done { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 0 32px calc(var(--sb) + 40px); text-align: center; }
+.app-claimo .c-done .c-btn { margin-top: 16px; }
+.app-claimo .c-done-ic { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--color-success); color: #fff; margin-bottom: 8px; }
+.app-claimo .c-done-ic svg { width: 28px; height: 28px; }
+
+/* ride detail */
+.app-claimo .c-ride-s { padding-top: 0; }
+.app-claimo .c-ride-s .c-scroll { padding: 0 0 calc(var(--sb) + 16px); }
+.app-claimo .c-ride-map { position: relative; height: 300px; padding-top: var(--st); background: var(--map-land); }
+.app-claimo .c-float { position: absolute; left: 12px; top: calc(var(--st) + 2px); width: 44px; height: 44px; border-radius: 50%; border: 0; display: grid; place-items: center; background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-float); }
+.app-claimo .c-float svg { width: 22px; height: 22px; }
+.app-claimo .c-ride-body { position: relative; margin-top: -20px; padding: 20px 16px 0; background: var(--color-bg); border-radius: 22px 22px 0 0; }
+.app-claimo .c-ride-h { display: flex; align-items: flex-start; gap: 12px; }
+.app-claimo .c-ride-h .c-t2 { margin-top: 6px; }
+.app-claimo .c-big2 { flex: none; font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.02em; }
+.app-claimo .c-seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; padding: 2px; margin: 16px 0; border-radius: 10px; background: var(--color-fill); }
+.app-claimo .c-seg button { min-height: 36px; border: 0; border-radius: 8px; background: none; color: var(--color-text); font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 6px; }
+.app-claimo .c-seg [aria-pressed="true"] { background: var(--color-surface); box-shadow: 0 1px 3px rgba(15, 16, 18, .12); }
+.app-claimo .c-tl .c-l1 { font-size: 17px; }
+.app-claimo .c-tl > .c-sub { flex: none; font-size: 15px; }
+.app-claimo .c-invoice { background: var(--color-surface); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; -webkit-mask: radial-gradient(circle 5px at 50% 100%, transparent 98%, #000) 0 0 / 14px 100%; mask: radial-gradient(circle 5px at 50% 100%, transparent 98%, #000) 0 0 / 14px 100%; padding-bottom: 22px; }
+.app-claimo .c-inv-h { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.app-claimo .c-inv-r { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.app-claimo .c-inv-r span:first-child { color: var(--color-text-secondary); }
+.app-claimo .c-inv-t { border-top: 1px dashed var(--color-control-off); padding-top: 10px; margin-top: 2px; font-weight: 700; }
+.app-claimo .c-inv-t span:first-child { color: var(--color-text); }
+
+/* fix */
+.app-claimo .c-fix-h { display: flex; gap: 14px; align-items: flex-start; margin: 8px 0 20px; }
+.app-claimo .c-fix-h .c-sub { font-size: 15px; line-height: 20px; margin-top: 4px; }
+.app-claimo .c-field { box-shadow: inset 0 0 0 2px var(--color-accent); border-radius: 0 0 16px 16px; }
+.app-claimo .c-fare-in { font-size: 22px; font-weight: 700; color: var(--color-text); }
+.app-claimo .c-caret { width: 2px; height: 26px; background: var(--color-accent); border-radius: 1px; }
+@media (prefers-reduced-motion: no-preference) { .app-claimo .c-caret { animation: c-blink 1s steps(1) infinite; } }
+@keyframes c-blink { 50% { opacity: 0; } }
+.app-claimo .c-keys { flex: 0 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; padding: 8px 6px; background: var(--color-key); }
+.app-claimo .c-keys button { height: 46px; border: 0; border-radius: 9px; background: var(--color-surface); color: var(--color-text); font-size: 24px; font-weight: 400; display: grid; place-items: center; box-shadow: 0 1px 0 rgba(15, 16, 18, .25); }
+.app-claimo .c-keys button svg { width: 26px; height: 26px; }
+.app-claimo .c-keys button:active { background: var(--color-fill); }
+.app-claimo .c-fix .c-foot { background: var(--color-key); padding-top: 6px; }
+
+/* rides */
+.app-claimo .c-searchf { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 12px; background: var(--color-fill); color: var(--color-text-secondary); font-size: 17px; }
+.app-claimo .c-searchf svg { width: 18px; height: 18px; flex: none; }
+.app-claimo .c-chips { display: flex; gap: 8px; margin: 14px 0 0; }
+.app-claimo .c-chips button { min-height: 34px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--color-surface); color: var(--color-text); font-size: 15px; font-weight: 500; }
+.app-claimo .c-chips [aria-pressed="true"] { background: var(--color-text); color: var(--color-surface); }
+
+/* filters sheet */
+.app-claimo .c-filt { background: #8d8d92; padding-top: 0; }
+.app-claimo .c-dim { position: absolute; inset: 0; background: #8d8d92; }
+.app-claimo .c-sheet { position: absolute; left: 0; right: 0; bottom: 0; top: calc(var(--st) + 10px); display: flex; flex-direction: column; background: var(--color-bg); border-radius: 26px 26px 0 0; box-shadow: 0 -8px 30px rgba(15, 16, 18, .18); }
+.app-claimo .c-grab { display: block; width: 36px; height: 5px; border-radius: 3px; background: var(--color-control-off); margin: 6px auto 0; }
+.app-claimo .c-sheet-h { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 12px; height: 48px; }
+.app-claimo .c-sheet-h b { font-size: 17px; font-weight: 600; }
+.app-claimo .c-sheet-h .c-link { min-height: 44px; justify-self: start; }
+.app-claimo .c-sheet-h .c-link:last-child { justify-self: end; }
+.app-claimo .c-sheet-b { flex: 1; min-height: 0; overflow-y: auto; padding: 0 16px 16px; scrollbar-width: none; }
+.app-claimo .c-sheet-b .c-sh:first-child { margin-top: 8px; }
+.app-claimo .c-tog { flex: none; position: relative; width: 52px; height: 32px; border-radius: 16px; border: 0; padding: 0; background: var(--color-fill); transition: background-color .2s; }
+.app-claimo .c-tog::after { content: ""; position: absolute; top: 2px; left: 2px; width: 28px; height: 28px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, .18); transition: transform .22s cubic-bezier(.3, 1.3, .5, 1); }
+.app-claimo .c-tog[aria-checked="true"] { background: var(--color-accent); }
+.app-claimo .c-tog[aria-checked="true"]::after { transform: translateX(20px); }
+.app-claimo .c-two { display: grid; grid-template-columns: 1fr 1fr; }
+.app-claimo .c-two .c-row + .c-row::before { left: 0; right: auto; top: 12px; bottom: 12px; width: 1px; height: auto; transform: scaleX(.5); }
+.app-claimo .c-fare { padding: 16px 12px 12px; }
+.app-claimo .c-hist { display: flex; align-items: flex-end; gap: 4px; height: 60px; padding: 0 4px; }
+.app-claimo .c-hist i { flex: 1; border-radius: 3px 3px 1px 1px; background: var(--color-fill); }
+.app-claimo .c-hist i.on { background: var(--color-accent-muted); }
+.app-claimo .c-seg-4 { margin: 12px 0 0; }
+
+/* places */
+.app-claimo .c-pmap { height: 200px; padding: 0; overflow: hidden; }
+.app-claimo .c-pl { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--color-accent-subtle); color: var(--color-accent-text); font-size: 15px; font-weight: 700; }
+.app-claimo .c-places .c-row > .c-sub { flex: none; font-size: 15px; }
+.app-claimo .c-add { color: var(--color-accent-text); }
+.app-claimo .c-add svg { width: 22px; height: 22px; flex: none; margin: 0 5px; }
+.app-claimo .c-add .c-l1 { font-weight: 500; }
+
+/* report */
+.app-claimo .c-probd { font-size: 11px; line-height: 14px; font-weight: 700; padding: 1px 6px; border-radius: 6px; background: var(--color-accent-subtle); color: var(--color-accent-text); }
+.app-claimo .c-rd { flex: none; width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--color-control-off); transition: box-shadow .2s; }
+.app-claimo [aria-pressed="true"] > .c-rd, .app-claimo [aria-checked="true"] > .c-rd { box-shadow: inset 0 0 0 7px var(--color-accent); }
+.app-claimo .c-report .c-alert { margin-top: 12px; }
+
+/* printing */
+.app-claimo .c-print .c-scroll { padding-top: 24px; }
+.app-claimo .c-docs { position: relative; width: 170px; height: 214px; margin: 12px auto 32px; }
+.app-claimo .c-doc { position: absolute; inset: 0; background: var(--color-surface); border-radius: 10px; box-shadow: 0 6px 20px rgba(15, 16, 18, .1); }
+.app-claimo .c-doc.d3 { transform: rotate(-7deg) translate(-10px, 6px); background: var(--color-fill); }
+.app-claimo .c-doc.d2 { transform: rotate(5deg) translate(8px, 4px); }
+.app-claimo .c-doc.d1 { display: flex; flex-direction: column; gap: 4px; padding: 16px 14px; overflow: hidden; }
+.app-claimo .c-doc.d1 b { font-size: 15px; line-height: 18px; font-weight: 700; }
+.app-claimo .c-doc.d1 span { font-size: 11px; line-height: 14px; color: var(--color-text-secondary); margin-bottom: 8px; }
+.app-claimo .c-doc.d1 i { display: block; height: 6px; border-radius: 3px; background: var(--color-fill); margin-top: 8px; }
+.app-claimo .c-doc.d1 em { position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--color-accent); }
+@media (prefers-reduced-motion: no-preference) { .app-claimo .c-doc.d1 em { animation: c-scan 1.4s ease-in-out infinite alternate; } }
+@keyframes c-scan { to { transform: translateY(210px); } }
+.app-claimo .c-print .c-t2 + .c-sub { margin: 4px 0 20px; font-size: 15px; }
+.app-claimo .c-step { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 2px var(--color-control-off); color: #fff; }
+.app-claimo .c-step svg { width: 14px; height: 14px; }
+.app-claimo .c-step.done { background: var(--color-accent); box-shadow: none; }
+.app-claimo .c-step.now { box-shadow: inset 0 0 0 2px var(--color-accent-muted); border-top: 0; position: relative; }
+.app-claimo .c-step.now::after { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 2px 0 0 var(--color-accent); }
+@media (prefers-reduced-motion: no-preference) { .app-claimo .c-step.now::after { animation: c-spin .9s linear infinite; } }
+@keyframes c-spin { to { transform: rotate(360deg); } }
+
+/* ready */
+.app-claimo .c-ready .c-done-ic { margin: 4px 0 16px; }
+.app-claimo .c-pages { display: flex; gap: 12px; margin: 20px 0; }
+.app-claimo .c-page { flex: 0 0 auto; width: 156px; height: 204px; background: var(--color-surface); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 1px 3px rgba(15, 16, 18, .08); overflow: hidden; }
+.app-claimo .c-page b { font-size: 13px; line-height: 16px; font-weight: 700; }
+.app-claimo .c-pg-s { font-size: 11px; line-height: 14px; color: var(--color-text-secondary); }
+.app-claimo .c-pg-head { display: flex; align-items: center; gap: 6px; }
+.app-claimo .c-pl-r { display: flex; justify-content: space-between; gap: 6px; font-size: 11px; line-height: 14px; font-variant-numeric: tabular-nums; }
+.app-claimo .c-pl-t { margin-top: auto; padding-top: 5px; border-top: 1px solid var(--color-sep); font-weight: 700; }
+.app-claimo .c-mini-map { height: 84px; border-radius: 6px; overflow: hidden; margin-top: 4px; }
+
+/* pro */
+.app-claimo .c-pro .c-lead { margin-bottom: 20px; }
+.app-claimo .c-plans { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.app-claimo .c-plan { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border-radius: 16px; border: 0; background: var(--color-surface); color: inherit; text-align: left; box-shadow: inset 0 0 0 2px transparent; transition: box-shadow .2s; }
+.app-claimo .c-plan[aria-checked="true"] { box-shadow: inset 0 0 0 2px var(--color-accent); }
+.app-claimo .c-plan b { flex: none; font-size: 20px; line-height: 24px; font-weight: 700; }
+.app-claimo .c-per { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
+
+/* flat map */
+.app-claimo .c-map .land { fill: var(--map-land); }
+.app-claimo .c-map .park { fill: var(--map-park); }
+.app-claimo .c-map .lake { fill: var(--map-lake); }
+.app-claimo .c-map .road { fill: none; stroke: var(--map-road); stroke-linecap: round; }
+.app-claimo .c-map .road-minor { fill: none; stroke: var(--map-road-case); stroke-linecap: round; }
+.app-claimo .c-map .rt { fill: none; stroke: var(--color-accent); stroke-linecap: round; }
+.app-claimo .c-map .pin circle { fill: #fff; }
+.app-claimo .c-map .pin .dot { fill: var(--color-accent); }
+.app-claimo .c-map .pin.b .dot { fill: var(--color-text); }
+.app-claimo .c-map .pin.place circle { fill: var(--color-accent); }
+.app-claimo .c-map .pin.place .dot { fill: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  .app-claimo .c-btn, .app-claimo .c-tog, .app-claimo .c-tog::after, .app-claimo .c-pile { transition: none; animation: none; }
+}
+
+/* calm pass: one idea per screen, 24px margins, 8pt rhythm, nothing under 13px */
+.app-claimo .c-lt { margin: 8px 0 16px; }
+.app-claimo .c-t1 { margin: 8px 0 12px; font-size: 30px; line-height: 36px; }
+.app-claimo .c-lead { font-size: 18px; line-height: 26px; margin-bottom: 8px; }
+.app-claimo .c-sh { font-size: 16px; margin: 32px 4px 8px; color: var(--color-text-secondary); font-weight: 500; }
+.app-claimo .c-l2 { font-size: 16px; }
+.app-claimo .c-gap { margin-top: 32px; }
+.app-claimo .c-row { min-height: 64px; padding: 12px 20px; gap: 16px; }
+.app-claimo .c-row + .c-row::before { left: 20px; }
+.app-claimo .c-ride { min-height: 72px; }
+.app-claimo .c-date { flex: 0 0 40px; }
+.app-claimo .c-end-col { display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 32px; }
+.app-claimo .c-center-col { display: flex; flex-direction: column; justify-content: center; padding-bottom: 48px; }
+.app-claimo .c-welcome .c-hero { width: 80px; height: 80px; margin-bottom: 32px; }
+.app-claimo .c-welcome .c-lt { font-size: 40px; line-height: 46px; letter-spacing: -0.03em; }
+.app-claimo .c-hero.sm { margin: 24px auto 24px; }
+.app-claimo .c-pro .c-lt { margin-bottom: 8px; }
+.app-claimo .c-pro .c-lead { margin-bottom: 32px; }
+.app-claimo .c-claim { display: flex; flex-direction: column; gap: 4px; padding: 16px 0 32px; margin: 0; background: none; }
+.app-claimo .c-cap { font-size: 17px; }
+.app-claimo .c-big { font-size: 60px; line-height: 64px; letter-spacing: -0.035em; }
+.app-claimo .c-card { padding: 20px; margin: 0 0 24px; }
+.app-claimo .c-cta { display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 16px 20px; }
+.app-claimo .c-cta .c-l1 { font-size: 20px; line-height: 26px; }
+.app-claimo .c-cta .c-chev svg { width: 20px; height: 20px; }
+.app-claimo .c-cta + .c-group { margin-top: 0; }
+.app-claimo .c-alert { min-height: 72px; background: var(--color-danger-subtle); }
+.app-claimo .c-alert .c-l1 { color: var(--color-danger); }
+.app-claimo .c-ic { width: 40px; height: 40px; border-radius: 12px; }
+.app-claimo .c-ic svg { width: 22px; height: 22px; }
+.app-claimo .c-avatar { width: 44px; height: 44px; }
+.app-claimo .c-tint { width: 44px; min-width: 44px; height: 44px; }
+.app-claimo .c-lt-row { margin-top: 4px; }
+.app-claimo .c-lt-row .c-lt { margin-bottom: 16px; }
+.app-claimo .c-btn { min-height: 56px; }
+.app-claimo .c-foot { gap: 12px; padding: 16px 24px calc(var(--sb) + 8px); }
+.app-claimo .c-btn-g { box-shadow: none; }
+.app-claimo .c-inline-cta { margin-top: 8px; }
+.app-claimo .c-seg { margin: 8px 0 24px; }
+.app-claimo .c-seg button { min-height: 44px; font-size: 16px; }
+.app-claimo .c-seg-4 { margin: 8px 0 0; }
+.app-claimo .c-chips { margin: 0; gap: 8px; }
+.app-claimo .c-chips button { min-height: 44px; padding: 0 16px; font-size: 16px; }
+.app-claimo .c-nav { padding: 0 12px; }
+/* sync */
+.app-claimo .c-ring { width: 160px; height: 160px; margin: 0 auto 32px; }
+.app-claimo .c-ring-t b { font-size: 48px; line-height: 52px; }
+.app-claimo .c-sync .c-t1 + .c-lead { margin: 0; }
+/* deck */
+.app-claimo .c-pile { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 0; background: none; text-align: center; }
+.app-claimo .c-pile .c-sub { font-size: 16px; line-height: 20px; }
+.app-claimo .c-pile-t { font-size: 36px; line-height: 42px; letter-spacing: -0.025em; }
+.app-claimo .c-stack { height: 400px; margin: 0 24px; }
+.app-claimo .c-dk-0 { padding: 16px; }
+.app-claimo .c-dk-map { height: 150px; margin: 0 0 8px; }
+.app-claimo .c-stop { min-height: 40px; font-size: 18px; }
+.app-claimo .c-dk-foot { margin-top: auto; align-items: baseline; font-size: 17px; }
+.app-claimo .c-dk-foot b { font-size: 36px; line-height: 42px; }
+.app-claimo .c-dk-ctl { gap: 48px; }
+.app-claimo .c-round { width: 72px; height: 72px; }
+.app-claimo .c-done .c-t1 { margin: 8px 0 8px; }
+/* ride detail */
+.app-claimo .c-ride-body { padding: 24px 24px 0; }
+.app-claimo .c-ride-h .c-t2 { font-size: 26px; line-height: 32px; margin-top: 4px; }
+.app-claimo .c-big2 { font-size: 30px; line-height: 36px; }
+.app-claimo .c-ride-map { height: 320px; }
+.app-claimo .c-ride-s .c-scroll { padding: 0 0 calc(var(--sb) + 24px); }
+/* fix */
+.app-claimo .c-field { border-radius: 16px; }
+.app-claimo .c-fare-in { font-size: 32px; line-height: 38px; }
+.app-claimo .c-caret { height: 32px; }
+.app-claimo .c-fix .c-lead { margin-bottom: 0; }
+/* places, report */
+.app-claimo .c-pmap { height: 170px; margin-bottom: 24px; }
+.app-claimo .c-pl { width: 40px; height: 40px; font-size: 17px; }
+.app-claimo .c-report .c-alert { margin-top: 0; }
+/* printing */
+.app-claimo .c-docs { margin: 0 auto 40px; }
+.app-claimo .c-doc.d1 b { font-size: 17px; line-height: 22px; margin-bottom: 8px; }
+.app-claimo .c-steps { margin-top: 24px; }
+.app-claimo .c-print .c-t1 { margin: 0; }
+/* ready */
+.app-claimo .c-ready .c-done-ic { margin: 16px 0 24px; width: 72px; height: 72px; }
+.app-claimo .c-ready .c-done-ic svg { width: 36px; height: 36px; }
+/* pro */
+.app-claimo .c-plans { margin-top: 0; gap: 12px; }
+.app-claimo .c-plan { padding: 20px; min-height: 72px; }
+.app-claimo .c-plan b { font-size: 22px; line-height: 28px; }
+.app-claimo .c-per { font-size: 15px; }
+/* filters sheet */
+.app-claimo .c-sheet-b { padding: 0 24px 16px; }
+.app-claimo .c-sheet-b .c-sh:first-child { margin-top: 16px; }
+.app-claimo .c-sheet .c-foot { padding-top: 12px; }
+
+/* swipe card: the map takes the room, route and facts fill the rest */
+.app-claimo .c-dk-0 { padding: 20px; }
+.app-claimo .c-dk-map { height: 190px; margin: 0 0 16px; border-radius: 14px; overflow: hidden; }
+.app-claimo .c-dk-route { display: flex; flex-direction: column; gap: 4px; }
+.app-claimo .c-dk-meta { display: flex; gap: 8px; margin-top: 14px; }
+.app-claimo .c-dk-meta span { padding: 6px 12px; border-radius: 999px; background: var(--color-bg, #f2f2f7); font-size: 14px; font-weight: 500; color: var(--color-text-2, #54514a); }
+.app-claimo .c-dk-foot { padding-top: 12px; }

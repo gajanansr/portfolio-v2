@@ -1,0 +1,56 @@
+/* Phone runtime: device frames, status bars, screen layers and transitions.
+   Everything inside .scr belongs to an app and is scoped by .app-<id>. */
+.ph { position: relative; flex: 0 0 auto; }
+.ph-dev {
+  position: absolute; left: 0; top: 0; transform-origin: 0 0;
+  background: #0b0b0c; padding: 11px; border-radius: 62px;
+}
+.ph-dev.android { border-radius: 46px; padding: 10px; background: #1a1b1e; }
+.ph-scr {
+  position: relative; overflow: hidden; border-radius: 51px; isolation: isolate;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased; letter-spacing: normal; line-height: 1.3; text-align: left; font-size: 14px; font-weight: 400; font-style: normal; text-transform: none;
+  background: #fff; color: #000;
+}
+.ph-dev.android .ph-scr { border-radius: 36px; font-family: Roboto, "Segoe UI", sans-serif; }
+.ph-scr *, .ph-scr *::before, .ph-scr *::after { box-sizing: border-box; }
+.ph-scr button { font: inherit; color: inherit; }
+.ph-layer { position: absolute; inset: 0; overflow: hidden; display: flex; flex-direction: column; will-change: transform; }
+.ph-layer.in-push { animation: ph-in-push .42s cubic-bezier(.2,.8,.2,1) both; }
+.ph-layer.out-push { animation: ph-out-push .42s cubic-bezier(.2,.8,.2,1) both; }
+.ph-layer.in-pop { animation: ph-in-pop .38s cubic-bezier(.2,.8,.2,1) both; }
+.ph-layer.out-pop { animation: ph-out-pop .38s cubic-bezier(.2,.8,.2,1) both; z-index: 2; }
+.ph-layer.in-up { animation: ph-in-up .46s cubic-bezier(.2,.9,.25,1) both; z-index: 2; }
+.ph-layer.out-down { animation: ph-out-down .36s cubic-bezier(.4,0,.6,1) both; z-index: 2; }
+.ph-layer.in-fade { animation: ph-fade .32s ease both; }
+@keyframes ph-in-push { from { transform: translateX(100%); } }
+@keyframes ph-out-push { to { transform: translateX(-28%); filter: brightness(.85); } }
+@keyframes ph-in-pop { from { transform: translateX(-28%); filter: brightness(.85); } }
+@keyframes ph-out-pop { to { transform: translateX(100%); } }
+@keyframes ph-in-up { from { transform: translateY(100%); } }
+@keyframes ph-out-down { to { transform: translateY(100%); } }
+@keyframes ph-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .ph-layer[class*="in-"], .ph-layer[class*="out-"] { animation-duration: .01s; }
+}
+
+/* status bar, drawn over the app, ink follows the screen's tone */
+.ph-sb { position: absolute; left: 0; right: 0; top: 0; height: 54px; z-index: 20; pointer-events: none;
+  display: flex; align-items: center; justify-content: space-between; padding: 4px 34px 0 46px;
+  font-weight: 600; font-size: 17px; color: #000; transition: color .3s; }
+.ph-sb.light { color: #fff; }
+.ph-sb svg { height: 13px; width: auto; display: block; }
+.ph-island { position: absolute; top: 11px; left: 50%; width: 124px; height: 36px; margin-left: -62px; border-radius: 20px; background: #000; z-index: 21; pointer-events: none; }
+.android .ph-sb { height: 40px; padding: 2px 26px 0 28px; font-size: 14px; font-weight: 500; }
+.android .ph-island { top: 13px; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; }
+.ph-home { position: absolute; bottom: 8px; left: 50%; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: #000; z-index: 20; pointer-events: none; transition: background-color .3s; }
+.ph-home.light { background: #fff; }
+.android .ph-home { width: 108px; height: 4px; margin-left: -54px; bottom: 9px; }
+
+/* toast */
+.ph-toast { position: absolute; left: 50%; bottom: 110px; z-index: 30; transform: translateX(-50%); background: rgba(20,20,22,.92); color: #fff; font-size: 14px; font-weight: 500; padding: 11px 16px; border-radius: 14px; white-space: nowrap; pointer-events: none; animation: ph-toast 2.2s ease both; }
+@keyframes ph-toast { 0% { opacity: 0; transform: translate(-50%, 10px); } 12%, 82% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
+
+/* static thumbnails never animate */
+.ph.static .ph-scr *, .ph.static .ph-scr *::before, .ph.static .ph-scr *::after { animation: none !important; transition: none !important; }
+.ph.static { pointer-events: none; }
