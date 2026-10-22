@@ -13,12 +13,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="phone.css?v=12">
+<link rel="stylesheet" href="phone.css?v=13">
 <link rel="stylesheet" href="apps/claimo.css">
 <link rel="stylesheet" href="apps/slates.css">
 <link rel="stylesheet" href="apps/quire.css">
 <link rel="stylesheet" href="apps/rewind.css">
-<link rel="stylesheet" href="site.css?v=12">
+<link rel="stylesheet" href="site.css?v=13">
 </head>
 <body>
 <svg class="grid" aria-hidden="true"><defs><pattern id="dg" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40H40M40 0V40" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(#dg)"/></svg>
@@ -39,15 +39,15 @@
     <p class="sub">Four apps I built, redesigned end to end. Open one and tap through it.</p>
   </section>
 
-  <ol class="apps" id="apps"></ol>
+  <ol class="s-apps" id="apps"></ol>
 </main>
 
-<footer class="foot">
-  <div class="foot-row">
-    <button class="mail" id="copy" type="button" aria-describedby="after"><output id="mail">gajanansr8@gmail.com</output><span class="mail-act">Copy</span></button>
-    <p class="after" id="after" aria-live="polite"></p>
+<footer class="s-foot">
+  <div class="s-foot-row">
+    <button class="s-mail" id="copy" type="button" aria-describedby="after"><output id="mail">gajanansr8@gmail.com</output><span class="s-mail-act">Copy</span></button>
+    <p class="s-after" id="after" aria-live="polite"></p>
   </div>
-  <div class="foot-row">
+  <div class="s-foot-row">
     <a href="https://gajananrathod.in">gajananrathod.in</a>
     <a href="https://github.com/gajanansr">GitHub</a>
     <a href="https://x.com/gajanxn">X</a>
@@ -56,32 +56,32 @@
 </footer>
 
 <template id="app-tpl">
-  <li class="app">
-    <button class="row" type="button" aria-expanded="false">
-      <span class="num"></span>
-      <span class="name"></span>
-      <span class="line"></span>
-      <span class="meta"></span>
-      <svg class="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+  <li class="s-app">
+    <button class="s-row" type="button" aria-expanded="false">
+      <span class="s-num"></span>
+      <span class="s-name"></span>
+      <span class="s-line"></span>
+      <span class="s-meta"></span>
+      <svg class="s-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
     </button>
-    <div class="panel" inert><div class="panel-clip"><div class="panel-in">
-      <div class="live"></div>
-      <div class="side">
-        <p class="cur"></p>
-        <div class="pager"><button class="prev" type="button" aria-label="Previous screen">←</button><span class="count"></span><button class="next" type="button" aria-label="Next screen">→</button></div>
-        <div class="chips" role="group" aria-label="All screens"></div>
-        <p class="hint"></p>
+    <div class="s-panel" inert><div class="s-panel-clip"><div class="s-panel-in">
+      <div class="s-live"></div>
+      <div class="s-side">
+        <p class="s-cur"></p>
+        <div class="s-pager"><button class="s-prev" type="button" aria-label="Previous screen">←</button><span class="s-count"></span><button class="s-next" type="button" aria-label="Next screen">→</button></div>
+        <div class="s-chips" role="group" aria-label="All screens"></div>
+        <p class="s-hint"></p>
       </div>
     </div></div></div>
   </li>
 </template>
 
-<script src="phone.js?v=12"></script>
+<script src="phone.js?v=13"></script>
 <script src="apps/claimo.js"></script>
 <script src="apps/slates.js"></script>
 <script src="apps/quire.js"></script>
 <script src="apps/rewind.js"></script>
-<script src="cases.js?v=12"></script>
-<script src="site.js?v=12"></script>
+<script src="cases.js?v=13"></script>
+<script src="site.js?v=13"></script>
 </body>
 </html>
