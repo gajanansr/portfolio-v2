@@ -61,38 +61,34 @@
 
 <footer class="foot">
   <p>© 2026 Gajanan Rathod · Bengaluru. Every screen here is a 2026 redesign; the shipped apps look different. Prices, people and receipts inside the prototypes are sample data.</p>
-  <p class="credits">Photographs via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Traffic_in_Bangalore_image.jpg">“Traffic in Bangalore image”</a> by Anandha abirami Govindan, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=18203185">“Namma metro Baiyappanahalli station”</a> by Rameshng, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=117017477">“Cubbon Park, Bangalore”</a>, TuckDB Postcards, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=24356970">“Namma Metro coach interior”</a> by Faizhaider, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Shown in black and white.</p>
+  <p class="credits">Filler photographs inside Slates, via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Dosa-chutney-sambhar.jpg">“Dosa-chutney-sambhar”</a> by Roland, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Car_windscreen_in_the_rain.jpg">“Car windscreen in the rain”</a> by Stanisław, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=11212884">“MG Road, Bangalore1”</a> by Mark Kobayashi-Hillary, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Bangalore_skyline_2011_(6720868413).jpg">“Bangalore skyline 2011 (6720868413)”</a> by Saad Faruque from Bangalore, India, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Nice_Auto,_Bangalore,_India_(1628818522).jpg">“Nice Auto, Bangalore, India (1628818522)”</a> by Jay Bergesen, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Dabara_set_with_coffee.jpg">“Dabara set with coffee”</a> by DEEPAN RAJA .M, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=18203185">“Pic from Namma metro baiyappanahalli station 1481”</a> by Rameshng, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=24356970">“Namma Metro coach interior”</a> by Faizhaider at English Wikipedia, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
 </footer>
 
 <template id="case-tpl">
-  <section class="case">
-    <div class="c-head">
-      <h2 class="c-name"></h2>
-      <p class="c-line"></p>
-      <ul class="c-facts"></ul>
-    </div>
-    <div class="c-stage">
-      <div class="c-phone"><div class="live"></div><p class="hint"></p></div>
-      <div class="c-text">
-        <p class="c-problem"></p>
-        <p class="c-approach"></p>
-        <div class="sig"><p class="lbl">Signature interaction</p><h3></h3><p class="sig-p"></p><button class="btn" type="button">Try it on the phone</button></div>
-        <div class="decisions" role="group" aria-label="Design decisions"></div>
+  <article class="chapter">
+    <section class="ch-cover">
+      <div class="ch-cover-text">
+        <p class="ch-kicker"></p>
+        <h2 class="ch-name"></h2>
+        <p class="ch-line"></p>
+        <p class="ch-links"></p>
       </div>
-    </div>
-    <div class="c-system">
-      <h3>Design system</h3>
-      <p class="sys-sum"></p>
-      <div class="swatches"></div>
-      <div class="types"></div>
-      <ul class="contrast"></ul>
-    </div>
-    <div class="c-flow">
-      <div class="flow-head"><h3>The whole flow</h3><p></p></div>
+      <div class="ch-cover-phone" aria-hidden="true"></div>
+    </section>
+    <section class="ch-problem"><p class="ch-label">The problem</p><p class="ch-statement"></p></section>
+    <section class="ch-try">
+      <p class="ch-label">Try it</p>
+      <h3 class="ch-sig"></h3>
+      <p class="ch-sig-p"></p>
+      <div class="ch-live"></div>
+      <div class="ch-chips" role="group" aria-label="Jump to a screen"></div>
+    </section>
+    <section class="ch-flow">
+      <div class="ch-flow-head"><p class="ch-label">Every screen</p><p class="ch-flow-count"></p></div>
       <div class="rail" role="group"></div>
-    </div>
-    <figure class="band"><img alt="" loading="lazy" decoding="async"><figcaption></figcaption></figure>
-  </section>
+      <div class="ch-system"><span class="dots"></span><span class="sys-txt"></span></div>
+    </section>
+  </article>
 </template>
 
 <script src="phone.js"></script>

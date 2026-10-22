@@ -75,7 +75,9 @@
       <path d="M56 58h48l-5 54H61z" fill="#d3d7dc"/><ellipse cx="80" cy="58" rx="24" ry="7" fill="#e3e6ea"/><ellipse cx="80" cy="59" rx="20" ry="5" fill="#d8b183"/>
       <path d="M70 46c-4-6 4-8 0-14M90 46c-4-6 4-8 0-14" fill="none" stroke="#fff5e6" stroke-width="2.5" stroke-linecap="round"/>`
   };
-  const frame = (k, cls = '', fit = 'slice') => `<svg class="sl-frame ${cls}" viewBox="0 0 160 160" preserveAspectRatio="xMidYMid ${fit}" aria-hidden="true">${SCENES[k] || SCENES.metro}</svg>`;
+  /* frames are filler photographs of Bengaluru (Wikimedia Commons, credited on the portfolio page) */
+  const PHOTOS = ['metro', 'dosa', 'auto', 'window', 'wiper', 'mgroad', 'rooftop', 'coffee'];
+  const frame = (k, cls = '', fit = 'slice') => `<img class="sl-frame sl-photo ${cls}" src="assets/slates/${PHOTOS.includes(k) ? k : 'metro'}.jpg" alt="" draggable="false" style="object-fit:${fit === 'meet' ? 'contain' : 'cover'}">`;
 
   /* ---------- content ---------- */
   const SLATES = [

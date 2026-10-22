@@ -5,7 +5,7 @@ window.CASES = {
     line: 'Every Uber and Rapido ride you take for work, turned into the PDF your finance team accepts, without typing a single fare.',
     facts: [['Platform', 'iOS, 14 screens'], ['Role', 'Product design and engineering'], ['Shipped', '<a href="https://claimo.fun">claimo.fun</a>, a Next.js web app'], ['Code', '<a href="https://github.com/gajanansr/claimo">gajanansr/claimo</a>'], ['This design', '2026 redesign; the live app looks different']],
     hint: 'This phone works. Drag the receipt right for work, left for personal.',
-    problem: 'In Bengaluru a commute is often three apps a day: a Rapido bike to the metro, an Uber Go home in the rain, an airport run once a month. At month end people sit with forty emails and a spreadsheet.',
+    problem: 'At month end, forty ride emails turn into a spreadsheet nobody wants to make.',
     approach: 'Claimo reads the receipts from Gmail with read-only access. The design problem was what comes after: sorting work from personal fast enough that it never becomes a chore.',
     sig: ['deck', 'The claim deck', 'Each unsorted ride is a card with its route and fare. Swipe right and it joins the report while the claim total counts up. Swipe left and it stays personal. A month of rides takes about a minute.'],
     decisions: [
@@ -21,7 +21,7 @@ window.CASES = {
     line: 'A pocket notebook for people who make films on their phones: save the reel that inspired you, then turn it into a shot, a script page and a voice note.',
     facts: [['Platform', 'iOS, 12 screens'], ['Role', 'Product design and engineering'], ['Shipped', 'React Native with Expo'], ['Code', '<a href="https://github.com/gajanansr/slates">gajanansr/slates</a>'], ['This design', '2026 redesign of the shipped app']],
     hint: 'This phone works. Swipe the reels in the inbox: right to keep, left to skip.',
-    problem: 'Creators save hundreds of reels a month and use almost none of them. A saved reel is a link in a list. It never becomes a decision about a shot.',
+    problem: 'Creators save hundreds of reels a month and use almost none of them.',
     approach: 'The redesign follows a short film, Last Metro to Whitefield, from the reel that inspired it to the ninth shot on the storyboard.',
     sig: ['stack', 'Sort the inbox like dailies', 'Saved reels arrive as a deck of cards. Drag one right and it becomes a shot on the storyboard; drag left and it goes. A Keep or Skip label fades in as you drag, and the next card rises underneath.'],
     decisions: [
@@ -37,7 +37,7 @@ window.CASES = {
     line: 'A quiet place to read on Android. Your books never leave the phone, because the app has no permission to use the internet at all.',
     facts: [['Platform', 'Android, 12 screens'], ['Role', 'Product design and engineering'], ['Shipped', 'Kotlin and Jetpack Compose, <a href="https://gajanansr.github.io/quire/">site</a>'], ['Code', '<a href="https://github.com/gajanansr/quire">gajanansr/quire</a>, MIT'], ['This design', '2026 redesign of the shipped app']],
     hint: 'This phone works. Drag the page from its right edge to turn it, or long-press a word.',
-    problem: 'Most reading apps want an account, a store and a feed. Quire wants a file and your attention, and it sets the text like a printed book.',
+    problem: 'Most reading apps want an account, a store and a feed. Reading needs a file and quiet.',
     approach: 'The redesign is plain Material 3: quiet surfaces, one deep red accent, and a real book face only where the book itself is shown.',
     sig: ['reader', 'A page you turn with your finger', 'Drag from the edge and the page folds under your finger, casting a shadow. Let go past halfway and it turns; let go early and it springs back flat. Change the theme and the new ink spreads from the swatch you touched.'],
     decisions: [
@@ -53,7 +53,7 @@ window.CASES = {
     line: 'Interview prep that makes you say your approach out loud, then plays it back to you right before you would have forgotten it.',
     facts: [['Platform', 'iOS, 12 screens'], ['Role', 'Product design and engineering'], ['Shipped', '<a href="https://rewind-dsa.vercel.app">rewind-dsa.vercel.app</a>, a React PWA'], ['Code', '<a href="https://github.com/gajanansr/rewind">gajanansr/rewind</a>'], ['This design', '2026 redesign of the shipped app']],
     hint: 'This phone works. Hold the record button to talk, then drag the tape to rewind.',
-    problem: 'Solving five hundred problems in silence prepares you for a test. An interview is a conversation, and what gets judged is how clearly you explain your thinking.',
+    problem: 'Interviews judge how clearly you explain your thinking. Most people practise in silence.',
     approach: 'Rewind is built around one habit: record yourself explaining a problem, rate how clear you sounded, and hear it again on the day spaced repetition says you would start to forget.',
     sig: ['record', 'Recording your thinking', 'Hold to talk. The waveform answers your voice, a ring breathes with it, and prompts appear as the minutes pass: brute force first, then why it works, then time and space. On playback, drag the waveform to scrub back to any moment.'],
     decisions: [
