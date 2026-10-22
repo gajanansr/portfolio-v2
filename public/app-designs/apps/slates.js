@@ -184,7 +184,7 @@
           <button class="sl-tab ${active === 'trash' ? 'on' : ''}" data-go="trash" data-dir="fade">${ic('trash')}<span>Trash</span></button>
         </div>
         <button class="sl-fab" data-go="share" data-dir="up" aria-label="Capture a reel">${ic('plus')}</button></nav>`;
-      const scroll = (inner, pad = 124) => `<div class="sl-scroll" data-keep-scroll="main" style="padding-bottom:${pad}px">${inner}</div>`;
+      const scroll = (inner, pad = 124) => `<div class="sl-scroll" data-keep-scroll="main" style="padding-bottom:${pad + bot}px">${inner}</div><div class="sl-scrim" aria-hidden="true" style="height:${bot}px"></div>`;
 
       switch (id) {
         case 'share': {

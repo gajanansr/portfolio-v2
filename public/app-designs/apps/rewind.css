@@ -44,7 +44,7 @@
 .app-rewind .rw-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 0 20px 28px; scrollbar-width: none; }
 .app-rewind .rw-scroll::-webkit-scrollbar { display: none; }
 .app-rewind .rw-scroll.top { padding-top: 62px; }
-.app-rewind .rw-scroll.tabs { padding-bottom: 120px; }
+.app-rewind .rw-scroll.tabs { padding-bottom: 132px; }
 .app-rewind button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; -webkit-tap-highlight-color: transparent; }
 .app-rewind :focus-visible { outline: 3px solid var(--color-accent-bright); outline-offset: 2px; }
 .app-rewind svg { display: block; }
@@ -106,7 +106,7 @@
 .app-rewind .rw-btn.sm { min-height: 44px; font-size: 15px; width: auto; align-self: flex-start; }
 .app-rewind .rw-btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
 .app-rewind .rw-link { display: flex; align-items: center; justify-content: center; min-height: 44px; width: 100%; font-weight: 600; color: var(--color-accent-text); }
-.app-rewind .rw-dock { flex: 0 0 auto; padding: 10px 20px 44px; background: var(--color-bg); display: flex; flex-direction: column; gap: 4px; }
+.app-rewind .rw-dock { flex: 0 0 auto; position: relative; z-index: 3; pointer-events: auto; padding: 10px 20px 44px; background: var(--color-bg); display: flex; flex-direction: column; gap: 4px; }
 .app-rewind .rw-scr.white .rw-dock { background: var(--color-surface); }
 .app-rewind .rw-dock.two { flex-direction: row; gap: 10px; }
 .app-rewind .rw-dock.two .rw-btn { flex: 1; min-width: 0; }
@@ -129,14 +129,15 @@
 .app-rewind .rw-tog[aria-checked="true"]::after { transform: translateX(20px); }
 
 /* floating tab bar (iOS 26) */
-.app-rewind .rw-tabs { position: absolute; left: 20px; right: 20px; bottom: 26px; height: 64px; border-radius: 32px; display: flex; padding: 4px; background: var(--color-glass); -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6); box-shadow: 0 6px 24px rgba(17, 17, 22, .12), 0 0 0 1px rgba(17, 17, 22, .04); z-index: 5; }
+.app-rewind .rw-tabs { position: absolute; left: 20px; right: 20px; bottom: 36px; pointer-events: auto; height: 64px; border-radius: 32px; display: flex; padding: 4px; background: var(--color-glass); -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6); box-shadow: 0 6px 24px rgba(17, 17, 22, .12), 0 0 0 1px rgba(17, 17, 22, .04); z-index: 5; }
 .app-rewind .rw-tabs button { flex: 1; min-width: 0; border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; line-height: 13px; font-weight: 600; color: var(--color-text-secondary); }
 .app-rewind .rw-tabs button svg { width: 24px; height: 24px; }
 .app-rewind .rw-tabs button.on { color: var(--color-accent-text); background: var(--color-fill); }
 
 /* scroll-edge effect: content fades out under the floating tab bar, as in iOS 26 */
-.app-rewind .rw-edge { position: absolute; left: 0; right: 0; bottom: 0; height: 132px; z-index: 4; pointer-events: none;
-  background: linear-gradient(to bottom, rgba(243, 243, 246, 0), var(--color-bg) 42%); }
+.app-rewind .rw-edge { position: absolute; left: 0; right: 0; bottom: 0; height: 108px; z-index: 4; pointer-events: auto; background-color: var(--color-bg); }
+.app-rewind .rw-edge::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 28px; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(243, 243, 246, 0), var(--color-bg)); }
 
 /* waveform */
 .app-rewind .rw-wave rect { fill: var(--color-wave); }

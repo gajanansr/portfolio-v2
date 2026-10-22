@@ -330,8 +330,7 @@
       const items = [
         { b: 'pp', c: 'sun', t: 'In vain have I struggled. It will not do. My feelings will not be repressed.', m: 'Chapter 34 · today' },
         { b: 'pp', c: 'rose', t: 'I could easily forgive his pride, if he had not mortified mine.', m: 'Chapter 5 · 14 Oct', note: 'Elizabeth, already deciding.' },
-        { b: 'gi', c: 'sage', t: 'Where the mind is without fear and the head is held high.', m: 'Poem 35 · 2 Oct' },
-        { b: 'me', c: 'sun', t: 'Begin the morning by saying to thyself, I shall meet with the busy-body, the ungrateful, arrogant.', m: 'Book II · 28 Sep' }
+        { b: 'gi', c: 'sage', t: 'Where the mind is without fear and the head is held high.', m: 'Poem 35 · 2 Oct' }
       ];
       const f = s.hlFilter;
       const shown = items.filter(x => f === 'all' || x.c === f);

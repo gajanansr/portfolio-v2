@@ -40,9 +40,6 @@
     $('.ch-kicker', ch).textContent = `${PLATFORM[app.platform] || 'iOS'} · ${app.screens.length} screens · 2026 redesign`;
     const h = $('.ch-name', ch); h.id = id + '-h'; h.textContent = app.name;
     $('.ch-line', ch).textContent = c.line;
-    const links = [];
-    c.facts.forEach(([k, v]) => { const m = v.match(/href="([^"]+)">([^<]+)</); if (m && (k === 'Shipped' || k === 'Code')) links.push(`<a href="${m[1]}">${k === 'Code' ? 'Code on GitHub' : 'Live: ' + m[2]}</a>`); });
-    $('.ch-links', ch).innerHTML = links.join('');
     $('.ch-statement', ch).textContent = c.problem;
     $('.ch-sig', ch).textContent = c.sig[1];
     $('.ch-sig-p', ch).textContent = c.hint;
@@ -73,25 +70,54 @@
     const fit = () => live.fitTo(Math.min(ch.clientWidth, 420), narrow() ? Math.min(innerHeight * .8, 740) : Math.min(innerHeight - 120, 800));
     fit();
     const mark = s => {
-      $$('.cell', ch).forEach(x => x.setAttribute('aria-current', String(x.dataset.screen === s)));
       $$('.chip', ch).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.screen === s)));
     };
     liveHost.addEventListener('phone:screen', e => mark(e.detail.screen));
     const go = (s, scroll) => { live.go(s, 'fade'); if (scroll) liveHost.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); };
     $$('.chip', ch).forEach(b => b.addEventListener('click', () => go(b.dataset.screen, false)));
     const rail = $('.rail', ch);
+    /* a screen in the strip opens in place: the thumbnail grows into a working phone in the same row */
+    let open = null;
+    const W1 = () => narrow() ? 300 : 340;
+    const close = (instant) => {
+      if (!open) return;
+      const { cell, ph, holder, lp, w0, h0, thumb } = open; open = null;
+      cell.classList.remove('open'); cell.querySelector('.cell-hit').setAttribute('aria-expanded', 'false');
+      cell.style.width = w0 + 'px'; ph.style.width = w0 + 'px'; ph.style.height = h0 + 'px';
+      holder.style.transform = `scale(${w0 / W1()})`; holder.style.opacity = '0'; thumb.style.opacity = '';
+      setTimeout(() => { lp.destroy(); holder.remove(); cell.style.width = ''; ph.style.width = ''; ph.style.height = ''; }, instant || reduce ? 0 : 560);
+    };
+    const openCell = (cell, s) => {
+      if (open && open.cell === cell) return close();
+      close(true);
+      const ph = $('.cell-ph', cell), thumb = ph.firstElementChild;
+      const r = ph.getBoundingClientRect(), w0 = r.width, h0 = r.height, w1 = W1();
+      const holder = document.createElement('div'); holder.className = 'cell-live';
+      cell.appendChild(holder);
+      const lp = new Phone(holder, id, { screen: s.id }); lp.fitTo(w1);
+      const h1 = parseFloat(lp.root.style.height);
+      holder.style.transform = `scale(${w0 / w1})`; holder.style.opacity = '0';
+      cell.style.width = w0 + 'px'; ph.style.width = w0 + 'px'; ph.style.height = h0 + 'px';
+      open = { cell, ph, holder, lp, w0, h0, thumb };
+      cell.classList.add('open'); cell.querySelector('.cell-hit').setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        cell.style.width = w1 + 'px'; ph.style.width = w1 + 'px'; ph.style.height = h1 + 'px';
+        holder.style.transform = 'scale(1)'; holder.style.opacity = '1'; thumb.style.opacity = '0';
+        const left = cell.offsetLeft - (rail.clientWidth - w1) / 2;
+        rail.scrollTo({ left: Math.max(0, left), behavior: reduce ? 'auto' : 'smooth' });
+        $$('.cell', rail).forEach(x => x.setAttribute('aria-current', String(x === cell)));
+      }));
+    };
     const io = new IntersectionObserver(es => {
       if (!es.some(e => e.isIntersecting)) return; io.disconnect();
       app.screens.forEach(s => {
-        const cell = document.createElement('button');
-        cell.className = 'cell'; cell.type = 'button'; cell.dataset.screen = s.id;
-        cell.setAttribute('aria-label', `Open ${s.title} on the phone above`); cell.title = s.caption || s.title;
-        cell.innerHTML = `<span class="cell-ph"></span><span class="cell-t">${s.title}</span>`;
+        const cell = document.createElement('div');
+        cell.className = 'cell'; cell.dataset.screen = s.id;
+        cell.innerHTML = `<button class="cell-hit" type="button" aria-expanded="false" aria-label="Open ${s.title} here"><span class="cell-ph"></span><span class="cell-t">${s.title}</span><span class="cell-c">${s.caption || ''}</span></button>`;
         rail.appendChild(cell);
         new Phone($('.cell-ph', cell), id, { static: true, screen: s.id }).fitTo(narrow() ? 150 : 176);
-        cell.addEventListener('click', () => go(s.id, true));
+        $('.cell-hit', cell).addEventListener('click', () => openCell(cell, s));
       });
-      mark(live.current);
     }, { rootMargin: '800px 0px' });
     io.observe(rail);
     mark(c.sig[0]);

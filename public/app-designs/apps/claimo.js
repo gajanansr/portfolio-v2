@@ -107,7 +107,7 @@
       ${o.back ? `<button class="c-navbtn c-back" data-back aria-label="Back to ${o.back}">${I.back}<span>${o.back}</span></button>` : (o.left || '<span class="c-navsp"></span>')}
       <div class="c-navt">${o.title || ''}</div>
       ${o.right || '<span class="c-navsp"></span>'}</header>`;
-  const tabs = cur => `<nav class="c-tabs" aria-label="Claimo">${[['home', 'October', I.month], ['rides', 'Rides', I.rides], ['report', 'Report', I.report], ['places', 'Places', I.places]].map(([id, n, ic]) =>
+  const tabs = cur => `<div class="c-scrim" aria-hidden="true"></div><nav class="c-tabs" aria-label="Claimo">${[['home', 'October', I.month], ['rides', 'Rides', I.rides], ['report', 'Report', I.report], ['places', 'Places', I.places]].map(([id, n, ic]) =>
     `<button data-go="${id}" data-dir="fade" ${cur === id ? 'aria-current="page"' : ''}>${ic}<span>${n}</span></button>`).join('')}</nav>`;
   const stLabel = { work: 'Work', personal: 'Personal', new: 'To sort', error: 'Needs fare' };
   const rideRow = r => {
