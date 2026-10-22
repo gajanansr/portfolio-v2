@@ -39,10 +39,10 @@
     li.id = id;
     const phone = { p: null };
     const item = { li, row, panel, phone };
-    [c.sig[0], ...c.decisions.map(d => d[0])].forEach(scr => {
-      const meta = app.screens.find(s => s.id === scr); if (!meta) return;
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.screen = scr; b.textContent = meta.title;
-      b.addEventListener('click', () => phone.p && phone.p.go(scr, 'fade'));
+    app.screens.forEach((s, n) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.screen = s.id;
+      b.innerHTML = `<i>${String(n + 1).padStart(2, '0')}</i>${s.title}`;
+      b.addEventListener('click', () => phone.p && phone.p.go(s.id, 'fade'));
       chips.appendChild(b);
     });
     const mark = s => $$('.chip', li).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.screen === s)));
