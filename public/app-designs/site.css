@@ -37,15 +37,13 @@ button:where(:not(.ph-scr *)) { font: inherit; color: inherit; }
 .grid { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; color: var(--grid); opacity: .5;
   -webkit-mask: radial-gradient(ellipse 90% 80% at 50% 40%, #000 20%, transparent 100%); mask: radial-gradient(ellipse 90% 80% at 50% 40%, #000 20%, transparent 100%); }
 
-/* nav: the main site's pill */
-.nav { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 40; display: flex; justify-content: center; padding: 0 12px; pointer-events: none; }
-.nav nav { pointer-events: auto; display: flex; align-items: center; gap: 2px; padding: 6px; border: 1px solid var(--line); border-radius: 999px;
-  background: color-mix(in oklab, var(--surface) 85%, transparent); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,.12); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
-.nav a { padding: 8px 14px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: var(--soft); white-space: nowrap; transition: color .2s, background-color .2s; }
-.nav a:hover { color: var(--ink); background: var(--raised); }
-.nav a.on { color: var(--bg); background: var(--ink); }
-.nav .home { color: var(--ink); font-weight: 700; }
-.mode { width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; display: grid; place-items: center; cursor: pointer; color: var(--ink); flex: 0 0 auto; }
+/* nav: two quiet controls in the top right corner */
+.nav { position: fixed; top: calc(14px + env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 40; display: flex; justify-content: flex-end; padding: 0 clamp(14px, 3vw, 28px); pointer-events: none; }
+.nav nav { pointer-events: auto; display: flex; align-items: center; gap: 4px; }
+.nav a { padding: 8px 10px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 500; color: var(--soft); transition: color .2s; }
+.nav a:hover { color: var(--ink); }
+.mode { width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; display: grid; place-items: center; cursor: pointer; color: var(--soft); flex: 0 0 auto; transition: color .2s; }
+.mode:hover { color: var(--ink); }
 .mode svg { width: 18px; height: 18px; }
 .mode .moon { display: none; }
 .dark .mode .moon { display: block; }
@@ -106,5 +104,4 @@ main, .foot { width: min(1120px, 100% - 40px); margin-inline: auto; }
   .panel-in { grid-template-columns: minmax(0, 1fr); }
   .side { align-items: center; text-align: center; }
   .chips { text-align: left; max-height: none; }
-  .nav a:not(.home) { padding: 8px 10px; }
 }
