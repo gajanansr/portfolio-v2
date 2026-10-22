@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>App designs · Gajanan Rathod</title>
+<meta name="description" content="Four apps Gajanan Rathod built, redesigned end to end: every screen of every flow, as working prototypes you can tap.">
+<meta property="og:title" content="App designs · Gajanan Rathod">
+<meta property="og:description" content="Four apps, redesigned end to end. 50 screens you can tap.">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+<script>try{var t=localStorage.getItem('theme');if(t==='light')document.documentElement.classList.remove('dark');}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="phone.css">
+<link rel="stylesheet" href="apps/claimo.css">
+<link rel="stylesheet" href="apps/slates.css">
+<link rel="stylesheet" href="apps/quire.css">
+<link rel="stylesheet" href="apps/rewind.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<svg class="grid" aria-hidden="true"><defs><pattern id="dg" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 40H40M40 0V40" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(#dg)"/></svg>
+
+<header class="nav">
+  <nav aria-label="Main">
+    <a href="https://gajananrathod.in" class="home">gajanan</a>
+    <a href="#claimo">Claimo</a><a href="#slates">Slates</a><a href="#quire">Quire</a><a href="#rewind">Rewind</a>
+    <button class="mode" id="mode" type="button" aria-label="Switch light or dark">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-h">
+    <h1 id="hero-h">app designs</h1>
+    <p class="sub">Four apps I built, redesigned end to end. <span class="count">50</span> screens, and every one of them works when you tap it.</p>
+    <div class="hero-phones" aria-hidden="true">
+      <a href="#claimo" data-app="claimo"></a><a href="#slates" data-app="slates"></a><a href="#quire" data-app="quire"></a><a href="#rewind" data-app="rewind"></a>
+    </div>
+  </section>
+
+  <div id="cases"></div>
+
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">let's build something people keep.</h2>
+    <p class="sub">I design mobile apps and build them myself. If you are hiring or have a project, write to me.</p>
+    <div class="mail"><output id="mail">gajanansr8@gmail.com</output><button class="btn" id="copy" type="button">Copy email</button></div>
+    <p class="after" id="after" aria-live="polite"></p>
+    <ul class="links">
+      <li><a href="https://gajananrathod.in">gajananrathod.in</a></li>
+      <li><a href="https://github.com/gajanansr">GitHub</a></li>
+      <li><a href="https://x.com/gajanxn">X</a></li>
+      <li><a href="https://gajananrathod.in/resume.pdf">Résumé</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>© 2026 Gajanan Rathod · Bengaluru. Every screen here is a 2026 redesign; the shipped apps look different. Prices, people and receipts inside the prototypes are sample data.</p>
+  <p class="credits">Photographs via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Traffic_in_Bangalore_image.jpg">“Traffic in Bangalore image”</a> by Anandha abirami Govindan, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=18203185">“Namma metro Baiyappanahalli station”</a> by Rameshng, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=117017477">“Cubbon Park, Bangalore”</a>, TuckDB Postcards, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; <a href="https://commons.wikimedia.org/w/index.php?curid=24356970">“Namma Metro coach interior”</a> by Faizhaider, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Shown in black and white.</p>
+</footer>
+
+<template id="case-tpl">
+  <section class="case">
+    <div class="c-head">
+      <h2 class="c-name"></h2>
+      <p class="c-line"></p>
+      <ul class="c-facts"></ul>
+    </div>
+    <div class="c-stage">
+      <div class="c-phone"><div class="live"></div><p class="hint"></p></div>
+      <div class="c-text">
+        <p class="c-problem"></p>
+        <p class="c-approach"></p>
+        <div class="sig"><p class="lbl">Signature interaction</p><h3></h3><p class="sig-p"></p><button class="btn" type="button">Try it on the phone</button></div>
+        <div class="decisions" role="group" aria-label="Design decisions"></div>
+      </div>
+    </div>
+    <div class="c-system">
+      <h3>Design system</h3>
+      <p class="sys-sum"></p>
+      <div class="swatches"></div>
+      <div class="types"></div>
+      <ul class="contrast"></ul>
+    </div>
+    <div class="c-flow">
+      <div class="flow-head"><h3>The whole flow</h3><p></p></div>
+      <div class="rail" role="group"></div>
+    </div>
+    <figure class="band"><img alt="" loading="lazy" decoding="async"><figcaption></figcaption></figure>
+  </section>
+</template>
+
+<script src="phone.js"></script>
+<script src="apps/claimo.js"></script>
+<script src="apps/slates.js"></script>
+<script src="apps/quire.js"></script>
+<script src="apps/rewind.js"></script>
+<script src="cases.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
