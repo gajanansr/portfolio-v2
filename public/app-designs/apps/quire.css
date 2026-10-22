@@ -154,7 +154,7 @@
 /* file picker */
 .app-quire .q-pk-bar { gap: 8px; }
 .app-quire .q-pk-t { flex: 1; }
-.app-quire .q-pk-row { gap: 16px; border-radius: 16px; padding: 12px 16px; margin: 0 -16px; width: calc(100% + 32px); min-height: 88px; }
+.app-quire .q-pk-row { gap: 16px; border-radius: 16px; padding: 12px 16px; margin: 0 -16px 8px; width: calc(100% + 32px); min-height: 88px; }
 .app-quire .q-pk-row.on { background: var(--q-primary-container); }
 .app-quire .q-pk-row.on .q-li-t span { color: var(--q-on-primary-container); }
 .app-quire .q-pk-ic { width: 40px; height: 40px; flex: 0 0 40px; border-radius: 50%; display: grid; place-items: center; background: var(--q-surface-high); color: var(--q-on-surface-variant); }

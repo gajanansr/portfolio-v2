@@ -475,3 +475,11 @@
 .app-claimo .c-sheet-b { padding: 0 24px 16px; }
 .app-claimo .c-sheet-b .c-sh:first-child { margin-top: 16px; }
 .app-claimo .c-sheet .c-foot { padding-top: 12px; }
+
+/* swipe card: the map takes the room, route and facts fill the rest */
+.app-claimo .c-dk-0 { padding: 20px; }
+.app-claimo .c-dk-map { height: 190px; margin: 0 0 16px; border-radius: 14px; overflow: hidden; }
+.app-claimo .c-dk-route { display: flex; flex-direction: column; gap: 4px; }
+.app-claimo .c-dk-meta { display: flex; gap: 8px; margin-top: 14px; }
+.app-claimo .c-dk-meta span { padding: 6px 12px; border-radius: 999px; background: var(--color-bg, #f2f2f7); font-size: 14px; font-weight: 500; color: var(--color-text-2, #54514a); }
+.app-claimo .c-dk-foot { padding-top: 12px; }

@@ -186,6 +186,7 @@
           <div class="c-stop"><i class="a"></i><span class="c-mid"><span class="c-l1">${place(r.f)}</span></span></div>
           <div class="c-stop"><i class="b"></i><span class="c-mid"><span class="c-l1">${place(r.to)}</span></span></div>
         </div>
+        <div class="c-dk-meta"><span>${SVC[r.svc].n}</span><span>${r.km} km</span><span>${r.t}</span></div>
         <div class="c-dk-foot"><span class="c-sub">${D.w} ${D.n} Oct</span><b class="c-num">${rs(r.fare)}</b></div>
       </article>`;
     };
