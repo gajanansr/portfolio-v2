@@ -56,7 +56,7 @@
       if (!phone.p) { phone.p = new Phone(live, id, { screen: c.sig[0] }); mark(c.sig[0]); }
       fit();
       li.classList.add('open'); row.setAttribute('aria-expanded', 'true'); panel.removeAttribute('inert');
-      setTimeout(() => li.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }), 60);
+      setTimeout(() => { if (li.classList.contains('open')) live.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, reduce ? 0 : 640);
     });
     list.appendChild(f);
   });
