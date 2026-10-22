@@ -30,7 +30,7 @@
   --t-night-bg: #1b1d21; --t-night-fg: #d6d1c8; --t-night-meta: #8f8a82;
   --t-black-bg: #000000; --t-black-fg: #b5b0a8; --t-black-meta: #7f7a73;
   --hl-sun: #f3d978; --hl-rose: #f2bcc1; --hl-sage: #bfdcc2;
-  --ui: "Roboto Flex", Roboto, "Segoe UI", system-ui, sans-serif;
+  --ui: Roboto, "Segoe UI", system-ui, sans-serif;
   --book: "Literata", Georgia, "Times New Roman", serif;
   --e: cubic-bezier(.2, 0, 0, 1);
   font-family: var(--ui); background: var(--q-surface); color: var(--q-on-surface); letter-spacing: .01em;

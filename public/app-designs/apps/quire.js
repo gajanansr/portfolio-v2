@@ -393,7 +393,7 @@
     id: 'quire',
     name: 'Quire',
     platform: 'android',
-    fonts: ['Roboto+Flex:opsz,wght@8..144,400..700', 'Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400'],
+    fonts: ['Roboto:wght@400;500;700', 'Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400'],
     tone: 'dark',
     signature: 'reader',
     system: {
