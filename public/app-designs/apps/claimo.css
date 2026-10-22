@@ -39,7 +39,7 @@
   background: var(--color-bg);
 }
 .app-claimo .c-s { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; padding-top: var(--st); background: var(--color-bg); color: var(--color-text); font-size: 17px; line-height: 22px; }
-.app-claimo .c-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 8px 16px 24px; scrollbar-width: none; }
+.app-claimo .c-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 8px 24px 24px; scrollbar-width: none; }
 .app-claimo .c-scroll::-webkit-scrollbar { display: none; }
 .app-claimo .c-tabbed { padding-bottom: 116px; }
 .app-claimo .c-num { font-variant-numeric: tabular-nums; }
@@ -79,7 +79,7 @@
 .app-claimo .c-back span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 17px; }
 .app-claimo .c-navt { font-size: 17px; font-weight: 600; text-align: center; display: flex; flex-direction: column; align-items: center; line-height: 20px; }
 .app-claimo .c-navtt { font-size: 16px; font-weight: 600; }
-.app-claimo .c-navts { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--color-text-secondary); }
+.app-claimo .c-navts { font-size: 13px; line-height: 16px; font-weight: 500; color: var(--color-text-secondary); }
 .app-claimo .c-tint { background: var(--color-surface); border-radius: 50%; width: 40px; min-width: 40px; height: 40px; }
 .app-claimo .c-lt-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .app-claimo .c-lt-row .c-lt { margin-bottom: 12px; }
@@ -96,7 +96,7 @@
 .app-claimo .c-ride .c-l1 { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .app-claimo .c-date { flex: 0 0 34px; display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
 .app-claimo .c-date b { font-size: 20px; font-weight: 600; }
-.app-claimo .c-date span { font-size: 12px; color: var(--color-text-secondary); }
+.app-claimo .c-date span { font-size: 13px; color: var(--color-text-secondary); }
 .app-claimo .c-end { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .app-claimo .c-end b { font-size: 17px; font-weight: 600; }
 .app-claimo .c-st { font-size: 12px; line-height: 16px; font-weight: 600; padding: 1px 8px; border-radius: 999px; }
@@ -145,7 +145,7 @@
 .app-claimo .c-alert .c-l1 { font-weight: 600; }
 
 /* buttons */
-.app-claimo .c-foot { flex: 0 0 auto; display: flex; flex-direction: column; gap: 10px; padding: 12px 16px calc(var(--sb) + 8px); background: var(--color-bg); }
+.app-claimo .c-foot { flex: 0 0 auto; display: flex; flex-direction: column; gap: 10px; padding: 12px 24px calc(var(--sb) + 8px); background: var(--color-bg); }
 .app-claimo .c-foot-row { display: flex; gap: 12px; }
 .app-claimo .c-foot.c-foot-row { flex-direction: row; }
 .app-claimo .c-foot-row > .c-btn { flex: 1; min-width: 0; }
@@ -191,8 +191,8 @@
 .app-claimo .c-amt { flex: none; }
 
 /* tab bar, iOS 26 floating */
-.app-claimo .c-tabs { position: absolute; left: 20px; right: 20px; bottom: 24px; z-index: 5; height: 62px; display: flex; padding: 4px; border-radius: 31px; background: rgba(250, 250, 252, .96); -webkit-backdrop-filter: blur(20px) saturate(1.8); backdrop-filter: blur(20px) saturate(1.8); box-shadow: var(--shadow-float); }
-.app-claimo .c-tabs button { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; background: none; border: 0; border-radius: 27px; color: var(--color-text-secondary); font-size: 11px; line-height: 13px; font-weight: 600; }
+.app-claimo .c-tabs { position: absolute; left: 24px; right: 24px; bottom: 24px; z-index: 5; height: 64px; display: flex; padding: 4px; border-radius: 31px; background: rgba(250, 250, 252, .96); -webkit-backdrop-filter: blur(20px) saturate(1.8); backdrop-filter: blur(20px) saturate(1.8); box-shadow: var(--shadow-float); }
+.app-claimo .c-tabs button { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; background: none; border: 0; border-radius: 27px; color: var(--color-text-secondary); font-size: 13px; line-height: 15px; font-weight: 600; }
 .app-claimo .c-tabs button svg { width: 24px; height: 24px; }
 .app-claimo .c-tabs [aria-current="page"] { color: var(--color-accent-text); background: var(--color-accent-subtle); }
 
@@ -201,7 +201,7 @@
 .app-claimo .c-scrim::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 28px; pointer-events: none; background: linear-gradient(to bottom, rgba(242, 242, 247, 0), var(--color-bg)); }
 
 /* claim deck */
-.app-claimo .c-pile { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; margin: 4px 16px 14px; padding: 10px 14px; background: var(--color-surface); border-radius: 16px; transition: transform .2s; }
+.app-claimo .c-pile { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; margin: 0 24px 16px; padding: 4px 0; transition: transform .2s; }
 .app-claimo .c-pile.bump { animation: c-bump .45s cubic-bezier(.3, 1.6, .5, 1); }
 @keyframes c-bump { 40% { transform: scale(1.035); } }
 .app-claimo .c-pile-ic { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--color-accent-subtle); color: var(--color-accent-text); }
@@ -381,3 +381,97 @@
 @media (prefers-reduced-motion: reduce) {
   .app-claimo .c-btn, .app-claimo .c-tog, .app-claimo .c-tog::after, .app-claimo .c-pile { transition: none; animation: none; }
 }
+
+/* calm pass: one idea per screen, 24px margins, 8pt rhythm, nothing under 13px */
+.app-claimo .c-lt { margin: 8px 0 16px; }
+.app-claimo .c-t1 { margin: 8px 0 12px; font-size: 30px; line-height: 36px; }
+.app-claimo .c-lead { font-size: 18px; line-height: 26px; margin-bottom: 8px; }
+.app-claimo .c-sh { font-size: 16px; margin: 32px 4px 8px; color: var(--color-text-secondary); font-weight: 500; }
+.app-claimo .c-l2 { font-size: 16px; }
+.app-claimo .c-gap { margin-top: 32px; }
+.app-claimo .c-row { min-height: 64px; padding: 12px 20px; gap: 16px; }
+.app-claimo .c-row + .c-row::before { left: 20px; }
+.app-claimo .c-ride { min-height: 72px; }
+.app-claimo .c-date { flex: 0 0 40px; }
+.app-claimo .c-end-col { display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 32px; }
+.app-claimo .c-center-col { display: flex; flex-direction: column; justify-content: center; padding-bottom: 48px; }
+.app-claimo .c-welcome .c-hero { width: 80px; height: 80px; margin-bottom: 32px; }
+.app-claimo .c-welcome .c-lt { font-size: 40px; line-height: 46px; letter-spacing: -0.03em; }
+.app-claimo .c-hero.sm { margin: 24px auto 24px; }
+.app-claimo .c-pro .c-lt { margin-bottom: 8px; }
+.app-claimo .c-pro .c-lead { margin-bottom: 32px; }
+.app-claimo .c-claim { display: flex; flex-direction: column; gap: 4px; padding: 16px 0 32px; margin: 0; background: none; }
+.app-claimo .c-cap { font-size: 17px; }
+.app-claimo .c-big { font-size: 60px; line-height: 64px; letter-spacing: -0.035em; }
+.app-claimo .c-card { padding: 20px; margin: 0 0 24px; }
+.app-claimo .c-cta { display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 16px 20px; }
+.app-claimo .c-cta .c-l1 { font-size: 20px; line-height: 26px; }
+.app-claimo .c-cta .c-chev svg { width: 20px; height: 20px; }
+.app-claimo .c-cta + .c-group { margin-top: 0; }
+.app-claimo .c-alert { min-height: 72px; background: var(--color-danger-subtle); }
+.app-claimo .c-alert .c-l1 { color: var(--color-danger); }
+.app-claimo .c-ic { width: 40px; height: 40px; border-radius: 12px; }
+.app-claimo .c-ic svg { width: 22px; height: 22px; }
+.app-claimo .c-avatar { width: 44px; height: 44px; }
+.app-claimo .c-tint { width: 44px; min-width: 44px; height: 44px; }
+.app-claimo .c-lt-row { margin-top: 4px; }
+.app-claimo .c-lt-row .c-lt { margin-bottom: 16px; }
+.app-claimo .c-btn { min-height: 56px; }
+.app-claimo .c-foot { gap: 12px; padding: 16px 24px calc(var(--sb) + 8px); }
+.app-claimo .c-btn-g { box-shadow: none; }
+.app-claimo .c-inline-cta { margin-top: 8px; }
+.app-claimo .c-seg { margin: 8px 0 24px; }
+.app-claimo .c-seg button { min-height: 44px; font-size: 16px; }
+.app-claimo .c-seg-4 { margin: 8px 0 0; }
+.app-claimo .c-chips { margin: 0; gap: 8px; }
+.app-claimo .c-chips button { min-height: 44px; padding: 0 16px; font-size: 16px; }
+.app-claimo .c-nav { padding: 0 12px; }
+/* sync */
+.app-claimo .c-ring { width: 160px; height: 160px; margin: 0 auto 32px; }
+.app-claimo .c-ring-t b { font-size: 48px; line-height: 52px; }
+.app-claimo .c-sync .c-t1 + .c-lead { margin: 0; }
+/* deck */
+.app-claimo .c-pile { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 0; background: none; text-align: center; }
+.app-claimo .c-pile .c-sub { font-size: 16px; line-height: 20px; }
+.app-claimo .c-pile-t { font-size: 36px; line-height: 42px; letter-spacing: -0.025em; }
+.app-claimo .c-stack { height: 400px; margin: 0 24px; }
+.app-claimo .c-dk-0 { padding: 16px; }
+.app-claimo .c-dk-map { height: 150px; margin: 0 0 8px; }
+.app-claimo .c-stop { min-height: 40px; font-size: 18px; }
+.app-claimo .c-dk-foot { margin-top: auto; align-items: baseline; font-size: 17px; }
+.app-claimo .c-dk-foot b { font-size: 36px; line-height: 42px; }
+.app-claimo .c-dk-ctl { gap: 48px; }
+.app-claimo .c-round { width: 72px; height: 72px; }
+.app-claimo .c-done .c-t1 { margin: 8px 0 8px; }
+/* ride detail */
+.app-claimo .c-ride-body { padding: 24px 24px 0; }
+.app-claimo .c-ride-h .c-t2 { font-size: 26px; line-height: 32px; margin-top: 4px; }
+.app-claimo .c-big2 { font-size: 30px; line-height: 36px; }
+.app-claimo .c-ride-map { height: 320px; }
+.app-claimo .c-ride-s .c-scroll { padding: 0 0 calc(var(--sb) + 24px); }
+/* fix */
+.app-claimo .c-field { border-radius: 16px; }
+.app-claimo .c-fare-in { font-size: 32px; line-height: 38px; }
+.app-claimo .c-caret { height: 32px; }
+.app-claimo .c-fix .c-lead { margin-bottom: 0; }
+/* places, report */
+.app-claimo .c-pmap { height: 170px; margin-bottom: 24px; }
+.app-claimo .c-pl { width: 40px; height: 40px; font-size: 17px; }
+.app-claimo .c-report .c-alert { margin-top: 0; }
+/* printing */
+.app-claimo .c-docs { margin: 0 auto 40px; }
+.app-claimo .c-doc.d1 b { font-size: 17px; line-height: 22px; margin-bottom: 8px; }
+.app-claimo .c-steps { margin-top: 24px; }
+.app-claimo .c-print .c-t1 { margin: 0; }
+/* ready */
+.app-claimo .c-ready .c-done-ic { margin: 16px 0 24px; width: 72px; height: 72px; }
+.app-claimo .c-ready .c-done-ic svg { width: 36px; height: 36px; }
+/* pro */
+.app-claimo .c-plans { margin-top: 0; gap: 12px; }
+.app-claimo .c-plan { padding: 20px; min-height: 72px; }
+.app-claimo .c-plan b { font-size: 22px; line-height: 28px; }
+.app-claimo .c-per { font-size: 15px; }
+/* filters sheet */
+.app-claimo .c-sheet-b { padding: 0 24px 16px; }
+.app-claimo .c-sheet-b .c-sh:first-child { margin-top: 16px; }
+.app-claimo .c-sheet .c-foot { padding-top: 12px; }

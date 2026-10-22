@@ -109,22 +109,13 @@
       ${o.right || '<span class="c-navsp"></span>'}</header>`;
   const tabs = cur => `<div class="c-scrim" aria-hidden="true"></div><nav class="c-tabs" aria-label="Claimo">${[['home', 'October', I.month], ['rides', 'Rides', I.rides], ['report', 'Report', I.report], ['places', 'Places', I.places]].map(([id, n, ic]) =>
     `<button data-go="${id}" data-dir="fade" ${cur === id ? 'aria-current="page"' : ''}>${ic}<span>${n}</span></button>`).join('')}</nav>`;
-  const stLabel = { work: 'Work', personal: 'Personal', new: 'To sort', error: 'Needs fare' };
   const rideRow = r => {
     const D = day(r.d);
     return `<button class="c-row c-ride" data-act="open" data-v="${r.id}">
       <span class="c-date"><b>${D.n}</b><span>${D.w}</span></span>
-      <span class="c-mid"><span class="c-l1">${place(r.f)} → ${place(r.to)}</span><span class="c-l2">${badge(r.svc)}<span class="c-trunc c-sub">${r.t} · ${r.km} km</span></span></span>
-      <span class="c-end"><b class="c-num">${r.fare ? rs(r.fare) : '—'}</b><span class="c-st c-st-${r.st}">${stLabel[r.st]}</span></span></button>`;
+      <span class="c-mid"><span class="c-l1">${place(r.f)} → ${place(r.to)}</span></span>
+      ${r.st === 'error' ? '<b class="c-red c-num">Add fare</b>' : `<b class="c-num">${rs(r.fare)}</b>`}</button>`;
   };
-  function breakdown(r) {
-    const gst = Math.round(r.fare * 0.05 / 1.05);
-    if (SVC[r.svc].b === 'uber') {
-      const book = r.svc === 'up' ? 40 : 20, toll = (r.f === 'kia' || r.to === 'kia') ? 120 : 0;
-      return [['Trip fare', r.fare - gst - book - toll], ['Booking fee', book], toll ? ['Airport toll, NH 44', toll] : null, ['GST 5%', gst]].filter(Boolean);
-    }
-    return [['Ride fare', r.fare - gst - 3], ['Platform fee', 3], ['GST 5%', gst]];
-  }
   const work = s => by(s, 'work');
   const uberWork = s => sum(work(s).filter(r => SVC[r.svc].b === 'uber'));
   const rapWork = s => sum(work(s).filter(r => SVC[r.svc].b === 'rapido'));
@@ -133,77 +124,48 @@
   const V = {};
 
   V.welcome = (s, ctx) => scr(ctx, 'c-welcome', `
-    <div class="c-scroll">
+    <div class="c-scroll c-end-col">
       <div class="c-hero">${logo()}</div>
       <h2 class="c-lt">Your rides, already filed.</h2>
-      <p class="c-lead">Claimo reads your Uber and Rapido receipts and turns a month of commuting into one PDF your finance team accepts.</p>
-      <ul class="c-feats">
-        <li><span class="c-fi">${I.receipt}</span><span class="c-mid"><b>Every receipt, found</b><span>Uber and Rapido mail in your inbox, read once.</span></span></li>
-        <li><span class="c-fi">${I.rides}</span><span class="c-mid"><b>Sorted in a minute</b><span>Swipe each ride to work or personal.</span></span></li>
-        <li><span class="c-fi">${I.report}</span><span class="c-mid"><b>A report finance accepts</b><span>Summary first, then every original receipt.</span></span></li>
-      </ul>
+      <p class="c-lead">Receipts in. One PDF out.</p>
     </div>
     <div class="c-foot">
       <button class="c-btn c-btn-g" data-go="connect">${I.g}<span>Continue with Google</span></button>
-      <button class="c-btn c-btn-plain" data-go="connect">Sign in with an email link</button>
     </div>`);
 
   V.connect = (s, ctx) => scr(ctx, 'c-connect', `
     ${nav({ back: 'Welcome' })}
     <div class="c-scroll">
       <h2 class="c-t1">Claimo reads ride receipts. Nothing else.</h2>
-      <p class="c-lead">Google asks for read-only Gmail access next. Here is exactly what that covers.</p>
-      <p class="c-sh">Claimo reads</p>
-      <div class="c-group">
-        <div class="c-row"><span class="c-ic c-ic-ok">${I.check}</span><span class="c-mid"><span class="c-l1">Uber and Rapido receipts</span><span class="c-l2 c-sub">From uber.com and rapido.bike only</span></span></div>
-        <div class="c-row"><span class="c-ic c-ic-ok">${I.check}</span><span class="c-mid"><span class="c-l1">Date, fare, pickup and drop</span><span class="c-l2 c-sub">And the receipt PDF, to attach</span></span></div>
+      <p class="c-lead">Read-only Gmail access.</p>
+      <div class="c-group c-gap">
+        <div class="c-row"><span class="c-ic c-ic-ok">${I.check}</span><span class="c-mid"><span class="c-l1">Uber and Rapido receipts</span></span></div>
+        <div class="c-row"><span class="c-ic c-ic-no">${I.x}</span><span class="c-mid"><span class="c-l1">Never any other email</span></span></div>
       </div>
-      <p class="c-sh">Claimo never</p>
-      <div class="c-group">
-        <div class="c-row"><span class="c-ic c-ic-no">${I.x}</span><span class="c-mid"><span class="c-l1">Opens any other email</span></span></div>
-        <div class="c-row"><span class="c-ic c-ic-no">${I.x}</span><span class="c-mid"><span class="c-l1">Sends, deletes or labels mail</span></span></div>
-      </div>
-      <p class="c-note">${I.lock}<span>Receipts stay in your own private database. Disconnect Gmail in Settings and the access is gone at once.</span></p>
     </div>
     <div class="c-foot">
-      <button class="c-btn c-btn-p" data-go="sync">Allow read-only access</button>
-      <p class="c-fine">Scope requested: gmail.readonly</p>
+      <button class="c-btn c-btn-p" data-go="sync">Allow access</button>
     </div>`);
 
-  V.sync = (s, ctx) => {
-    const list = s.rides.slice(-5).reverse();
-    return scr(ctx, 'c-sync', `
-    <div class="c-scroll">
-      <div class="c-ring" style="--pct:${s.syncPct}"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="tr"/><circle cx="60" cy="60" r="52" class="pr" pathLength="100"/></svg><span class="c-ring-t"><b class="c-num">${Math.round(15 * s.syncPct / 100)}</b><span>receipts</span></span></div>
-      <h2 class="c-t2 c-center">Reading October</h2>
-      <p class="c-sub c-center">Searched 214 emails since 1 October</p>
-      <div class="c-stats">
-        <div><b class="c-num">14</b><span>Read</span></div>
-        <div><b class="c-num">2</b><span>Duplicates skipped</span></div>
-        <div><b class="c-num c-red">1</b><span>Couldn't read</span></div>
-      </div>
-      <p class="c-sh">Just arrived</p>
-      <div class="c-group">${list.map(r => `<div class="c-row c-arr">${badge(r.svc)}<span class="c-mid"><span class="c-l1">${place(r.f)} → ${place(r.to)}</span></span><span class="c-num c-amt">${r.fare ? rs(r.fare) : '—'}</span></div>`).join('')}</div>
+  V.sync = (s, ctx) => scr(ctx, 'c-sync', `
+    <div class="c-scroll c-center-col">
+      <div class="c-ring" style="--pct:${s.syncPct}"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="tr"/><circle cx="60" cy="60" r="52" class="pr" pathLength="100"/></svg><span class="c-ring-t"><b class="c-num">${Math.round(15 * s.syncPct / 100)}</b></span></div>
+      <h2 class="c-t1 c-center">Reading October</h2>
+      <p class="c-lead c-center">15 receipts found.</p>
     </div>
     <div class="c-foot"><button class="c-btn c-btn-p" data-go="home" data-dir="reset">See October</button></div>`);
-  };
 
   V.home = (s, ctx) => {
-    const w = work(s), n = by(s, 'new'), p = by(s, 'personal'), err = by(s, 'error');
-    const recent = s.rides.filter(r => r.st !== 'error').slice(-5).reverse();
+    const w = work(s), n = by(s, 'new'), err = by(s, 'error');
+    const recent = [...err, ...s.rides.filter(r => r.st !== 'error').slice(-5).reverse()].slice(0, 3);
     return scr(ctx, 'c-home', `
     <div class="c-scroll c-tabbed" data-keep-scroll="home">
       <div class="c-lt-row"><h2 class="c-lt">October</h2><button class="c-avatar" data-go="pro" data-dir="up" aria-label="Account and Claimo Pro">GR</button></div>
-      <div class="c-card c-claim">
+      <div class="c-claim">
         <span class="c-cap">Ready to claim</span>
         <b class="c-big c-num">${rs(sum(w))}</b>
-        <span class="c-sub">${w.length} work rides · 1 to 21 Oct</span>
-        <div class="c-split" role="img" aria-label="${w.length} work, ${n.length} to sort, ${p.length} personal"><i class="w" style="flex:${w.length}"></i><i class="n" style="flex:${n.length}"></i><i class="p" style="flex:${p.length}"></i></div>
-        <div class="c-legend"><span><i class="w"></i>Work ${w.length}</span><span><i class="n"></i>To sort ${n.length}</span><span><i class="p"></i>Personal ${p.length}</span></div>
       </div>
-      ${n.length ? `<button class="c-card c-cta" data-go="deck"><span class="c-cta-ic">${I.rides}</span><span class="c-mid"><span class="c-l1">${n.length} new ride${n.length > 1 ? 's' : ''} to sort</span><span class="c-l2 c-sub">Swipe right for work, left for personal</span></span><span class="c-chev">${I.chev}</span></button>` : ''}
-      ${err.length ? `<button class="c-card c-alert" data-act="open" data-v="${err[0].id}"><span class="c-ic c-ic-warn">${I.warn}</span><span class="c-mid"><span class="c-l1">1 receipt needs you</span><span class="c-l2 c-sub">Uber, 21 Oct: the fare couldn't be read</span></span><span class="c-chev">${I.chev}</span></button>` : ''}
-      <div class="c-sh-row"><p class="c-sh">Recent</p><button class="c-link" data-go="rides" data-dir="fade">All rides</button></div>
+      ${n.length ? `<button class="c-card c-cta" data-go="deck"><span class="c-mid"><span class="c-l1">${n.length} ride${n.length > 1 ? 's' : ''} to sort</span></span><span class="c-chev">${I.chev}</span></button>` : ''}
       <div class="c-group">${recent.map(rideRow).join('')}</div>
     </div>
     ${tabs('home')}`);
@@ -219,55 +181,41 @@
       const D = day(r.d);
       return `<article class="c-dk c-dk-0 top" data-id="${r.id}" aria-label="${SVC[r.svc].n} ride, ${D.n} October, ${rs(r.fare)}">
         <span class="c-stamp c-stamp-w" aria-hidden="true">Work</span><span class="c-stamp c-stamp-p" aria-hidden="true">Personal</span>
-        <div class="c-dk-head">${badge(r.svc)}<span class="c-sub">${D.w} ${D.n} Oct · ${r.t}</span></div>
-        <div class="c-dk-map">${map(r.f, r.to, { w: 318, h: 140 })}</div>
+        <div class="c-dk-map">${map(r.f, r.to, { w: 318, h: 150 })}</div>
         <div class="c-dk-route">
-          <div class="c-stop"><i class="a"></i><span class="c-mid"><span class="c-l1">${P[r.f].n}</span></span><span class="c-sub c-num">${r.t}</span></div>
-          <div class="c-stop"><i class="b"></i><span class="c-mid"><span class="c-l1">${P[r.to].n}</span></span><span class="c-sub c-num">${r.e}</span></div>
+          <div class="c-stop"><i class="a"></i><span class="c-mid"><span class="c-l1">${place(r.f)}</span></span></div>
+          <div class="c-stop"><i class="b"></i><span class="c-mid"><span class="c-l1">${place(r.to)}</span></span></div>
         </div>
-        <div class="c-dk-foot"><span class="c-sub">${r.km} km · ${SVC[r.svc].n}</span><b class="c-num">${rs(r.fare)}</b></div>
-        <p class="c-guess c-guess-${r.guess}"><b>Looks like ${r.guess}</b><span>${r.why}</span></p>
+        <div class="c-dk-foot"><span class="c-sub">${D.w} ${D.n} Oct</span><b class="c-num">${rs(r.fare)}</b></div>
       </article>`;
     };
     return scr(ctx, 'c-deck', `
       ${nav({ back: 'October', title: `<span class="c-navtt">Sort new rides</span><span class="c-navts">${n.length ? `${done + 1} of ${total}` : 'Done'}</span>`, right: `<button class="c-navbtn" data-act="undo" aria-label="Undo last swipe" ${s.hist.length ? '' : 'disabled'}>${I.undo}</button>` })}
-      <div class="c-pile" aria-live="polite"><span class="c-pile-ic">${I.report}</span><span class="c-mid"><span class="c-l2 c-sub">In the October report</span><b class="c-num c-pile-t">${rs(sum(w))}</b></span><span class="c-pile-n">${w.length} rides</span></div>
+      <div class="c-pile" aria-live="polite"><span class="c-sub">In the report</span><b class="c-num c-pile-t">${rs(sum(w))}</b></div>
       ${top ? `<div class="c-stack">${n.slice(0, 3).map(card).reverse().join('')}</div>
       <div class="c-dk-ctl">
         <button class="c-round c-round-p" data-act="sort" data-v="personal" aria-label="Personal">${I.x}</button>
-        <span class="c-sub c-hint">Swipe or tap</span>
         <button class="c-round c-round-w" data-act="sort" data-v="work" aria-label="Work">${I.check}</button>
       </div>` : `<div class="c-done">
         <span class="c-done-ic">${I.check}</span>
-        <h2 class="c-t2">Every ride sorted</h2>
-        <p class="c-sub c-center">${w.length} work rides make ${rs(sum(w))} for October.</p>
+        <h2 class="c-t1">Every ride sorted</h2>
         <button class="c-btn c-btn-p" data-go="report" data-dir="fade">Make the report</button>
       </div>`}`);
   };
 
   V.ride = (s, ctx) => {
     const r = get(s, s.ride) || get(s, 'r9');
-    const D = day(r.d), lines = breakdown(r), seg = r.st === 'personal' ? 'personal' : 'work';
+    const D = day(r.d), seg = r.st === 'personal' ? 'personal' : 'work';
     return scr(ctx, 'c-ride-s', `
     <div class="c-scroll">
       <div class="c-ride-map">${map(r.f, r.to, { w: 390, h: 246, pad: 44 })}<button class="c-float" data-back aria-label="Back">${I.back}</button></div>
       <div class="c-ride-body">
-        <div class="c-ride-h"><div class="c-mid"><span class="c-l2">${badge(r.svc)}<span class="c-sub c-trunc">${D.w} ${D.n} Oct 2026</span></span><h2 class="c-t2">${place(r.f)} to ${place(r.to)}</h2></div><b class="c-big2 c-num">${rs(r.fare)}</b></div>
+        <div class="c-ride-h"><div class="c-mid"><span class="c-sub">${D.w} ${D.n} Oct</span><h2 class="c-t2">${place(r.f)} to ${place(r.to)}</h2></div><b class="c-big2 c-num">${rs(r.fare)}</b></div>
         <div class="c-seg" role="group" aria-label="Claim as"><button data-act="mark" data-v="work" aria-pressed="${seg === 'work'}">Work</button><button data-act="mark" data-v="personal" aria-pressed="${seg === 'personal'}">Personal</button></div>
         <div class="c-group">
-          <div class="c-row c-tl"><i class="a"></i><span class="c-mid"><span class="c-l1">${P[r.f].n}</span><span class="c-l2 c-sub">${P[r.f].a}</span></span><span class="c-num c-sub">${r.t}</span></div>
-          <div class="c-row c-tl"><i class="b"></i><span class="c-mid"><span class="c-l1">${P[r.to].n}</span><span class="c-l2 c-sub">${P[r.to].a}</span></span><span class="c-num c-sub">${r.e}</span></div>
-        </div>
-        <p class="c-sh">Fare</p>
-        <div class="c-group">${lines.map(([k, v]) => `<div class="c-row c-kv"><span class="c-mid"><span class="c-l1">${k}</span></span><span class="c-num">${rs(v)}</span></div>`).join('')}
-          <div class="c-row c-kv c-kv-t"><span class="c-mid"><span class="c-l1">Paid by UPI</span></span><b class="c-num">${rs(r.fare)}</b></div></div>
-        <p class="c-sh">Original receipt</p>
-        <div class="c-invoice" aria-label="Tax invoice">
-          <div class="c-inv-h"><span class="c-trunc">${SVC[r.svc].b === 'uber' ? 'Uber India Systems Pvt Ltd' : 'Roppen Transportation Services'}</span><span>Tax invoice</span></div>
-          <div class="c-inv-r"><span>Driver</span><span>${r.who}</span></div>
-          <div class="c-inv-r"><span>Vehicle</span><span>${r.veh}</span></div>
-          <div class="c-inv-r"><span>Distance</span><span>${r.km} km</span></div>
-          <div class="c-inv-r c-inv-t"><span>Total</span><span>${rs(r.fare)}</span></div>
+          <div class="c-row c-tl"><i class="a"></i><span class="c-mid"><span class="c-l1">${place(r.f)}</span></span><span class="c-num c-sub">${r.t}</span></div>
+          <div class="c-row c-tl"><i class="b"></i><span class="c-mid"><span class="c-l1">${place(r.to)}</span></span><span class="c-num c-sub">${r.e}</span></div>
+          <div class="c-row c-kv"><span class="c-ic c-ic-acc">${I.receipt}</span><span class="c-mid"><span class="c-l1">Receipt attached</span></span></div>
         </div>
       </div>
     </div>`);
@@ -277,16 +225,13 @@
     const val = s.fixFare;
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'del'];
     return scr(ctx, 'c-fix', `
-    ${nav({ back: 'October', title: 'Uber, 21 Oct' })}
+    ${nav({ back: 'October' })}
     <div class="c-scroll">
-      <div class="c-fix-h"><span class="c-ic c-ic-warn big">${I.warn}</span><div class="c-mid"><h2 class="c-t3">We couldn't read the fare</h2><p class="c-sub">Uber changed its receipt layout. Everything else came through.</p></div></div>
-      <div class="c-group">
-        <div class="c-row c-kv"><span class="c-mid"><span class="c-l1">Date</span></span><span class="c-sub">Wed 21 Oct, 19:30</span><span class="c-okc">${I.check}</span></div>
-        <div class="c-row c-kv"><span class="c-mid"><span class="c-l1">Pickup</span></span><span class="c-sub c-trunc">Embassy TechVillage</span><span class="c-okc">${I.check}</span></div>
-        <div class="c-row c-kv"><span class="c-mid"><span class="c-l1">Drop</span></span><span class="c-sub c-trunc">HSR Layout</span><span class="c-okc">${I.check}</span></div>
+      <h2 class="c-t1">We couldn't read this fare</h2>
+      <p class="c-lead">Type the total from the email.</p>
+      <div class="c-group c-gap">
         <div class="c-row c-kv c-field"><span class="c-mid"><span class="c-l1">Fare</span></span><b class="c-num c-fare-in">₹ ${val || '0'}</b><i class="c-caret" aria-hidden="true"></i></div>
       </div>
-      <p class="c-fine c-left">Type the total from the email, the line that says Total.</p>
     </div>
     <div class="c-keys" role="group" aria-label="Number keypad">${keys.map(k => k === '' ? '<span></span>' : `<button data-act="key" data-v="${k}" ${k === 'del' ? 'aria-label="Delete"' : ''}>${k === 'del' ? I.del : k}</button>`).join('')}</div>
     <div class="c-foot c-foot-row">
@@ -303,9 +248,8 @@
     return scr(ctx, 'c-rides', `
     <div class="c-scroll c-tabbed" data-keep-scroll="rides">
       <div class="c-lt-row"><h2 class="c-lt">Rides</h2><button class="c-navbtn c-tint" data-go="filters" data-dir="up" aria-label="Filters">${I.filter}</button></div>
-      <div class="c-searchf">${I.search}<span>Search places, dates, amounts</span></div>
       <div class="c-chips" role="group" aria-label="Show">${[['all', 'All'], ['work', 'Work'], ['personal', 'Personal'], ['new', 'To sort']].map(([k, n]) => `<button data-act="filter" data-v="${k}" aria-pressed="${f === k}">${n}</button>`).join('')}</div>
-      ${groups.map(g => `<div class="c-sh-row"><p class="c-sh">${g.lab}</p><span class="c-sh c-num">${rs(sum(g.rr))}</span></div><div class="c-group">${g.rr.map(rideRow).join('')}</div>`).join('') || '<p class="c-empty">No rides match these filters.</p>'}
+      ${groups.map(g => `<p class="c-sh">${g.lab}</p><div class="c-group">${g.rr.map(rideRow).join('')}</div>`).join('') || '<p class="c-empty">No rides match these filters.</p>'}
     </div>
     ${tabs('rides')}`);
   };
@@ -313,7 +257,6 @@
   V.filters = (s, ctx) => {
     const n = s.rides.filter(r => s.svcOn[SVC[r.svc].b] && (r.fare == null || r.fare >= s.fareMin)).length;
     const steps = [0, 100, 300, 500];
-    const hist = [3, 4, 2, 1, 1, 2, 0, 0, 0, 0, 2, 0];
     return scr(ctx, 'c-filt', `
     <div class="c-dim" aria-hidden="true"></div>
     <div class="c-sheet">
@@ -321,14 +264,9 @@
       <header class="c-sheet-h"><button class="c-link" data-act="resetf">Reset</button><b>Filters</b><button class="c-link c-strong" data-back>Done</button></header>
       <div class="c-sheet-b">
         <p class="c-sh">Service</p>
-        <div class="c-group">${[['uber', 'Uber', 'Go and Premier'], ['rapido', 'Rapido', 'Bike and Auto']].map(([k, nme, sub]) => `<div class="c-row"><span class="c-bd ${k === 'uber' ? 'c-bd-uber' : 'c-bd-rap'}">${nme}</span><span class="c-mid"><span class="c-l1">${sub}</span></span><button class="c-tog" role="switch" aria-checked="${s.svcOn[k]}" aria-label="${nme}" data-act="svc" data-v="${k}"></button></div>`).join('')}</div>
-        <p class="c-sh">Dates</p>
-        <div class="c-group c-two"><div class="c-row"><span class="c-mid"><span class="c-l2 c-sub">From</span><span class="c-l1">Thu 1 Oct</span></span></div><div class="c-row"><span class="c-mid"><span class="c-l2 c-sub">To</span><span class="c-l1">Wed 21 Oct</span></span></div></div>
+        <div class="c-group">${[['uber', 'Uber'], ['rapido', 'Rapido']].map(([k, nme]) => `<div class="c-row"><span class="c-mid"><span class="c-l1">${nme}</span></span><button class="c-tog" role="switch" aria-checked="${s.svcOn[k]}" aria-label="${nme}" data-act="svc" data-v="${k}"></button></div>`).join('')}</div>
         <p class="c-sh">Fare at least</p>
-        <div class="c-card c-fare">
-          <div class="c-hist" aria-hidden="true">${hist.map((h, i) => `<i style="height:${8 + h * 10}px" class="${i * 100 >= s.fareMin ? 'on' : ''}"></i>`).join('')}</div>
-          <div class="c-seg c-seg-4" role="group" aria-label="Minimum fare">${steps.map(v => `<button data-act="faremin" data-v="${v}" aria-pressed="${s.fareMin === v}">${v ? rs(v) : 'Any'}</button>`).join('')}</div>
-        </div>
+        <div class="c-seg c-seg-4" role="group" aria-label="Minimum fare">${steps.map(v => `<button data-act="faremin" data-v="${v}" aria-pressed="${s.fareMin === v}">${v ? rs(v) : 'Any'}</button>`).join('')}</div>
       </div>
       <div class="c-foot"><button class="c-btn c-btn-p" data-back>Show ${n} rides</button></div>
     </div>`);
@@ -337,12 +275,9 @@
   V.places = (s, ctx) => scr(ctx, 'c-places', `
     <div class="c-scroll c-tabbed" data-keep-scroll="places">
       <h2 class="c-lt">Places</h2>
-      <div class="c-card c-pmap">${map('hsr', null, { w: 350, h: 200, pins: ['hsr', 'etv', 'man', 'kia'] })}</div>
-      <div class="c-group">${[['hsr', 'H', 12], ['etv', 'O', 13], ['man', 'C', 2], ['kia', 'A', 2]].map(([k, l, c]) => `<div class="c-row"><span class="c-pl">${l}</span><span class="c-mid"><span class="c-l1">${P[k].tag}</span><span class="c-l2 c-sub">${P[k].n}</span></span><span class="c-sub c-num">${c} rides</span></div>`).join('')}
+      <div class="c-card c-pmap">${map('hsr', null, { w: 342, h: 170, pins: ['hsr', 'etv', 'man', 'kia'] })}</div>
+      <div class="c-group">${[['hsr', 'H'], ['etv', 'O'], ['man', 'C']].map(([k, l]) => `<div class="c-row"><span class="c-pl">${l}</span><span class="c-mid"><span class="c-l1">${P[k].tag}</span></span></div>`).join('')}
         <button class="c-row c-add" data-act="toast" data-v="Search opens here">${I.plus}<span class="c-l1">Add a place</span></button></div>
-      <p class="c-sh">Sort automatically</p>
-      <div class="c-group">${[['r1', 'Home and Office, weekdays', 'Mark as Work'], ['r2', 'To or from a client', 'Mark as Work'], ['r3', 'Weekends, not from Office', 'Mark as Personal']].map(([k, a, b]) => `<div class="c-row"><span class="c-mid"><span class="c-l1">${a}</span><span class="c-l2 c-sub">${b}</span></span><button class="c-tog" role="switch" aria-checked="${s.rules[k]}" aria-label="${a}" data-act="rule" data-v="${k}"></button></div>`).join('')}</div>
-      <p class="c-fine c-left">Rules sorted 9 of 15 October rides before you saw them.</p>
     </div>
     ${tabs('places')}`);
 
@@ -351,35 +286,28 @@
     return scr(ctx, 'c-report', `
     <div class="c-scroll c-tabbed" data-keep-scroll="report">
       <h2 class="c-lt">New report</h2>
-      <div class="c-seg" role="group" aria-label="Period"><button aria-pressed="true">October 2026</button><button data-go="pro" data-dir="up">Custom range <span class="c-probd">Pro</span></button></div>
-      <p class="c-sh">What goes in the PDF</p>
-      <div class="c-group">${[['full', 'Full report', `Summary page, then every receipt · ${w.length + 1} pages`], ['receipts', 'Receipts only', `The original receipts, merged · ${w.length} pages`]].map(([k, a, b]) => `<button class="c-row c-radio" data-act="contents" data-v="${k}" aria-pressed="${s.contents === k}"><span class="c-rd" aria-hidden="true"></span><span class="c-mid"><span class="c-l1">${a}</span><span class="c-l2 c-sub">${b}</span></span></button>`).join('')}</div>
-      <p class="c-sh">Work rides</p>
-      <div class="c-group">
-        <div class="c-row c-kv">${badge('ug')}<span class="c-mid"><span class="c-l1">Uber</span></span><span class="c-num">${rs(uberWork(s))}</span></div>
-        <div class="c-row c-kv">${badge('rb')}<span class="c-mid"><span class="c-l1">Rapido</span></span><span class="c-num">${rs(rapWork(s))}</span></div>
-        <div class="c-row c-kv c-kv-t"><span class="c-mid"><span class="c-l1">To claim · ${w.length} rides</span></span><b class="c-num">${rs(sum(w))}</b></div>
+      <div class="c-seg" role="group" aria-label="Period"><button aria-pressed="true">October</button><button data-go="pro" data-dir="up">Custom range</button></div>
+      <div class="c-claim">
+        <span class="c-cap">${w.length} work rides</span>
+        <b class="c-big c-num">${rs(sum(w))}</b>
       </div>
-      ${n.length ? `<button class="c-card c-alert" data-go="deck"><span class="c-ic c-ic-warn">${I.warn}</span><span class="c-mid"><span class="c-l1">${n.length} rides aren't sorted</span><span class="c-l2 c-sub">They stay out until you sort them</span></span><span class="c-chev">${I.chev}</span></button>` : ''}
-      <p class="c-sh">Send to</p>
-      <div class="c-group"><div class="c-row"><span class="c-ic">${I.person}</span><span class="c-mid"><span class="c-l1">finance@yourcompany.in</span><span class="c-l2 c-sub">Your approver</span></span></div></div>
-      <div class="c-inline-cta"><button class="c-btn c-btn-p" data-go="printing" data-dir="fade">Create PDF · ${rs(sum(w))}</button></div>
+      ${n.length ? `<button class="c-card c-alert" data-go="deck"><span class="c-mid"><span class="c-l1">${n.length} rides aren't sorted</span></span><span class="c-chev">${I.chev}</span></button>` : ''}
+      <div class="c-inline-cta"><button class="c-btn c-btn-p" data-go="printing" data-dir="fade">Create PDF</button></div>
     </div>
     ${tabs('report')}`);
   };
 
-  const STEPS = ['Summary page', 'Attaching 6 receipts', 'Merging into one PDF', 'Saving to your storage'];
+  const STEPS = ['Summary page', 'Attaching receipts', 'Saving your PDF'];
   const stepRow = (t, i, k) => `<div class="c-row"><span class="c-step ${i < k ? 'done' : i === k ? 'now' : ''}">${i < k ? I.check : ''}</span><span class="c-mid"><span class="c-l1">${t}</span></span></div>`;
   V.printing = (s, ctx) => {
-    const k = ctx.static ? 2 : 0;
+    const k = ctx.static ? 1 : 0;
     return scr(ctx, 'c-print', `
     <div class="c-scroll c-center-col">
       <div class="c-docs" aria-hidden="true">
         <div class="c-doc d3"></div><div class="c-doc d2"></div>
-        <div class="c-doc d1"><b>October 2026</b><span>Travel reimbursement</span>${[1, 2, 3, 4, 5].map(i => `<i style="width:${60 + (i * 13) % 30}%"></i>`).join('')}<em></em></div>
+        <div class="c-doc d1"><b>October</b>${[1, 2, 3, 4, 5].map(i => `<i style="width:${60 + (i * 13) % 30}%"></i>`).join('')}<em></em></div>
       </div>
-      <h2 class="c-t2 c-center">Making your October report</h2>
-      <p class="c-sub c-center">${rs(sum(work(s)))} across ${work(s).length} rides</p>
+      <h2 class="c-t1 c-center">Making your report</h2>
       <div class="c-group c-steps">${STEPS.map((t, i) => stepRow(t, i, k)).join('')}</div>
     </div>`);
   };
@@ -391,16 +319,12 @@
     <div class="c-scroll">
       <span class="c-done-ic">${I.check}</span>
       <h2 class="c-lt">October is filed.</h2>
-      <p class="c-lead">${w.length} rides, ${rs(sum(w))}. Saved in Reports and ready to send.</p>
-      <div class="c-pages" aria-label="Report pages">
-        <div class="c-page"><b>Gajanan Rathod</b><span class="c-pg-s">Travel reimbursement, Oct 2026</span>${w.slice(0, 6).map(r => `<span class="c-pl-r"><span>${day(r.d).n} Oct</span><span>${rs(r.fare)}</span></span>`).join('')}<span class="c-pl-r c-pl-t"><span>Total</span><span>${rs(sum(w))}</span></span></div>
-        <div class="c-page c-page-r"><span class="c-pg-head">${badge(w[0] ? w[0].svc : 'rb')}<span class="c-pg-s">Receipt 1 of ${w.length}</span></span><div class="c-mini-map">${w[0] ? map(w[0].f, w[0].to, { w: 128, h: 84 }) : ''}</div><span class="c-pl-r c-pl-t"><span>Total</span><span>${w[0] ? rs(w[0].fare) : ''}</span></span></div>
-      </div>
-      <div class="c-group"><div class="c-row"><span class="c-ic c-ic-acc">${I.doc}</span><span class="c-mid"><span class="c-l1 c-trunc">Claimo-October-2026.pdf</span><span class="c-l2 c-sub">${w.length + 1} pages · 1.4 MB</span></span></div></div>
+      <p class="c-lead">${w.length} rides, ${rs(sum(w))}.</p>
+      <div class="c-group c-gap"><div class="c-row"><span class="c-ic c-ic-acc">${I.doc}</span><span class="c-mid"><span class="c-l1 c-trunc">Claimo-October-2026.pdf</span></span></div></div>
     </div>
     <div class="c-foot">
       <button class="c-btn c-btn-p" data-act="toast" data-v="Sent to finance@yourcompany.in">${I.mail}<span>Email to approver</span></button>
-      <div class="c-foot-row"><button class="c-btn c-btn-s" data-act="toast" data-v="Saved to Files">${I.folder}<span>Save to Files</span></button><button class="c-btn c-btn-s" data-act="toast" data-v="Share sheet opens here">${I.share}<span>Share</span></button></div>
+      <button class="c-btn c-btn-s" data-act="toast" data-v="Saved to Files">${I.folder}<span>Save to Files</span></button>
     </div>`);
   };
 
@@ -409,16 +333,14 @@
     <div class="c-scroll">
       <div class="c-hero sm">${logo()}</div>
       <h2 class="c-lt c-center">Claimo Pro</h2>
-      <p class="c-lead c-center">For people who file every month, and for months that don't match the calendar.</p>
-      <div class="c-group">${[[I.calendar, 'Any date range', 'File a client trip from 14 to 19 Oct'], [I.bolt, 'A report on the 1st, by itself', 'Emailed to your approver'], [I.receipt, 'Every month you have ridden', 'Free keeps the last three months']].map(([ic, a, b]) => `<div class="c-row"><span class="c-ic c-ic-acc">${ic}</span><span class="c-mid"><span class="c-l1">${a}</span><span class="c-l2 c-sub">${b}</span></span></div>`).join('')}</div>
+      <p class="c-lead c-center">Any date range. A report on the 1st.</p>
       <div class="c-plans" role="radiogroup" aria-label="Plan">
-        <button class="c-plan" role="radio" aria-checked="${s.plan === 'm'}" data-act="plan" data-v="m"><span class="c-rd" aria-hidden="true"></span><span class="c-mid"><span class="c-l1">Monthly</span><span class="c-l2 c-sub">First month ₹49</span></span><b class="c-num">₹99<span class="c-per">/mo</span></b></button>
-        <button class="c-plan" role="radio" aria-checked="${s.plan === 'q'}" data-act="plan" data-v="q"><span class="c-rd" aria-hidden="true"></span><span class="c-mid"><span class="c-l1">Every 3 months</span><span class="c-l2 c-sub">₹83 a month · save ₹48</span></span><b class="c-num">₹249</b></button>
+        <button class="c-plan" role="radio" aria-checked="${s.plan === 'm'}" data-act="plan" data-v="m"><span class="c-rd" aria-hidden="true"></span><span class="c-mid"><span class="c-l1">Monthly</span></span><b class="c-num">₹99<span class="c-per"> /mo</span></b></button>
+        <button class="c-plan" role="radio" aria-checked="${s.plan === 'q'}" data-act="plan" data-v="q"><span class="c-rd" aria-hidden="true"></span><span class="c-mid"><span class="c-l1">Every 3 months</span></span><b class="c-num">₹249</b></button>
       </div>
     </div>
     <div class="c-foot">
-      <button class="c-btn c-btn-p" data-act="toast" data-v="Razorpay checkout opens here">Continue with Razorpay</button>
-      <p class="c-fine">UPI, cards and netbanking. Cancel any time in Settings.</p>
+      <button class="c-btn c-btn-p" data-act="toast" data-v="Razorpay checkout opens here">Continue</button>
     </div>`);
 
   /* ---------- the claim deck ---------- */
@@ -492,20 +414,20 @@
     fonts: ['Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700'],
     signature: 'deck',
     screens: [
-      { id: 'welcome', title: 'Welcome', caption: 'The promise in one line, three features and one way in.' },
-      { id: 'connect', title: 'Connect Gmail', caption: 'What Claimo reads and what it never touches, before Google asks.' },
-      { id: 'sync', title: 'Reading October', caption: 'Receipts arrive, with duplicates and unreadable mail counted openly.' },
-      { id: 'home', title: 'October', caption: 'One number up top: what you can claim. Everything else leads to it.' },
+      { id: 'welcome', title: 'Welcome', caption: 'The promise in one line and one way in.' },
+      { id: 'connect', title: 'Connect Gmail', caption: 'What Claimo reads, before Google asks.' },
+      { id: 'sync', title: 'Reading October', caption: 'Receipts arrive while Claimo reads the month.' },
+      { id: 'home', title: 'October', caption: 'One number: what you can claim. Everything else leads to it.' },
       { id: 'deck', title: 'Claim deck', caption: 'The signature. Swipe right and the ride joins the report; left keeps it personal.' },
-      { id: 'ride', title: 'Ride detail', caption: 'Route, fare breakdown and the original invoice, as finance will see it.' },
-      { id: 'fix', title: 'Unreadable receipt', caption: 'The error state keeps what was read and asks only for the fare.' },
-      { id: 'rides', title: 'All rides', caption: 'Grouped by week with a total, so a missing Monday is easy to spot.' },
-      { id: 'filters', title: 'Filters', caption: 'Service, dates and a minimum fare, in one sheet.', sheet: true },
-      { id: 'places', title: 'Saved places', caption: 'Home, Office and a client: the rules that sort most rides for you.' },
-      { id: 'report', title: 'Report builder', caption: 'The month, what goes in the PDF, and who it goes to.' },
-      { id: 'printing', title: 'Making the PDF', caption: 'Each step shown while the report renders.' },
-      { id: 'ready', title: 'Report ready', caption: 'Every page previewed, then one tap to the approver.' },
-      { id: 'pro', title: 'Claimo Pro', caption: 'The paywall names what you get, priced in rupees.', sheet: true }
+      { id: 'ride', title: 'Ride detail', caption: 'Route, fare and the receipt, with one switch for work or personal.' },
+      { id: 'fix', title: 'Unreadable receipt', caption: 'The error state asks only for the fare.' },
+      { id: 'rides', title: 'All rides', caption: 'Grouped by week, easy to scan.' },
+      { id: 'filters', title: 'Filters', caption: 'Service and a minimum fare, in one sheet.', sheet: true },
+      { id: 'places', title: 'Saved places', caption: 'Home, Office and a client, on one map.' },
+      { id: 'report', title: 'Report builder', caption: 'The month, the total, one tap to make the PDF.' },
+      { id: 'printing', title: 'Making the PDF', caption: 'Three steps while the report renders.' },
+      { id: 'ready', title: 'Report ready', caption: 'The PDF is ready; one tap to the approver.' },
+      { id: 'pro', title: 'Claimo Pro', caption: 'Two plans, priced in rupees.', sheet: true }
     ],
     system: {
       summary: 'Clean iOS: white grouped lists on a system grey, Inter on the iOS type scale, and one ballpoint blue for the single action on each screen. Uber and Rapido appear only as small service badges.',
@@ -561,10 +483,10 @@
       if (id === 'deck') return mountDeck(root, s, ctx);
       if (id === 'printing') {
         const t = [];
-        for (let i = 1; i <= 4; i++) t.push(setTimeout(() => {
+        for (let i = 1; i <= 3; i++) t.push(setTimeout(() => {
           root.querySelectorAll('.c-step').forEach((e, j) => { e.className = 'c-step ' + (j < i ? 'done' : j === i ? 'now' : ''); e.innerHTML = j < i ? I.check : ''; });
         }, i * 650));
-        t.push(setTimeout(() => ctx.go('ready', 'fade'), 3100));
+        t.push(setTimeout(() => ctx.go('ready', 'fade'), 2700));
         return () => t.forEach(clearTimeout);
       }
       if (id === 'sync' && !s.synced) {
