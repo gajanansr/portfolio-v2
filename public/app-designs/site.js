@@ -55,13 +55,22 @@
     li.id = id;
     const phone = { p: null };
     const item = { li, row, panel, phone };
+    const cur = $('.cur', li), idx = app.screens.map(s => s.id);
     app.screens.forEach((s, n) => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.screen = s.id;
-      b.innerHTML = `<i>${String(n + 1).padStart(2, '0')}</i>${s.title}`;
+      b.textContent = n + 1; b.title = s.title; b.setAttribute('aria-label', `Screen ${n + 1}: ${s.title}`);
       b.addEventListener('click', () => phone.p && phone.p.go(s.id, 'fade'));
       chips.appendChild(b);
     });
-    const mark = s => $$('.chip', li).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.screen === s)));
+    const mark = s => {
+      $$('.chip', li).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.screen === s)));
+      const n = idx.indexOf(s); if (n < 0) return;
+      cur.textContent = app.screens[n].title; li.dataset.i = n;
+      $('.count', li).textContent = `${n + 1} / ${idx.length}`;
+    };
+    const step = d => { const n = Math.max(0, Math.min(idx.length - 1, +li.dataset.i + d)); phone.p && phone.p.go(idx[n], 'fade'); };
+    $('.prev', li).addEventListener('click', () => step(-1));
+    $('.next', li).addEventListener('click', () => step(1));
     live.addEventListener('phone:screen', e => mark(e.detail.screen));
     const fit = () => phone.p && phone.p.fitTo(Math.min(live.clientWidth || 380, 380), narrow() ? Math.min(innerHeight * .78, 720) : Math.min(innerHeight - 230, 760));
     addEventListener('resize', fit);
