@@ -27,6 +27,23 @@
     if (current === item) current = null;
   };
 
+  /* glide the page so the phone stays centred while the panel opens, instead of scrolling after it */
+  let raf = 0;
+  const follow = el => {
+    cancelAnimationFrame(raf);
+    const t0 = performance.now();
+    const step = now => {
+      const r = el.getBoundingClientRect();
+      const d = r.top + r.height / 2 - innerHeight / 2;
+      const k = reduce ? 1 : .16;
+      scrollTo({ top: scrollY + (Math.abs(d) < 1 ? d : d * k), behavior: 'instant' });
+      if (now - t0 < 800 && !reduce) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  };
+  addEventListener('wheel', () => cancelAnimationFrame(raf), { passive: true });
+  addEventListener('touchstart', () => cancelAnimationFrame(raf), { passive: true });
+
   ORDER.forEach((id, i) => {
     const app = APPS[id], c = CASES[id]; if (!app || !c) return;
     const f = tpl.content.cloneNode(true), li = $('.app', f);
@@ -56,7 +73,7 @@
       if (!phone.p) { phone.p = new Phone(live, id, { screen: c.sig[0] }); mark(c.sig[0]); }
       fit();
       li.classList.add('open'); row.setAttribute('aria-expanded', 'true'); panel.removeAttribute('inert');
-      setTimeout(() => { if (li.classList.contains('open')) live.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, reduce ? 0 : 640);
+      follow(live);
     });
     list.appendChild(f);
   });
