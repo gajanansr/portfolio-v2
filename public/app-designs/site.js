@@ -27,14 +27,13 @@
     if (current === item) current = null;
   };
 
-  /* glide the page so the phone stays centred while the panel opens, instead of scrolling after it */
+  /* glide the page so the app's title sits at the top and the phone below it is fully in view while the panel opens, instead of scrolling after it */
   let raf = 0;
   const follow = el => {
     cancelAnimationFrame(raf);
     const t0 = performance.now();
     const step = now => {
-      const r = el.getBoundingClientRect();
-      const d = r.top + r.height / 2 - innerHeight / 2;
+      const d = el.getBoundingClientRect().top - 64;
       const k = reduce ? 1 : .16;
       scrollTo({ top: scrollY + (Math.abs(d) < 1 ? d : d * k), behavior: 'instant' });
       if (now - t0 < 800 && !reduce) raf = requestAnimationFrame(step);
@@ -64,7 +63,7 @@
     });
     const mark = s => $$('.chip', li).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.screen === s)));
     live.addEventListener('phone:screen', e => mark(e.detail.screen));
-    const fit = () => phone.p && phone.p.fitTo(Math.min(live.clientWidth || 380, 380), narrow() ? Math.min(innerHeight * .78, 720) : Math.min(innerHeight - 140, 780));
+    const fit = () => phone.p && phone.p.fitTo(Math.min(live.clientWidth || 380, 380), narrow() ? Math.min(innerHeight * .78, 720) : Math.min(innerHeight - 230, 760));
     addEventListener('resize', fit);
 
     row.addEventListener('click', () => {
@@ -73,7 +72,7 @@
       if (!phone.p) { phone.p = new Phone(live, id, { screen: c.sig[0] }); mark(c.sig[0]); }
       fit();
       li.classList.add('open'); row.setAttribute('aria-expanded', 'true'); panel.removeAttribute('inert');
-      follow(live);
+      follow(li);
     });
     list.appendChild(f);
   });
