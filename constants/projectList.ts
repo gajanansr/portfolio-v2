@@ -1,6 +1,6 @@
 import { FeaturedProject, Project } from "@/types/types";
 
-// Order matters: the home page shows the first three.
+// Ordered strongest first: real users and revenue, then technical depth.
 export const featuredProjects: FeaturedProject[] = [
   {
     title: "LaunchReel",
@@ -69,22 +69,6 @@ export const featuredProjects: FeaturedProject[] = [
     stack: ["Python", "Benchmarking", "LLM cost"],
   },
   {
-    title: "Quire",
-    tagline: "An Android reader with no INTERNET permission",
-    description:
-      "Reads EPUB, PDF and TXT. No account, no sync, no analytics. Privacy here is enforced by the OS, because the app can't reach the network at all.",
-    highlights: [
-      "PDFs are reflowed into real paragraphs so type size and themes work",
-      "Typeset like a book: justified, hyphenated, widows and orphans handled",
-      "Five themes including a strictly greyscale E-ink mode, checked by a test",
-    ],
-    image: "/assets/projects/quire.jpg",
-    projectUrl: "https://gajanansr.github.io/quire/",
-    gitHubUrl: "https://github.com/gajanansr/quire",
-    year: "2026",
-    stack: ["Kotlin", "Android", "GitHub Actions"],
-  },
-  {
     title: "Rewind",
     tagline: "Interview prep built on retention, not streaks",
     description:
@@ -100,10 +84,42 @@ export const featuredProjects: FeaturedProject[] = [
     year: "2025",
     stack: ["Java", "Spring Boot", "React", "PostgreSQL"],
   },
+  {
+    title: "Quire",
+    tagline: "An Android reader with no INTERNET permission",
+    description:
+      "Reads EPUB, PDF and TXT. No account, no sync, no analytics. Privacy here is enforced by the OS, because the app can't reach the network at all.",
+    highlights: [
+      "PDFs are reflowed into real paragraphs so type size and themes work",
+      "Typeset like a book: justified, hyphenated, widows and orphans handled",
+      "Five themes including a strictly greyscale E-ink mode, checked by a test",
+    ],
+    image: "/assets/projects/quire.jpg",
+    projectUrl: "https://gajanansr.github.io/quire/",
+    gitHubUrl: "https://github.com/gajanansr/quire",
+    year: "2026",
+    stack: ["Kotlin", "Android", "GitHub Actions"],
+  },
 ];
 
-// Games get their own section on the projects page.
+// Games get their own section, strongest first.
 export const games: FeaturedProject[] = [
+  {
+    title: "Tanda",
+    tagline: "A cinematic farming game set in a real Banjara village",
+    description:
+      "Come home to Ukhali Tanda, a village in Jalna. Plough black soil, sell at the mandi, take a moneylender's loan, stand in the panchayat election. It runs in the browser with no install and no sign-up.",
+    highlights: [
+      "Roads and lanes come from OpenStreetMap; field strips are laid out from satellite imagery",
+      "Seasonal mandi prices, a land market, loans and a 14-day ledger",
+      "11 story missions where your choices change prices and reputation",
+    ],
+    image: "/assets/projects/tanda.jpg",
+    projectUrl: "https://tanda.gajananrathod.in",
+    gitHubUrl: "https://github.com/gajanansr/tanda-an-village",
+    year: "2026",
+    stack: ["Three.js", "TypeScript", "Supabase", "Vercel"],
+  },
   {
     title: "RAM Heist",
     tagline: "Hide your RAM from the boss for five nights",
@@ -122,22 +138,6 @@ export const games: FeaturedProject[] = [
     stack: ["Three.js", "JavaScript", "Vite", "Web Audio"],
   },
   {
-    title: "Tanda",
-    tagline: "A cinematic farming game set in a real Banjara village",
-    description:
-      "Come home to Ukhali Tanda, a village in Jalna. Plough black soil, sell at the mandi, take a moneylender's loan, stand in the panchayat election. It runs in the browser with no install and no sign-up.",
-    highlights: [
-      "Roads and lanes come from OpenStreetMap; field strips are laid out from satellite imagery",
-      "Seasonal mandi prices, a land market, loans and a 14-day ledger",
-      "11 story missions where your choices change prices and reputation",
-    ],
-    image: "/assets/projects/tanda.jpg",
-    projectUrl: "https://tanda.gajananrathod.in",
-    gitHubUrl: "https://github.com/gajanansr/tanda-an-village",
-    year: "2026",
-    stack: ["Three.js", "TypeScript", "Supabase", "Vercel"],
-  },
-  {
     title: "KindWars",
     tagline: "Arcade game that turns enemies into friends",
     description:
@@ -154,7 +154,7 @@ export const games: FeaturedProject[] = [
   },
 ];
 
-// Smaller or older work, shown as a compact list.
+// Smaller work, shown as a compact list. Tutorial-sized and joke projects are left out on purpose.
 export const moreProjects: Project[] = [
   {
     title: "claude-worklog",
@@ -163,22 +163,6 @@ export const moreProjects: Project[] = [
     gitHubUrl: "https://github.com/gajanansr/claude-worklog",
     year: "2026",
     stack: ["Claude Code", "Hooks", "Skills"],
-  },
-  {
-    title: "Is This Startup Stupid?",
-    description:
-      "A late-night infomercial that scores your startup idea on how stupid it is versus how fundable it is anyway.",
-    gitHubUrl: "https://github.com/gajanansr/is-this-startup-stupid",
-    year: "2026",
-    stack: ["Node.js", "Vanilla JS"],
-  },
-  {
-    title: "Event.io",
-    description:
-      "Team project I led: event and resource management with staff availability, internal messaging and JWT role-based auth.",
-    gitHubUrl: "https://github.com/gajanansr/event.io",
-    year: "2025",
-    stack: ["Spring Boot", "Angular", "MySQL"],
   },
   {
     title: "Loopin",
@@ -196,37 +180,5 @@ export const moreProjects: Project[] = [
     gitHubUrl: "https://github.com/gajanansr/audioEngine",
     year: "2025",
     stack: ["React", "Web Audio API", "Supabase"],
-  },
-  {
-    title: "Distributed Rock-Paper-Scissors",
-    description:
-      "Two-player terminal game over TCP sockets that demonstrates client-server communication, multi-threading and synchronization.",
-    gitHubUrl:
-      "https://github.com/gajanansr/rockpaperscissors-distributed-systemes",
-    year: "2025",
-    stack: ["Java", "Sockets"],
-  },
-  {
-    title: "EasyCode",
-    description:
-      "Simplifies competitive-programming problem statements for people learning DSA.",
-    gitHubUrl: "https://github.com/gajanansr/easycode",
-    year: "2024",
-    stack: ["Next.js", "MongoDB", "ShadCN"],
-  },
-  {
-    title: "Sorting Visualizer",
-    description:
-      "Interactive visualizer for merge, quick, heap and bubble sort with adjustable array size and animation speed.",
-    gitHubUrl: "https://github.com/gajanansr/sorting-visualizer",
-    year: "2024",
-    stack: ["React", "Vite"],
-  },
-  {
-    title: "TypingMaster",
-    description: "Typing speed test challenge app.",
-    gitHubUrl: "https://github.com/gajanansr/typing-master",
-    year: "2024",
-    stack: ["React"],
   },
 ];
