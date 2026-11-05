@@ -25,7 +25,7 @@ export function ModeToggle() {
             variant="ghost"
             size="icon"
             onClick={() => setTheme(toggleTheme(theme))}
-            className="rounded-full custom-hover"
+            className="rounded-full custom-hover max-sm:h-8 max-sm:w-8"
           >
             <MoonIcon className="block dark:hidden h-[1.23rem] w-[1.23rem] text-black" />
             <SunIcon className="hidden dark:block h-[1.23rem] w-[1.23rem] text-white" />
