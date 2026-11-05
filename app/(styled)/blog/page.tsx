@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { getAllPosts, getAllCategories } from "@/lib/blog";
 import BlogList from "@/components/shared/Blog/BlogList";
 import { siteConfig } from "@/config/site";
-import NewsletterForm from "@/components/shared/Newsletter/NewsletterForm";
 
 export const metadata: Metadata = {
   title: "Writing",
@@ -35,29 +34,24 @@ export default function BlogPage() {
             Coming Soon
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400">
-            I&apos;m working on some exciting content. Subscribe below to get
-            notified!
+            I&apos;m working on some exciting content. Check back soon!
           </p>
         </div>
       )}
 
-      {/* Newsletter Section */}
-      <div className="mt-12">
-        {siteConfig.links.substack ? (
-          <div className="text-center">
-            <a
-              href={siteConfig.links.substack}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-full bg-neutral-900 dark:bg-neutral-100 px-7 py-3 text-sm font-medium text-white dark:text-neutral-900 transition-transform hover:scale-105 hover:bg-neutral-700 dark:hover:bg-neutral-300"
-            >
-              Subscribe on Substack
-            </a>
-          </div>
-        ) : (
-          <NewsletterForm />
-        )}
-      </div>
+      {/* Subscribe */}
+      {siteConfig.links.substack && (
+        <div className="mt-12 text-center">
+          <a
+            href={siteConfig.links.substack}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block rounded-full bg-neutral-900 dark:bg-neutral-100 px-7 py-3 text-sm font-medium text-white dark:text-neutral-900 transition-transform hover:scale-105 hover:bg-neutral-700 dark:hover:bg-neutral-300"
+          >
+            Subscribe on Substack
+          </a>
+        </div>
+      )}
     </div>
   );
 }
