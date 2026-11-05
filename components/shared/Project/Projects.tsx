@@ -2,7 +2,11 @@
 
 import { FeaturedProjectCard } from "./FeaturedProjectCard";
 import { ProjectCard } from "./ProjectCard";
-import { featuredProjects, moreProjects } from "@/constants/projectList";
+import {
+  featuredProjects,
+  games,
+  moreProjects,
+} from "@/constants/projectList";
 import { siteConfig } from "@/config/site";
 import AnimatedCard from "../AnimatedCard";
 
@@ -23,6 +27,20 @@ const Projects = () => {
           </AnimatedCard>
         ))}
       </div>
+
+      <section id="games" className="mt-28">
+        <h2 className="mb-3 text-center heading-text">Games</h2>
+        <p className="mb-16 text-center dim-text">
+          I like building things you can play in a browser tab.
+        </p>
+        <div className="grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2">
+          {games.map((game, index) => (
+            <AnimatedCard key={game.title} index={index % 2}>
+              <FeaturedProjectCard {...game} />
+            </AnimatedCard>
+          ))}
+        </div>
+      </section>
 
       <section className="mt-28">
         <h2 className="mb-6 text-2xl font-bold">More</h2>
