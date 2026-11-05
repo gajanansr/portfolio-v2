@@ -33,6 +33,6 @@ export const siteConfig: SiteConfig = {
     github: "https://github.com/gajanansr",
     linkedin: "https://linkedin.com/in/gajanansr",
     twitter: "https://x.com/gajananrx",
-    substack: "",
+    substack: "https://gajananrx.substack.com",
   },
 };
