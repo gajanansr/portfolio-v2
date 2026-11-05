@@ -4,7 +4,6 @@ import Link from "next/link";
 import { getAllPostSlugs, getPostBySlug, formatDate } from "@/lib/blog";
 import ReadingProgress from "@/components/shared/Blog/ReadingProgress";
 import ShareButtons from "@/components/shared/Blog/ShareButtons";
-import NewsletterForm from "@/components/shared/Newsletter/NewsletterForm";
 import BlogContent from "@/components/shared/Blog/BlogContent";
 import { siteConfig } from "@/config/site";
 
@@ -156,8 +155,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <ShareButtons title={post.title} url={postUrl} />
           </div>
 
-          {/* Newsletter */}
-          <NewsletterForm />
+          {/* Subscribe */}
+          {siteConfig.links.substack && (
+            <div className="text-center">
+              <a
+                href={siteConfig.links.substack}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full bg-neutral-900 dark:bg-neutral-100 px-7 py-3 text-sm font-medium text-white dark:text-neutral-900 transition-transform hover:scale-105 hover:bg-neutral-700 dark:hover:bg-neutral-300"
+              >
+                Subscribe on Substack
+              </a>
+            </div>
+          )}
         </footer>
       </article>
     </>
