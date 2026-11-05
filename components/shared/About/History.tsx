@@ -7,12 +7,12 @@ const handwriting = Caveat({ subsets: ["latin"], weight: "600" });
 const Scribble = ({ text }: { text: string }) => (
   <span
     aria-hidden
-    className={`${handwriting.className} pointer-events-none absolute bottom-full left-full -ml-3 flex -rotate-3 select-none flex-col items-start whitespace-nowrap text-2xl leading-none text-neutral-500 dark:text-neutral-400`}
+    className={`${handwriting.className} pointer-events-none absolute bottom-full left-full -ml-3 flex -rotate-3 select-none flex-col items-start whitespace-nowrap text-2xl leading-none max-sm:left-auto max-sm:right-0 max-sm:ml-0 max-sm:items-end max-sm:text-xl text-neutral-500 dark:text-neutral-400`}
   >
     {text}
     <svg
       viewBox="0 0 40 34"
-      className="-mt-0.5 ml-1 h-8 w-10 flex-none"
+      className="-mt-0.5 ml-1 h-8 w-10 flex-none max-sm:ml-0 max-sm:mr-1 max-sm:-scale-x-100"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
