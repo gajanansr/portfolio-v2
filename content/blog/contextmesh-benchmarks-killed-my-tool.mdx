@@ -1,0 +1,170 @@
+---
+title: "I Built a Token-Saving Tool for Claude Code. My Own Benchmarks Killed It."
+description: "ContextMesh promised 90% fewer tokens. Then I built a cache-aware benchmark harness, measured it properly, and watched my own tool make sessions 32–75% more expensive. Here's what went wrong, what I learned, and why I archived it."
+date: "2026-11-05"
+author:
+  name: "Gajanan Rathod"
+category: "ai-engineering"
+keywords:
+  - Claude Code
+  - prompt caching
+  - LLM cost
+  - benchmarking
+  - ContextMesh
+  - truecost
+  - context engineering
+published: true
+coverImage: "/blog/contextmesh-cover.webp"
+---
+
+Every tool in the "save tokens in your AI coding agent" category ships a headline number. Mine said **90% fewer tokens**.
+
+That number was wrong. It wasn't a little wrong. It was wrong in a way that took me a while to even notice, because the thing producing it looked like a measurement.
+
+This is the story of ContextMesh, the tool I built for Claude Code, the benchmark harness I wrote to test it, and the afternoon I realised the harness was telling me to shut the project down.
+
+---
+
+## What ContextMesh was
+
+Claude Code forgets. Every session starts cold, and on a big repo the agent burns turns just rediscovering where things live. ContextMesh tried to fix that with two pieces, delivered through local Claude Code hooks:
+
+- **Session memory.** Decisions and facts from earlier sessions, recalled into the next one when relevant.
+- **An AST repo map.** A compact, ranked summary of the codebase (files, symbols, relationships), injected so the agent could skip the exploration phase.
+
+It worked. It was installable (`pipx install claude-contextmesh`), it indexed real projects, and my first README said it cut token usage by about 90%.
+
+## The number that didn't exist
+
+When I finally went looking for where the 90% came from, I found a constant. One hardcoded baseline figure supplied **99.5% of the headline**. The "measurement" was mostly an assumption I had typed in months earlier and forgotten.
+
+I deleted the claim. But the more uncomfortable lesson was that *nothing in my setup could have caught it*. I had no way to ask: what did this tool actually cost in a real session, billed the way Anthropic bills it?
+
+So I built one.
+
+## Prompt caching changes everything
+
+Here's the part I'd underestimated. Claude Code leans hard on prompt caching, and the billing classes are wildly different:
+
+| Token class | Cost vs. normal input |
+|---|---|
+| Uncached input | 1.0× |
+| Cache **read** | **0.1×** |
+| Cache write (5-minute TTL) | 1.25× |
+| Cache write (1-hour TTL) | **2.0×** |
+
+Claude Code uses the 1-hour TTL. So a cached token is cheap to *reuse* and expensive to *change*.
+
+Across 241 of my own local sessions, prompt caching alone cut cost by **85.6%**, before any tool did anything. Every "90% savings" claim is competing against a baseline that is already 85% cheaper than the one most tools measure against.
+
+And it gets worse for anything that injects context. Insert a block into a cached prompt and everything after it stops being a cheap read and becomes an expensive write. I called it **amplification**:
+
+| Experiment | Payload injected | Extra billed tokens | Ratio |
+|---|---|---|---|
+| Injection position test | 440 | +3,965 | 9.0× |
+| RepoMap (personalised) | ~2,650 | +15,678 | 5.9× |
+| RepoMap (alphabetical) | ~2,650 | +17,473 | 6.6× |
+| Session memory | ~470 | +10,916 | 23.2× |
+
+A 470-token memory block cost the equivalent of nearly 11,000 extra tokens. An injected block has to be worth roughly **ten times its own size** just to break even.
+
+## Building a harness I could trust
+
+The benchmark harness in `bench/` ended up being the most valuable thing in the repo. The rules it enforces each exist because their absence nearly produced a false result:
+
+1. **Bill every token at its real rate.** It reads Claude Code's session transcripts and prices each cache class separately. I validated it to six decimal places against the CLI's own cost accounting.
+2. **Verify delivery.** Before comparing "tool on" with "tool off", confirm the treatment actually reached the model. Three of my runs reported a tidy "no significant difference" for a feature that had never executed at all.
+3. **Paired statistics.** Replicates paired by task, 95% intervals, and an explicit "no significant difference" verdict. One run can never produce a headline.
+4. **Control for cache order.** A discarded warm-up per task and rotated arm order. Cold-versus-warm cache ordering moved cost by **8×** on a trivial task, larger than any effect I was trying to measure.
+5. **Include a control task** where the feature *cannot* help. If it shows an effect there, the corpus is lying.
+
+Across 153 benchmark runs on 7 datasets, these checks **rejected nine results** before they could become claims. One was an 88% "win" that turned out to be entirely cache ordering. Two were comparisons where the control arm was silently receiving the treatment.
+
+That 88% was the scary one. It was exactly the kind of number I would have put in a README.
+
+## What the real numbers said
+
+**Session memory: works, conditionally.**
+
+| Condition | Turns | Cost |
+|---|---|---|
+| Curated, relevant memory (n=6) | **−28.1%** | no significant difference |
+| Memory as it naturally accumulates (n=12) | no change | **+32.0%** |
+
+When memory recalled something genuinely relevant, the agent finished in fewer turns at no extra cost. On a task that needed a recalled prior decision, the baseline failed one replicate in three and spiked to 16 turns once, while every run with memory finished in 4. That's a reliability win, not just a cost one.
+
+But memory doesn't stay curated. Left to accumulate, as memory actually does, it cost 32% more and bought nothing.
+
+**The repo map: doesn't work.** I measured it three times with three orderings, hoping ranking would rescue it:
+
+| Ordering | Cost |
+|---|---|
+| Alphabetical by path | **+45.6%** |
+| Static global PageRank | **+74.6%** |
+| Query-personalised PageRank (Aider's approach) | **+35.9%** |
+
+Better ranking really did improve *what* the map contained. It never made the map worth sending. A fixed ~2,650-token block has to be earned back every session, including sessions that need no architectural context.
+
+I turned it off by default.
+
+## Six bugs hiding in plain sight
+
+Auditing my own tool also surfaced defects that no unit test had caught:
+
+- Byte-offset slicing that corrupted symbols in files with non-ASCII characters
+- Cross-project node bleed (one index accumulating 86,899 AST nodes from other projects)
+- Duplicate accumulation every time a project was re-indexed
+- Output thrown away entirely when a command timed out
+- Swallowed exit codes
+- Case-sensitive path matching, which broke on macOS
+
+And one I'm genuinely embarrassed by: v0.10.0's `uninstall` removed only the `PreToolUse` and `PostToolUse` hooks, reported success, and left `UserPromptSubmit` and `SessionEnd` behind. Memory injection kept running after people believed it was gone. Fixed in 0.10.1.
+
+## The lesson I should have learned first
+
+Midway through, I read the literature. [TokenPilot](https://arxiv.org/pdf/2606.17016) opens with exactly the amplification premise I'd spent weeks measuring, and reports that stabilising the prompt prefix moved cost from $8.31 to $4.35 and cache hit rate from 38.7% to 79.2%. ProjectDiscovery documented a 7% → 84% hit-rate jump from prompt caching in a different setting.
+
+So the finding wasn't new. I had rediscovered it independently, which at least validated the harness. But a one-hour search up front would have saved most of the effort.
+
+**Search the literature before you build the benchmark.**
+
+## Why I archived it
+
+The measurements said the tool wasn't worth running. Memory clears the bar only when relevance is gated, and I never found a cheap signal that separated relevant from irrelevant memory (file overlap and word overlap both scored a related and an unrelated prompt at an identical 0.300). The repo map never cleared it at all.
+
+So I archived ContextMesh, kept the code installable, and wrote the README as a post-mortem. Calling a project finished because the data says so is still a result.
+
+## The harness became its own project: truecost
+
+The reusable part turned out to be the audit. I pulled it out as [**truecost**](https://github.com/gajanansr/truecost), a cache-aware audit of token-savings claims. It publishes the raw JSON behind every row, labels each result `VERIFIED`, `UNVERIFIED` or `INVALID`, and treats "no measurable effect" as a first-class outcome.
+
+Its first five rows are ContextMesh failing. That's deliberate: an audit whose author has never published a loss isn't an audit.
+
+Two more findings from it:
+
+- **One-sided billing.** A tool that delegates reads to a cheaper second model reported the primary model's tokens only. Rebuilding that design and billing both models, a claimed "around a whopping 90%" became **−25.7%** by their accounting and **−10.9%** with both sides billed. The delegate also fired in only 1 of 3 replicates, and the replicate where it fired saved nothing.
+- **An invalid comparison.** I tried to compare against Headroom, but its `--no-optimize` control still compacts tool schemas, so *both* arms compressed. The result is published as `INVALID`, not as a measurement of Headroom, and reported upstream.
+
+truecost also corrected one of my own published figures. A "+16,870" amplification number I'd carried over from ContextMesh couldn't be reproduced from any committed result file. The data gives +15,678 and +17,473. The table now carries only figures a script regenerates from `results/`.
+
+## What's honest to claim
+
+- Small samples: the clean memory result is n=6, the cross-tool run n=12.
+- One machine, one model, one client.
+- Tasks were authored in-house. Control tasks are the only guard against that.
+
+## What I'd try next
+
+1. **Prefix stabilisation.** The injected block changes every session, so it can never inherit a warm cache. A byte-identical prefix across sessions, TokenPilot-style, is the most likely way to make injection affordable.
+2. **Relevance gating with real local embeddings.** I'd blamed a slow `sentence-transformers` import. Others do this in under 50 ms, so that was an implementation problem, not a constraint.
+3. **Delivery verification as its own tool.** I haven't found another tool in this category that checks its own treatment was applied.
+
+## Takeaways
+
+- Measure cost the way you're billed. Token count and bill are different quantities, and a tool can cut one while raising the other.
+- Anything injected into a cached prompt is amplified. It must be worth roughly ten times its size.
+- Verify that your treatment actually ran, and that your control didn't receive it.
+- Treat a big win as a bug until you've tried to break it. My 88% was cache ordering.
+- Publish the losses. They're the reason the wins are believable.
+
+Code and data: [ContextMesh](https://github.com/gajanansr/ContextMesh) (archived, MIT) and [truecost](https://github.com/gajanansr/truecost). If you maintain a tool I've measured and think my control is wrong, open a dispute. A row that can't be defended gets withdrawn.
