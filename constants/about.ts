@@ -53,7 +53,7 @@ export const skills = [
       "AG-UI",
       "Claude Code (plugins, hooks)",
       "MCP OAuth 2.1",
-      "LangGraph (learning)",
+      "LangGraph",
     ],
   },
   {
