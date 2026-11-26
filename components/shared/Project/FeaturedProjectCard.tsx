@@ -13,6 +13,7 @@ export function FeaturedProjectCard({
   gitHubUrl,
   year,
   stack,
+  logo,
 }: FeaturedProject) {
   const linkClass =
     "inline-flex items-center gap-1 underline-offset-4 hover:underline hover:text-neutral-500 dark:hover:text-neutral-400";
@@ -38,9 +39,22 @@ export function FeaturedProjectCard({
       )}
 
       <div className="mt-5 flex flex-1 flex-col">
-        <div className="flex items-baseline justify-between gap-3">
-          <h3 className="text-xl font-semibold tracking-tight">{title}</h3>
-          <span className="text-xs dim-text">{year}</span>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-2.5">
+            {logo ? (
+              <Image
+                src={logo}
+                alt=""
+                width={28}
+                height={28}
+                className="h-7 w-7 flex-none rounded-md"
+              />
+            ) : null}
+            <h3 className="truncate text-xl font-semibold tracking-tight">
+              {title}
+            </h3>
+          </div>
+          <span className="flex-none text-xs dim-text">{year}</span>
         </div>
         <p className="mt-1 text-sm">{tagline}</p>
         <p className="mt-3 text-sm leading-relaxed dim-text">{description}</p>

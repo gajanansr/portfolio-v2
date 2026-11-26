@@ -9,6 +9,7 @@ export type Project = {
   gitHubUrl?: string;
   year: string;
   stack: string[];
+  logo?: string;
 };
 
 export type FeaturedProject = Project & {

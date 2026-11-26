@@ -4,12 +4,14 @@ import { FeaturedProject, Project } from "@/types/types";
 export const featuredProjects: FeaturedProject[] = [
   {
     title: "LaunchReel",
-    tagline: "A Claude Code plugin that makes your launch video",
+    logo: "/assets/logos/launchreel.png",
+    tagline: "An agentic video editor for macOS",
     description:
-      "Claude reads your repo, inspects the running app and builds every scene as code with Remotion. It also edits talking-head recordings. You review in a local Studio, pin a comment on any frame, and Claude fixes just that spot.",
+      "A Mac app with your coding agent built in: Claude Code, Codex or any MCP agent. It cuts talking-head recordings and writes launch films as code from your real repo. You review in the Studio, pin a comment on any frame, and the agent fixes just that spot.",
     highlights: [
       "81 installs and 3 paying customers",
-      "MCP server published to npm; billing and licence API on Cloudflare Workers + D1",
+      "Tauri desktop app; MCP server published to npm; licence API on Cloudflare Workers + D1",
+      "Cuts snapped to silences, colour matching, original music, voiceover, 4K export",
       "Schema-validated harness: every on-screen number must trace to a fact you supplied",
     ],
     image: "/assets/projects/launchreel.jpg",
@@ -17,10 +19,11 @@ export const featuredProjects: FeaturedProject[] = [
     gitHubUrl: "https://github.com/gajanansr/launchreel-plugin",
     note: "Plugin repo is public · app code is private",
     year: "2026",
-    stack: ["Remotion", "MCP", "Next.js", "Cloudflare", "TypeScript"],
+    stack: ["Tauri", "Remotion", "MCP", "Next.js", "Cloudflare", "TypeScript"],
   },
   {
     title: "Slates",
+    logo: "/assets/logos/slates.png",
     tagline: "One workspace for you and your agents",
     description:
       "An installable PWA where agents like Claude, ChatGPT and Grok create and update typed boards over MCP or REST. You read them on your phone, tick things off, set reminders and watch changes land live.",
@@ -37,6 +40,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     title: "Claimo",
+    logo: "/assets/logos/claimo.png",
     tagline: "Ride receipts in, reimbursement-ready PDF out",
     description:
       "Connects to the Gmail inbox behind your Uber or Rapido account, parses receipts into a private database, and renders a monthly expense report with the receipts attached. Live with 24+ paying users at ₹149/month and 40+ reports generated in its first two months.",
@@ -54,6 +58,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     title: "truecost",
+    logo: "/assets/logos/truecost.png",
     tagline: "A cache-aware audit of LLM token-savings claims",
     description:
       "I built ContextMesh, a context layer for Claude Code, then measured it. Injected context turns cheap prompt-cache reads into expensive writes, so the tool cost more than it saved. I archived it and turned the benchmark harness into truecost.",
@@ -70,6 +75,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     title: "Rewind",
+    logo: "/assets/logos/rewind.png",
     tagline: "Interview prep built on retention, not streaks",
     description:
       "Record yourself thinking aloud through a DSA solution, get AI feedback on the explanation, and revisit problems on a pattern-based spaced-repetition schedule.",
@@ -86,6 +92,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     title: "Quire",
+    logo: "/assets/logos/quire.png",
     tagline: "An Android reader with no INTERNET permission",
     description:
       "Reads EPUB, PDF and TXT. No account, no sync, no analytics. Privacy here is enforced by the OS, because the app can't reach the network at all.",
@@ -106,6 +113,7 @@ export const featuredProjects: FeaturedProject[] = [
 export const games: FeaturedProject[] = [
   {
     title: "Tanda",
+    logo: "/assets/logos/tanda.png",
     tagline: "A cinematic farming game set in a real Banjara village",
     description:
       "Come home to Ukhali Tanda, a village in Jalna. Plough black soil, sell at the mandi, take a moneylender's loan, stand in the panchayat election. It runs in the browser with no install and no sign-up.",
@@ -122,6 +130,7 @@ export const games: FeaturedProject[] = [
   },
   {
     title: "RAM Heist",
+    logo: "/assets/logos/ram-heist.png",
     tagline: "Hide your RAM from the boss for five nights",
     description:
       "A parody stealth game that runs in the browser. Hide RAM chips around a server room, upload them at the terminal to build the People's Cluster, and fight back with decoy mugs, coffee traps and breakers. Playable on desktop and phone.",
@@ -139,6 +148,7 @@ export const games: FeaturedProject[] = [
   },
   {
     title: "KindWars",
+    logo: "/assets/logos/kindwars.png",
     tagline: "Arcade game that turns enemies into friends",
     description:
       "Shoot kindness orbs at falling enemies to turn them into friends. Playtime is meant to fund cancer charities through ad revenue. Installable PWA.",
@@ -158,6 +168,7 @@ export const games: FeaturedProject[] = [
 export const moreProjects: Project[] = [
   {
     title: "claude-worklog",
+    logo: "/assets/logos/claude-worklog.png",
     description:
       "A Claude Code plugin that keeps a daily work log with strict status words and ends replies with short interview notes after real engineering work.",
     gitHubUrl: "https://github.com/gajanansr/claude-worklog",
@@ -166,6 +177,7 @@ export const moreProjects: Project[] = [
   },
   {
     title: "Loopin",
+    logo: "/assets/logos/loopin.png",
     description:
       "Real-time chat for gated, subscription-based communities. Razorpay subscriptions, single-device login, WebSockets.",
     gitHubUrl: "https://github.com/gajanansr/loopin-spring",
@@ -174,6 +186,7 @@ export const moreProjects: Project[] = [
   },
   {
     title: "AutoMix",
+    logo: "/assets/logos/automix.png",
     description:
       "Turns raw phone-recorded vocals into a mixed, mastered song in the browser.",
     projectUrl: "https://automix-audio.vercel.app/",

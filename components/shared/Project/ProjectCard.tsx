@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowTopRightIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
 import { Project } from "@/types/types";
@@ -9,11 +10,23 @@ export function ProjectCard({
   gitHubUrl,
   year,
   stack,
+  logo,
 }: Project) {
   return (
     <div className="flex flex-col gap-2 border-t border-neutral-200 py-5 dark:border-neutral-800 sm:flex-row sm:items-start sm:gap-8">
       <div className="sm:w-1/3">
-        <h3 className="font-semibold">{title}</h3>
+        <div className="flex items-center gap-2">
+          {logo ? (
+            <Image
+              src={logo}
+              alt=""
+              width={20}
+              height={20}
+              className="h-5 w-5 flex-none rounded"
+            />
+          ) : null}
+          <h3 className="font-semibold">{title}</h3>
+        </div>
         <p className="text-xs dim-text">
           {year} · {stack.join(", ")}
         </p>
